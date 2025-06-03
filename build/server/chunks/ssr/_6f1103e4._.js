@@ -13,7 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const metadata = {
-    title: "React App",
+    title: "Match 4 Paws",
     description: "Web site created with Next.js."
 };
 function RootLayout({ children }) {
