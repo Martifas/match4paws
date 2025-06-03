@@ -1,0 +1,18 @@
+/* [project]/src/components/Onboarding.scss.css [app-client] (css) */
+.wrapper {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: large;
+  display: flex;
+}
+
+.container {
+  border: 2px solid #333;
+  border-radius: 8px;
+  width: 80%;
+  height: 80%;
+  padding: 2rem;
+  font-size: large;
+  font-weight: 600;
+}
