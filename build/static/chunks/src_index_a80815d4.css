@@ -1,3 +1,4 @@
+/* [project]/src/index.css [app-client] (css) */
 body {
   margin: 0;
   padding: 0;
@@ -5,8 +6,11 @@ body {
 }
 
 .page-wrapper {
+  text-align: center;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
+
+
+/*# sourceMappingURL=src_index_a80815d4.css.map*/
