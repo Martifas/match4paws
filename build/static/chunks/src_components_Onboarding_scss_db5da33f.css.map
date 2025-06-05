@@ -2,5 +2,5 @@
   "version": 3,
   "sources": [],
   "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/components/Onboarding.scss.css"],"sourcesContent":[".wrapper{display:flex;justify-content:center;align-items:center;height:100vh;font-size:large}.container{border:2px solid #333;padding:2rem;border-radius:8px;font-size:large;font-weight:600;height:80%;width:80%}"],"names":[],"mappings":"AAAA;;;;;;;;AAA6F","debugId":null}}]
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/components/Onboarding.scss.css"],"sourcesContent":[".wrapper{display:flex;justify-content:center;align-items:center;height:100vh;font-size:large}.container{border:5px solid #fff;padding:2rem;font-size:large;font-weight:600;height:80%;width:80%}"],"names":[],"mappings":"AAAA;;;;;;;;AAA6F","debugId":null}}]
 }

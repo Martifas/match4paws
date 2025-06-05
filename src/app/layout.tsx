@@ -1,4 +1,4 @@
-import "../index.css";
+import "../index.scss";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
