@@ -8,11 +8,13 @@
 }
 
 .container {
-  border: 2px solid #333;
-  border-radius: 8px;
+  border: 5px solid #fff;
   width: 80%;
   height: 80%;
   padding: 2rem;
   font-size: large;
   font-weight: 600;
 }
+
+
+/*# sourceMappingURL=src_components_Onboarding_scss_db5da33f.css.map*/
