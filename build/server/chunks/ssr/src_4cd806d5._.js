@@ -134,30 +134,6 @@ function Loading() {
 }
 const __TURBOPACK__default__export__ = Loading;
 }}),
-"[project]/src/assets/dog-photo.png (static in ecmascript)": ((__turbopack_context__) => {
-
-var { g: global, __dirname } = __turbopack_context__;
-{
-__turbopack_context__.v("/_next/static/media/dog-photo.de7fb13d.png");}}),
-"[project]/src/assets/dog-photo.png.mjs { IMAGE => \"[project]/src/assets/dog-photo.png (static in ecmascript)\" } [app-ssr] (structured image object, ecmascript)": ((__turbopack_context__) => {
-"use strict";
-
-var { g: global, __dirname } = __turbopack_context__;
-{
-__turbopack_context__.s({
-    "default": (()=>__TURBOPACK__default__export__)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png__$28$static__in__ecmascript$29$__ = __turbopack_context__.i("[project]/src/assets/dog-photo.png (static in ecmascript)");
-;
-const __TURBOPACK__default__export__ = {
-    src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png__$28$static__in__ecmascript$29$__["default"],
-    width: 1277,
-    height: 1280,
-    blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAA+ElEQVR42g3KyU7CUBQA0Pfh/gAf4MYVRlfgjLOpNSFFE1uoSCfakJZ0gL6+oDVQ6b33Fc76sGYvFH+y/T6V7YErW89f9OqlcllWTVVjw1brbWPPl5TkgjbVP/Gfkq4Nnw66Knb1QLJ7M5Cq6dL5ZQ/6fQ1u7x7BdANsHZ/Whw8asZEzkf5shroxgquzi1rXhxCnKb5oGhqeJ9nCuaHIVtGyJvV4nyzbhiT4gKFyBImrEIu9NxzrT5BlKfJCEOc5WZ890JQOJKFDzC9KOZjOsRACwzDCJC/wRA+w8x3jal1JVgM0gmfEFzFGgYNZHJJjm5SlIW03v3IHL7vfaXoZgNcAAAAASUVORK5CYII=",
-    blurWidth: 8,
-    blurHeight: 8
-};
-}}),
 "[project]/src/components/ProgressBar.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -280,7 +256,7 @@ function SimpleContainer({ children }) {
     }, void 0, true);
 }
 }}),
-"[project]/src/components/Onboarding.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"[project]/src/components/onboarding/Onboarding.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { g: global, __dirname } = __turbopack_context__;
@@ -291,7 +267,11 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Loading$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Loading.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png__$28$static__in__ecmascript$2922$__$7d$__$5b$app$2d$ssr$5d$__$28$structured__image__object$2c$__ecmascript$29$__ = __turbopack_context__.i('[project]/src/assets/dog-photo.png.mjs { IMAGE => "[project]/src/assets/dog-photo.png (static in ecmascript)" } [app-ssr] (structured image object, ecmascript)');
+(()=>{
+    const e = new Error("Cannot find module '../assets/dog-photo.png'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProgressBar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ProgressBar.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Container$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/Container.tsx [app-ssr] (ecmascript)");
@@ -309,12 +289,12 @@ function Onboarding() {
     if (loading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Container$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Loading$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                fileName: "[project]/src/components/Onboarding.tsx",
+                fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                 lineNumber: 18,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
-            fileName: "[project]/src/components/Onboarding.tsx",
+            fileName: "[project]/src/components/onboarding/Onboarding.tsx",
             lineNumber: 17,
             columnNumber: 7
         }, this);
@@ -326,17 +306,17 @@ function Onboarding() {
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex-shrink-0 max-h-[45vh] overflow-hidden",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                        src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png__$28$static__in__ecmascript$2922$__$7d$__$5b$app$2d$ssr$5d$__$28$structured__image__object$2c$__ecmascript$29$__["default"],
+                        src: DogPic,
                         alt: "Dog Pic",
                         className: "w-full h-full object-cover",
                         priority: true
                     }, void 0, false, {
-                        fileName: "[project]/src/components/Onboarding.tsx",
+                        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                         lineNumber: 27,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
-                    fileName: "[project]/src/components/Onboarding.tsx",
+                    fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                     lineNumber: 26,
                     columnNumber: 9
                 }, this),
@@ -349,7 +329,7 @@ function Onboarding() {
                                 className: "bg-white font-bold text-2xl leading-tight",
                                 children: "Match4Paws - Where Furry Tales Begin"
                             }, void 0, false, {
-                                fileName: "[project]/src/components/Onboarding.tsx",
+                                fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                                 lineNumber: 36,
                                 columnNumber: 13
                             }, this),
@@ -357,41 +337,41 @@ function Onboarding() {
                                 className: "text-gray-700 text-base md:text-md max-w-md mx-auto leading-relaxed",
                                 children: "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend."
                             }, void 0, false, {
-                                fileName: "[project]/src/components/Onboarding.tsx",
+                                fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                                 lineNumber: 39,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-center pt-1",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProgressBar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                    fileName: "[project]/src/components/Onboarding.tsx",
+                                    fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                                     lineNumber: 44,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
-                                fileName: "[project]/src/components/Onboarding.tsx",
+                                fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                                 lineNumber: 43,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
-                        fileName: "[project]/src/components/Onboarding.tsx",
+                        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                         lineNumber: 35,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
-                    fileName: "[project]/src/components/Onboarding.tsx",
+                    fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                     lineNumber: 34,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
-            fileName: "[project]/src/components/Onboarding.tsx",
+            fileName: "[project]/src/components/onboarding/Onboarding.tsx",
             lineNumber: 25,
             columnNumber: 7
         }, this)
     }, void 0, false, {
-        fileName: "[project]/src/components/Onboarding.tsx",
+        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
         lineNumber: 24,
         columnNumber: 5
     }, this);
@@ -401,4 +381,4 @@ const __TURBOPACK__default__export__ = Onboarding;
 
 };
 
-//# sourceMappingURL=src_3fb559cb._.js.map
+//# sourceMappingURL=src_4cd806d5._.js.map
