@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/index.css"],"sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  font-family: system-ui, sans-serif;\n  box-sizing: border-box;\n}\n\n.page-wrapper {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 2rem;\n  text-align: center;\n}\n\nhtml, body {\n  height: 100%;\n  overflow: hidden;\n}\n\n"],"names":[],"mappings":"AAAA;;;;;;;AAOA;;;;;;;AAOA","debugId":null}}]
-}
