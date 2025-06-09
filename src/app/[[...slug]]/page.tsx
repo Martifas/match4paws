@@ -1,4 +1,4 @@
-import Onboarding from "@/components/Onboarding";
+import Onboarding from "@/components/onboarding/Onboarding";
 
 export function generateStaticParams() {
   return [{ slug: [""] }];
