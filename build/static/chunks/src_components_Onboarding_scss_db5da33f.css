@@ -1,0 +1,10 @@
+/* [project]/src/components/Onboarding.scss.css [app-client] (css) */
+.curved-section {
+  clip-path: ellipse(100% 95% at 50% 0);
+  border: 2px solid orange;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+/*# sourceMappingURL=src_components_Onboarding_scss_db5da33f.css.map*/
