@@ -1,8 +1,9 @@
 /* [project]/src/components/Onboarding.scss.css [app-client] (css) */
 .curved-section {
-  clip-path: ellipse(100% 95% at 50% 0);
-  border: 2px solid orange;
+  clip-path: ellipse(110% 50%);
   width: 100%;
+  margin-top: -2rem;
+  padding-top: 2rem;
   overflow: hidden;
 }
 

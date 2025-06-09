@@ -1,6 +1,7 @@
 .curved-section {
   width: 100%;
-  clip-path: ellipse(100% 95% at 50% 0%);
+  clip-path: ellipse(110% 50% at 50% 50%);
+  padding-top: 2rem;
+  margin-top: -2rem;
   overflow: hidden;
-  border: 2px solid orange;
 }
