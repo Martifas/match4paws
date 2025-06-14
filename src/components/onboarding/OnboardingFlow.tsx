@@ -42,11 +42,11 @@ export default function OnboardingFlow() {
 
   return (
     <div className="flex flex-col justify-between flex-1 px-4 py-16">
-      <div className="text-center flex flex-1 flex-col gap-8">
+      <div className="text-center flex flex-1 min-h-[200px] flex-col gap-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
           {stepContent[activeStep].title}
         </h1>
-        <p className="text-gray-600 text-2xl leading-relaxed">
+        <p className="text-gray-600 text-xl leading-relaxed">
           {stepContent[activeStep].description}
         </p>
       </div>
@@ -65,16 +65,24 @@ export default function OnboardingFlow() {
 
         <div className="w-full h-0.5 bg-[#ed9426]" />
 
-        <div className="flex justify-center items-center gap-4 w-full">
-          <button
-            onClick={handleSkip}
-            className="text-[#ed9426] font-medium py-3 px-6 rounded-full hover:bg-orange-50 transition-colors"
-          >
-            Skip
-          </button>
+        <div
+          className={`flex gap-5 w-full ${
+            activeStep === totalSteps - 1 ? 'justify-center' : 'justify-between'
+          }`}
+        >
+          {activeStep < totalSteps - 1 && (
+            <button
+              onClick={handleSkip}
+              className="flex-1 text-[#ed9426] font-bold py-3 px-6 rounded-full bg-orange-50 hover:bg-orange-100 transition-colors"
+            >
+              Skip
+            </button>
+          )}
           <button
             onClick={handleContinue}
-            className="bg-[#ed9426] text-white font-medium py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors"
+            className={`bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${
+              activeStep === totalSteps - 1 ? 'w-full' : 'flex-1'
+            }`}
           >
             {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
           </button>

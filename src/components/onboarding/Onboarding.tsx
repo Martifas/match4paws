@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Loading from './Loading';
 import DogPic from '../../assets/dog-photo.png';
 import Image from 'next/image';
-import './Onboarding.scss';
 import SimpleContainer from '../ui/Container';
 import OnboardingFlow from './OnboardingFlow';
 
