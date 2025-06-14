@@ -1,23 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Loading from './Loading';
-import DogPic from '../../assets/dog-photo.png';
-import Image from 'next/image';
-import SimpleContainer from '../ui/Container';
-import OnboardingFlow from './OnboardingFlow';
+import DogPic from "../../assets/dog-photo.png";
+import Image from "next/image";
+import SimpleContainer from "../ui/container/Container";
+import OnboardingFlow from "./OnboardingFlow";
 
 function Onboarding() {
-  const [loading, setLoading] = useState(false);
-
-  if (loading) {
-    return (
-      <SimpleContainer>
-        <Loading />
-      </SimpleContainer>
-    );
-  }
-
   return (
     <SimpleContainer>
       <div className="bg-white min-h-screen flex flex-col">

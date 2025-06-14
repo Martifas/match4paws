@@ -1,4 +1,5 @@
 import PawIcon from "@/assets/PawIcon";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Loading() {
   return (
@@ -8,7 +9,9 @@ function Loading() {
         <h1 className="text-white text-3xl font-bold">Match4Paws</h1>
       </div>
       <div className="pb-20">
-        <h2 className="text-white text-2xl">Loading</h2>
+        <h2 className="text-white text-2xl">
+          <CircularProgress color="inherit"/>
+        </h2>
       </div>
     </div>
   );

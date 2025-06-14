@@ -40,6 +40,7 @@ const auth0 = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2
 
 var { g: global, __dirname } = __turbopack_context__;
 {
+// middleware.ts
 __turbopack_context__.s({
     "config": (()=>config),
     "middleware": (()=>middleware)
@@ -51,7 +52,7 @@ async function middleware(request) {
 }
 const config = {
     matcher: [
-        '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
+        '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|api/auth).*)'
     ]
 };
 }}),
