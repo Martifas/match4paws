@@ -1,9 +1,9 @@
-import { ClientOnly } from "./client";
+import Onboarding from "@/components/onboarding/Onboarding";
 
 export function generateStaticParams() {
   return [{ slug: [""] }];
 }
 
 export default function Page() {
-  return <ClientOnly />;
+  return <Onboarding />;
 }
