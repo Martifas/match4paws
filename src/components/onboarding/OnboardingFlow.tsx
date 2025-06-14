@@ -1,42 +1,63 @@
-import { useState } from 'react';
+"use client";
 
-export default function OnboardingFlow() {
+import { useState } from "react";
+
+type Props = {
+  userId: string;
+};
+
+export default function OnboardingFlow({ userId }: Props) {
   const [activeStep, setActiveStep] = useState(0);
-  const totalSteps = 3;
 
+  const totalSteps = 3;
   const stepContent = [
     {
-      title: 'Match4Paws - Where Furry Tales Begin',
+      title: "Match4Paws - Where Furry Tales Begin",
       description:
-        'Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.',
+        "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.",
     },
     {
-      title: 'Explore a World of Companionship',
+      title: "Explore a World of Companionship",
       description:
-        'Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.',
+        "Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.",
     },
     {
-      title: 'Connect with Caring Pet Owners Around You',
+      title: "Connect with Caring Pet Owners Around You",
       description:
-        'Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.',
+        "Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.",
     },
   ];
 
+ const finishOnboarding = async () => {
+  try {
+    const response = await fetch("/api/update-onboarding", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    });
+
+    if (response.ok) {
+      // Force logout and redirect back to login, then home
+      window.location.href = `/api/auth/logout?returnTo=${encodeURIComponent(window.location.origin)}`;
+    } else {
+      console.error('Failed to update user metadata');
+    }
+  } catch (error) {
+    console.error("Failed to update user metadata:", error);
+  }
+};
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
-      setActiveStep(prev => prev + 1);
+      setActiveStep((prev) => prev + 1);
     }
   };
 
-  const handleSkip = () => {
-    console.log('Skipping onboarding...');
-  };
-
+  const handleSkip = finishOnboarding;
   const handleContinue = () => {
     if (activeStep < totalSteps - 1) {
       handleNext();
     } else {
-      console.log('Onboarding completed!');
+      finishOnboarding();
     }
   };
 
@@ -57,7 +78,7 @@ export default function OnboardingFlow() {
             <div
               key={index}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === activeStep ? 'bg-[#ed9426] w-8' : 'bg-gray-300 w-2'
+                index === activeStep ? "bg-[#ed9426] w-8" : "bg-gray-300 w-2"
               }`}
             />
           ))}
@@ -67,7 +88,7 @@ export default function OnboardingFlow() {
 
         <div
           className={`flex gap-5 w-full ${
-            activeStep === totalSteps - 1 ? 'justify-center' : 'justify-between'
+            activeStep === totalSteps - 1 ? "justify-center" : "justify-between"
           }`}
         >
           {activeStep < totalSteps - 1 && (
@@ -81,10 +102,10 @@ export default function OnboardingFlow() {
           <button
             onClick={handleContinue}
             className={`bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${
-              activeStep === totalSteps - 1 ? 'w-full' : 'flex-1'
+              activeStep === totalSteps - 1 ? "w-full" : "flex-1"
             }`}
           >
-            {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
+            {activeStep === totalSteps - 1 ? "Get Started" : "Continue"}
           </button>
         </div>
       </div>

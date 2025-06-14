@@ -5,7 +5,11 @@ import Image from "next/image";
 import SimpleContainer from "../ui/container/Container";
 import OnboardingFlow from "./OnboardingFlow";
 
-function Onboarding() {
+type Props = {
+  userId: string;
+};
+
+function Onboarding({ userId} : Props) {
   return (
     <SimpleContainer>
       <div className="bg-white min-h-screen flex flex-col">
@@ -14,7 +18,7 @@ function Onboarding() {
         </div>
 
         <div className="flex-1 flex">
-          <OnboardingFlow />
+          <OnboardingFlow userId={userId} />
         </div>
       </div>
     </SimpleContainer>

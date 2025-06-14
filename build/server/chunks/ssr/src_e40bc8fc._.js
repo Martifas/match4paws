@@ -71,38 +71,58 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+"use client";
 ;
 ;
-function OnboardingFlow() {
+function OnboardingFlow({ userId }) {
     const [activeStep, setActiveStep] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const totalSteps = 3;
     const stepContent = [
         {
-            title: 'Match4Paws - Where Furry Tales Begin',
-            description: 'Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.'
+            title: "Match4Paws - Where Furry Tales Begin",
+            description: "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend."
         },
         {
-            title: 'Explore a World of Companionship',
-            description: 'Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.'
+            title: "Explore a World of Companionship",
+            description: "Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin."
         },
         {
-            title: 'Connect with Caring Pet Owners Around You',
-            description: 'Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.'
+            title: "Connect with Caring Pet Owners Around You",
+            description: "Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way."
         }
     ];
+    const finishOnboarding = async ()=>{
+        try {
+            const response = await fetch("/api/update-onboarding", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId
+                })
+            });
+            if (response.ok) {
+                // Force logout and redirect back to login, then home
+                window.location.href = `/api/auth/logout?returnTo=${encodeURIComponent(window.location.origin)}`;
+            } else {
+                console.error('Failed to update user metadata');
+            }
+        } catch (error) {
+            console.error("Failed to update user metadata:", error);
+        }
+    };
     const handleNext = ()=>{
         if (activeStep < totalSteps - 1) {
             setActiveStep((prev)=>prev + 1);
         }
     };
-    const handleSkip = ()=>{
-        console.log('Skipping onboarding...');
-    };
+    const handleSkip = finishOnboarding;
     const handleContinue = ()=>{
         if (activeStep < totalSteps - 1) {
             handleNext();
         } else {
-            console.log('Onboarding completed!');
+            finishOnboarding();
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -116,7 +136,7 @@ function OnboardingFlow() {
                         children: stepContent[activeStep].title
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                        lineNumber: 46,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -124,13 +144,13 @@ function OnboardingFlow() {
                         children: stepContent[activeStep].description
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                        lineNumber: 49,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                lineNumber: 45,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -141,26 +161,26 @@ function OnboardingFlow() {
                         children: Array.from({
                             length: totalSteps
                         }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `h-2 rounded-full transition-all duration-300 ${index === activeStep ? 'bg-[#ed9426] w-8' : 'bg-gray-300 w-2'}`
+                                className: `h-2 rounded-full transition-all duration-300 ${index === activeStep ? "bg-[#ed9426] w-8" : "bg-gray-300 w-2"}`
                             }, index, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                                lineNumber: 57,
+                                lineNumber: 78,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                        lineNumber: 55,
+                        lineNumber: 76,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-full h-0.5 bg-[#ed9426]"
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                        lineNumber: 66,
+                        lineNumber: 87,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `flex gap-5 w-full ${activeStep === totalSteps - 1 ? 'justify-center' : 'justify-between'}`,
+                        className: `flex gap-5 w-full ${activeStep === totalSteps - 1 ? "justify-center" : "justify-between"}`,
                         children: [
                             activeStep < totalSteps - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleSkip,
@@ -168,34 +188,34 @@ function OnboardingFlow() {
                                 children: "Skip"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                                lineNumber: 74,
+                                lineNumber: 95,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleContinue,
-                                className: `bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${activeStep === totalSteps - 1 ? 'w-full' : 'flex-1'}`,
-                                children: activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'
+                                className: `bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${activeStep === totalSteps - 1 ? "w-full" : "flex-1"}`,
+                                children: activeStep === totalSteps - 1 ? "Get Started" : "Continue"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                                lineNumber: 81,
+                                lineNumber: 102,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                        lineNumber: 68,
+                        lineNumber: 89,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                lineNumber: 54,
+                lineNumber: 75,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-        lineNumber: 44,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
@@ -219,7 +239,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboard
 ;
 ;
 ;
-function Onboarding() {
+function Onboarding({ userId }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$container$2f$Container$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "bg-white min-h-screen flex flex-col",
@@ -233,18 +253,6 @@ function Onboarding() {
                         priority: true
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/Onboarding.tsx",
-                        lineNumber: 13,
-                        columnNumber: 11
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/src/components/onboarding/Onboarding.tsx",
-                    lineNumber: 12,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex-1 flex",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboarding$2f$OnboardingFlow$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                         lineNumber: 17,
                         columnNumber: 11
                     }, this)
@@ -252,16 +260,30 @@ function Onboarding() {
                     fileName: "[project]/src/components/onboarding/Onboarding.tsx",
                     lineNumber: 16,
                     columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex-1 flex",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboarding$2f$OnboardingFlow$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        userId: userId
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/components/onboarding/Onboarding.tsx",
+                    lineNumber: 20,
+                    columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/onboarding/Onboarding.tsx",
-            lineNumber: 11,
+            lineNumber: 15,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/onboarding/Onboarding.tsx",
-        lineNumber: 10,
+        lineNumber: 14,
         columnNumber: 5
     }, this);
 }
