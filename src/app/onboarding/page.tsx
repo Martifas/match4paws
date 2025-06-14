@@ -1,11 +1,15 @@
+import { auth0 } from "@/lib/auth0";
+import { redirect } from "next/navigation";
 import Onboarding from "@/components/onboarding/Onboarding";
 
-function OnboardingPage() {
-  return (
-    <>
-      <Onboarding />
-    </>
-  );
-}
+export default async function OnboardingPage() {
+  const session = await auth0.getSession();
 
-export default OnboardingPage;
+  if (!session) {
+    redirect("/auth/login");
+  }
+
+  const userId = session.user.sub;
+
+  return <Onboarding userId={userId} />;
+}
