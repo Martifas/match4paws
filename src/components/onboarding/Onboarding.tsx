@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Loading from "./Loading";
-import DogPic from "../../assets/dog-photo.png";
-import Image from "next/image";
-import "./Onboarding.scss";
-import SimpleContainer from "../ui/Container";
-import OnboardingFlow from "./OnboardingFlow";
+import { useState } from 'react';
+import Loading from './Loading';
+import DogPic from '../../assets/dog-photo.png';
+import Image from 'next/image';
+import './Onboarding.scss';
+import SimpleContainer from '../ui/Container';
+import OnboardingFlow from './OnboardingFlow';
 
 function Onboarding() {
   const [loading, setLoading] = useState(false);
@@ -22,16 +22,13 @@ function Onboarding() {
   return (
     <SimpleContainer>
       <div className="bg-white min-h-screen flex flex-col">
-        <div className="flex-shrink-0 max-h-[45vh] overflow-hidden">
-          <Image
-            src={DogPic}
-            alt="Dog Pic"
-            className="w-full h-full object-cover"
-            priority
-          />
+        <div className="flex-1 overflow-hidden">
+          <Image src={DogPic} alt="Dog Pic" className="object-fill" priority />
         </div>
 
-        <OnboardingFlow />
+        <div className="flex-1 flex">
+          <OnboardingFlow />
+        </div>
       </div>
     </SimpleContainer>
   );
