@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   userId: string;
@@ -8,7 +9,7 @@ type Props = {
 
 export default function OnboardingFlow({ userId }: Props) {
   const [activeStep, setActiveStep] = useState(0);
-
+  const router = useRouter();
   const totalSteps = 3;
   const stepContent = [
     {
@@ -28,24 +29,21 @@ export default function OnboardingFlow({ userId }: Props) {
     },
   ];
 
- const finishOnboarding = async () => {
-  try {
-    const response = await fetch("/api/update-onboarding", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
-    });
+  const finishOnboarding = async () => {
+    try {
+      const response = await fetch("/api/update-onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
 
-    if (response.ok) {
-      // Force logout and redirect back to login, then home
-      window.location.href = `/api/auth/logout?returnTo=${encodeURIComponent(window.location.origin)}`;
-    } else {
-      console.error('Failed to update user metadata');
+      if (response.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Failed to update user metadata:", error);
     }
-  } catch (error) {
-    console.error("Failed to update user metadata:", error);
-  }
-};
+  };
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
       setActiveStep((prev) => prev + 1);
