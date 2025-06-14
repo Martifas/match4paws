@@ -68,6 +68,7 @@
     --color-red-800: oklch(44.4% .177 26.899);
     --color-red-900: oklch(39.6% .141 25.723);
     --color-orange-50: oklch(98% .016 73.684);
+    --color-orange-100: oklch(95.4% .038 75.164);
     --color-amber-100: oklch(96.2% .059 95.617);
     --color-amber-200: oklch(92.4% .12 95.746);
     --color-amber-300: oklch(87.9% .169 91.605);
@@ -506,6 +507,11 @@
     display: table;
   }
 
+  .size-1 {
+    width: calc(var(--spacing) * 1);
+    height: calc(var(--spacing) * 1);
+  }
+
   .h-0 {
     height: calc(var(--spacing) * 0);
   }
@@ -572,6 +578,10 @@
 
   .min-h-\[180px\] {
     min-height: 180px;
+  }
+
+  .min-h-\[200px\] {
+    min-height: 200px;
   }
 
   .min-h-screen {
@@ -767,6 +777,10 @@
 
   .bg-gray-300 {
     background-color: var(--color-gray-300);
+  }
+
+  .bg-orange-50 {
+    background-color: var(--color-orange-50);
   }
 
   .bg-white {
@@ -1115,6 +1129,12 @@
   @media (hover: hover) {
     .hover\:bg-orange-50:hover {
       background-color: var(--color-orange-50);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-orange-100:hover {
+      background-color: var(--color-orange-100);
     }
   }
 

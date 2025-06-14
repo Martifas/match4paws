@@ -16,6 +16,7 @@
     "lint:css:fix": "stylelint '**/*.{css,scss}' --fix"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.6.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.1",
