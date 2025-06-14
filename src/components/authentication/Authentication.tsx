@@ -1,5 +1,7 @@
+import Link from "next/link";
+
 function Authentication() {
-  return <a href="/auth/login">Login</a>;
+  return <Link href="/auth/login">Login</Link>;
 }
 
 export default Authentication;
