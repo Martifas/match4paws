@@ -235,41 +235,41 @@ function OnboardingFlow() {
     const totalSteps = 3;
     const stepContent = [
         {
-            title: "Match4Paws - Where Furry Tales Begin",
-            description: "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend."
+            title: 'Match4Paws - Where Furry Tales Begin',
+            description: 'Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.'
         },
         {
-            title: "Explore a World of Companionship",
-            description: "Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin."
+            title: 'Explore a World of Companionship',
+            description: 'Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.'
         },
         {
-            title: "Connect with Caring Pet Owners Around You",
-            description: "Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way."
+            title: 'Connect with Caring Pet Owners Around You',
+            description: 'Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.'
         }
     ];
     const handleNext = ()=>{
         if (activeStep < totalSteps - 1) {
-            setActiveStep((prevActiveStep)=>prevActiveStep + 1);
+            setActiveStep((prev)=>prev + 1);
         }
     };
     const handleSkip = ()=>{
-        console.log("Skipping onboarding...");
+        console.log('Skipping onboarding...');
     };
     const handleContinue = ()=>{
         if (activeStep < totalSteps - 1) {
             handleNext();
         } else {
-            console.log("Onboarding completed!");
+            console.log('Onboarding completed!');
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex flex-col justify-between max-w-md mx-auto p-4 bg-white",
+        className: "flex flex-col justify-between flex-1 px-4 py-16",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col justify-center text-center px-2 pb-8 min-h-[180px] ",
+                className: "text-center flex flex-1 flex-col gap-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-xl font-bold text-gray-800 mb-4 leading-tight",
+                        className: "text-3xl font-bold text-gray-800 mb-4 leading-tight",
                         children: stepContent[activeStep].title
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
@@ -277,7 +277,7 @@ function OnboardingFlow() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-gray-600 text-base leading-relaxed",
+                        className: "text-gray-600 text-2xl leading-relaxed",
                         children: stepContent[activeStep].description
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
@@ -291,14 +291,14 @@ function OnboardingFlow() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col items-center space-y-4 pb-1",
+                className: "flex flex-col items-center gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex justify-center gap-2",
+                        className: "flex justify-center gap-2 mt-4",
                         children: Array.from({
                             length: totalSteps
                         }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `h-2 rounded-full transition-all duration-300 ${index === activeStep ? "bg-[#ed9426] w-8" : "bg-gray-300 w-2"}`
+                                className: `h-2 rounded-full transition-all duration-300 ${index === activeStep ? 'bg-[#ed9426] w-8' : 'bg-gray-300 w-2'}`
                             }, index, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
                                 lineNumber: 57,
@@ -317,11 +317,11 @@ function OnboardingFlow() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex justify-center items-center gap-4",
+                        className: "flex justify-center items-center gap-4 w-full",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleSkip,
-                                className: "text-[#ed9426] font-medium py-2 px-5 rounded-full hover:bg-orange-50 transition-colors",
+                                className: "text-[#ed9426] font-medium py-3 px-6 rounded-full hover:bg-orange-50 transition-colors",
                                 children: "Skip"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
@@ -330,11 +330,11 @@ function OnboardingFlow() {
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleContinue,
-                                className: "bg-[#ed9426] text-white font-medium py-2 px-6 rounded-full hover:bg-[#d17d1f] transition-colors",
-                                children: activeStep === totalSteps - 1 ? "Get Started" : "Continue"
+                                className: "bg-[#ed9426] text-white font-medium py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors",
+                                children: activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingFlow.tsx",
-                                lineNumber: 76,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -381,7 +381,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$C
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboarding$2f$OnboardingFlow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/onboarding/OnboardingFlow.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-"use client";
+'use client';
 ;
 ;
 ;
@@ -410,11 +410,11 @@ function Onboarding() {
             className: "bg-white min-h-screen flex flex-col",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex-shrink-0 max-h-[45vh] overflow-hidden",
+                    className: "flex-1 overflow-hidden",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$src$2f$assets$2f$dog$2d$photo$2e$png__$28$static__in__ecmascript$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object$2c$__ecmascript$29$__["default"],
                         alt: "Dog Pic",
-                        className: "w-full h-full object-cover",
+                        className: "object-fill",
                         priority: true
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/Onboarding.tsx",
@@ -426,9 +426,16 @@ function Onboarding() {
                     lineNumber: 25,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboarding$2f$OnboardingFlow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex-1 flex",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$onboarding$2f$OnboardingFlow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                        fileName: "[project]/src/components/onboarding/Onboarding.tsx",
+                        lineNumber: 30,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/src/components/onboarding/Onboarding.tsx",
-                    lineNumber: 34,
+                    lineNumber: 29,
                     columnNumber: 9
                 }, this)
             ]
