@@ -192,7 +192,7 @@ function generateStaticParams() {
     return [
         {
             slug: [
-                ""
+                ''
             ]
         }
     ];
@@ -200,32 +200,27 @@ function generateStaticParams() {
 async function Page() {
     const session = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth0$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["auth0"].getSession();
     if (!session) {
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])("/auth/login");
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/auth/login');
     }
     const userId = session.user.sub;
-    // 1. Ensure user exists in DB
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].insertInto("users").values({
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].insertInto('users').values({
         auth0Id: userId,
         onboardingCompleted: false,
         onboardingCompletedAt: null
-    }).onConflict((oc)=>oc.column("auth0Id").doNothing()) // Don't error if user exists
-    .execute();
-    // 2. Fetch onboarding status
-    const user = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("users").select([
-        "onboardingCompleted"
-    ]).where("auth0Id", "=", userId).executeTakeFirst();
+    }).onConflict((oc)=>oc.column('auth0Id').doNothing()).execute();
+    const user = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('users').select([
+        'onboardingCompleted'
+    ]).where('auth0Id', '=', userId).executeTakeFirst();
     if (!user?.onboardingCompleted) {
-        // 3. Redirect to onboarding page if needed
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])("/onboarding");
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/onboarding');
     }
-    // ✅ Onboarding complete → render main page
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 children: "Welcome to Match4Paws!"
             }, void 0, false, {
                 fileName: "[project]/src/app/[[...slug]]/page.tsx",
-                lineNumber: 45,
+                lineNumber: 41,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -236,7 +231,7 @@ async function Page() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/[[...slug]]/page.tsx",
-                lineNumber: 46,
+                lineNumber: 42,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -244,13 +239,13 @@ async function Page() {
                 children: "Get Started"
             }, void 0, false, {
                 fileName: "[project]/src/app/[[...slug]]/page.tsx",
-                lineNumber: 47,
+                lineNumber: 43,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/[[...slug]]/page.tsx",
-        lineNumber: 44,
+        lineNumber: 40,
         columnNumber: 5
     }, this);
 }
