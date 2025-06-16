@@ -1,52 +1,51 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
 
 type Props = {
   userId: string;
+  onComplete: () => void;
 };
 
-export default function OnboardingFlow({ userId }: Props) {
+export default function OnboardingFlow({ userId, onComplete }: Props) {
   const [activeStep, setActiveStep] = useState(0);
-  const router = useRouter();
   const totalSteps = 3;
   const stepContent = [
     {
-      title: "Match4Paws - Where Furry Tales Begin",
+      title: 'Match4Paws - Where Furry Tales Begin',
       description:
-        "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.",
+        'Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.',
     },
     {
-      title: "Explore a World of Companionship",
+      title: 'Explore a World of Companionship',
       description:
-        "Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.",
+        'Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.',
     },
     {
-      title: "Connect with Caring Pet Owners Around You",
+      title: 'Connect with Caring Pet Owners Around You',
       description:
-        "Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.",
+        'Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.',
     },
   ];
 
   const finishOnboarding = async () => {
     try {
-      const response = await fetch("/api/update-onboarding", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/update-onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId }),
       });
 
       if (response.ok) {
-        router.push("/");
+        onComplete();
       }
     } catch (error) {
-      console.error("Failed to update user metadata:", error);
+      console.error('Failed to update user metadata:', error);
     }
   };
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
-      setActiveStep((prev) => prev + 1);
+      setActiveStep(prev => prev + 1);
     }
   };
 
@@ -60,8 +59,8 @@ export default function OnboardingFlow({ userId }: Props) {
   };
 
   return (
-    <div className="flex flex-col justify-between flex-1 px-4 py-16">
-      <div className="text-center flex flex-1 min-h-[200px] flex-col gap-8">
+    <div className="flex flex-col justify-between flex-1 px-4 py-8 h-full">
+      <div className="text-center flex flex-1 flex-col gap-8 justify-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
           {stepContent[activeStep].title}
         </h1>
@@ -76,7 +75,7 @@ export default function OnboardingFlow({ userId }: Props) {
             <div
               key={index}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === activeStep ? "bg-[#ed9426] w-8" : "bg-gray-300 w-2"
+                index === activeStep ? 'bg-[#ed9426] w-8' : 'bg-gray-300 w-2'
               }`}
             />
           ))}
@@ -86,7 +85,7 @@ export default function OnboardingFlow({ userId }: Props) {
 
         <div
           className={`flex gap-5 w-full ${
-            activeStep === totalSteps - 1 ? "justify-center" : "justify-between"
+            activeStep === totalSteps - 1 ? 'justify-center' : 'justify-between'
           }`}
         >
           {activeStep < totalSteps - 1 && (
@@ -100,10 +99,10 @@ export default function OnboardingFlow({ userId }: Props) {
           <button
             onClick={handleContinue}
             className={`bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${
-              activeStep === totalSteps - 1 ? "w-full" : "flex-1"
+              activeStep === totalSteps - 1 ? 'w-full' : 'flex-1'
             }`}
           >
-            {activeStep === totalSteps - 1 ? "Get Started" : "Continue"}
+            {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
           </button>
         </div>
       </div>
