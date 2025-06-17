@@ -27,7 +27,7 @@ function Onboarding({ userId }: Props) {
         />
       </div>
 
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1">
         <OnboardingFlow
           userId={userId}
           onComplete={() => setFlowCompleted(true)}

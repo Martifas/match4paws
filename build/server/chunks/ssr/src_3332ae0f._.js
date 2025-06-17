@@ -191,18 +191,26 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/Box/Box.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$LinearProgress$2f$LinearProgress$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/LinearProgress/LinearProgress.js [app-ssr] (ecmascript)");
-'use client';
+"use client";
 ;
 ;
 ;
 function ProgressBar({ value }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         sx: {
-            width: '80%'
+            width: "80%"
         },
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$LinearProgress$2f$LinearProgress$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             variant: "determinate",
-            value: value
+            value: value,
+            sx: {
+                height: 10,
+                borderRadius: 5,
+                backgroundColor: "#f5f5f5",
+                "& .MuiLinearProgress-bar": {
+                    backgroundColor: "#ed9426"
+                }
+            }
         }, void 0, false, {
             fileName: "[project]/src/components/ui/progressBar/ProgressBar.tsx",
             lineNumber: 13,
@@ -227,7 +235,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$ArrowBack$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/ArrowBack.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$progressBar$2f$ProgressBar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/progressBar/ProgressBar.tsx [app-ssr] (ecmascript)");
-'use client';
+"use client";
 ;
 ;
 ;
@@ -242,19 +250,19 @@ function OnboardingForm() {
     const progressPercent = (activeStep + 1) / totalSteps * 100;
     const formContent = [
         {
-            title: 'Tell us about yourself',
-            description: 'Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?'
+            title: "Tell us about yourself",
+            description: "Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?"
         },
         {
             title: "Let's Find Your Match",
-            description: 'What type of animal are you looking to adopt? Don’t worry—you can always change this later.'
+            description: "What type of animal are you looking to adopt? Don’t worry—you can always change this later."
         },
         {
-            title: 'List Your Animal(s) for Adoption',
-            description: 'What type of animal(s) are you looking to place in a loving home? You can add more later.'
+            title: "List Your Animal(s) for Adoption",
+            description: "What type of animal(s) are you looking to place in a loving home? You can add more later."
         },
         {
-            title: 'Final Steps!',
+            title: "Final Steps!",
             description: "We're almost there! Fill in your personal details to create a profile and start your journey toward a furry friendship."
         }
     ];
@@ -269,7 +277,7 @@ function OnboardingForm() {
         if (activeStep > 0) setActiveStep((prev)=>prev - 1);
     };
     const handleFinish = ()=>{
-        console.log('Submitting:', formData);
+        console.log("Submitting:", formData);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex flex-col justify-between flex-1 px-4 py-8 h-full",
@@ -279,8 +287,10 @@ function OnboardingForm() {
                 children: [
                     activeStep > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handleBack,
-                        className: "absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] font-bold z-10",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$ArrowBack$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                        className: "absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold z-10",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$ArrowBack$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            fontSize: "large"
+                        }, void 0, false, {
                             fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
                             lineNumber: 72,
                             columnNumber: 13
@@ -316,10 +326,10 @@ function OnboardingForm() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-center flex flex-1 flex-col gap-8 justify-center",
+                className: "text-center flex flex-1 flex-col gap-5 justify-center",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-3xl font-bold text-gray-800 mb-4 leading-tight",
+                        className: "text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-tight",
                         children: formContent[activeStep].title
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
@@ -327,7 +337,7 @@ function OnboardingForm() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-gray-600 text-xl leading-relaxed",
+                        className: "text-gray-600 text-lg md:text-xl leading-relaxed",
                         children: formContent[activeStep].description
                     }, void 0, false, {
                         fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
@@ -337,17 +347,17 @@ function OnboardingForm() {
                     activeStep === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex flex-col gap-4 items-center",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex gap-4",
+                            className: "flex gap-4 flex-col w-full",
                             children: [
-                                'adopter',
-                                'petOwner'
+                                "Pet Adopter",
+                                "petOwner"
                             ].map((type)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setFormData({
                                             ...formData,
                                             userType: type
                                         }),
-                                    className: `px-4 py-2 rounded-full border capitalize ${formData.userType === type ? 'bg-[#ed9426] text-white' : 'bg-white text-gray-700'}`,
-                                    children: type === 'petOwner' ? 'Pet Owner' : type
+                                    className: `flex items-center py-5 hover:border-orange-300 hover:scale-101 md:py-7 rounded-xl border-2 border-gray-200 border w-full h-8 justify-center md:w-3/5 mx-auto ${formData.userType === type ? "border-orange-400" : "bg-white text-gray-700"}`,
+                                    children: type === "petOwner" ? "Pet Owner or Organization" : type
                                 }, type, false, {
                                     fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
                                     lineNumber: 95,
@@ -362,6 +372,38 @@ function OnboardingForm() {
                         fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
                         lineNumber: 92,
                         columnNumber: 11
+                    }, this),
+                    activeStep === 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-col gap-4 items-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-4 flex-col w-full",
+                            children: [
+                                " ",
+                                [
+                                    "Pet Adopter",
+                                    "petOwner"
+                                ].map((type)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setFormData({
+                                                ...formData,
+                                                userType: type
+                                            }),
+                                        className: `flex items-center py-5 hover:border-orange-300 hover:scale-101 md:py-7 rounded-xl border-2 border-gray-200 border w-full h-8 justify-center md:w-3/5 mx-auto ${formData.userType === type ? "border-orange-400" : "bg-white text-gray-700"}`,
+                                        children: type === "petOwner" ? "Pet Owner or Organization" : type
+                                    }, type, false, {
+                                        fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
+                                        lineNumber: 120,
+                                        columnNumber: 17
+                                    }, this))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
+                            lineNumber: 117,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
+                        lineNumber: 116,
+                        columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
@@ -371,11 +413,11 @@ function OnboardingForm() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: handleNext,
-                className: "bg-[#ed9426] text-white font-bold px-4 py-2 rounded-full mt-6",
-                children: activeStep === totalSteps - 1 ? 'Finish' : 'Next'
+                className: "bg-[#ed9426] hover:bg-orange-300 hover:scale-101 text-white w-full md:w-3/5 mx-auto font-bold px-4 py-2 rounded-full mt-6",
+                children: activeStep === totalSteps - 1 ? "Finish" : "Next"
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingForm.tsx",
-                lineNumber: 117,
+                lineNumber: 142,
                 columnNumber: 7
             }, this)
         ]

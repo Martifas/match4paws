@@ -10,6 +10,7 @@ type Props = {
 export default function OnboardingFlow({ userId, onComplete }: Props) {
   const [activeStep, setActiveStep] = useState(0);
   const totalSteps = 3;
+
   const stepContent = [
     {
       title: 'Match4Paws - Where Furry Tales Begin',
@@ -43,13 +44,15 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
       console.error('Failed to update user metadata:', error);
     }
   };
+
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
-      setActiveStep(prev => prev + 1);
+      setActiveStep((prev) => prev + 1);
     }
   };
 
   const handleSkip = finishOnboarding;
+
   const handleContinue = () => {
     if (activeStep < totalSteps - 1) {
       handleNext();
@@ -60,17 +63,17 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
 
   return (
     <div className="flex flex-col justify-between flex-1 px-4 py-8 h-full">
-      <div className="text-center flex flex-1 flex-col gap-8 justify-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
+      {/* Main Content Centered */}
+      <div className="text-center flex flex-1 flex-col justify-center items-center gap-6 max-w-md mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 leading-tight">
           {stepContent[activeStep].title}
         </h1>
-        <p className="text-gray-600 text-xl leading-relaxed">
+        <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
           {stepContent[activeStep].description}
         </p>
-      </div>
 
-      <div className="flex flex-col items-center gap-4">
-        <div className="flex justify-center gap-2 mt-4">
+        {/* Dots */}
+        <div className="flex justify-center gap-2 pt-4">
           {Array.from({ length: totalSteps }).map((_, index) => (
             <div
               key={index}
@@ -80,31 +83,24 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
             />
           ))}
         </div>
+      </div>
 
-        <div className="w-full h-0.5 bg-[#ed9426]" />
-
-        <div
-          className={`flex gap-5 w-full ${
-            activeStep === totalSteps - 1 ? 'justify-center' : 'justify-between'
-          }`}
-        >
-          {activeStep < totalSteps - 1 && (
-            <button
-              onClick={handleSkip}
-              className="flex-1 text-[#ed9426] font-bold py-3 px-6 rounded-full bg-orange-50 hover:bg-orange-100 transition-colors"
-            >
-              Skip
-            </button>
-          )}
+      {/* Buttons */}
+      <div className="flex flex-col gap-4 items-center pt-6 w-full max-w-md mx-auto">
+        {activeStep < totalSteps - 1 && (
           <button
-            onClick={handleContinue}
-            className={`bg-[#ed9426] text-white font-bold py-3 px-6 rounded-full hover:bg-[#d17d1f] transition-colors ${
-              activeStep === totalSteps - 1 ? 'w-full' : 'flex-1'
-            }`}
+            onClick={handleSkip}
+            className="text-[#ed9426] font-bold py-3 px-6 w-full rounded-full bg-orange-50 hover:bg-orange-100 transition"
           >
-            {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
+            Skip
           </button>
-        </div>
+        )}
+        <button
+          onClick={handleContinue}
+          className="bg-[#ed9426] text-white font-bold py-3 px-6 w-full rounded-full hover:bg-[#d17d1f] transition"
+        >
+          {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
+        </button>
       </div>
     </div>
   );

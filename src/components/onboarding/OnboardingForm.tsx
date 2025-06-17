@@ -1,20 +1,33 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ProgressBar from '../ui/progressBar/ProgressBar';
+import { useState } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ProgressBar from "../ui/progressBar/ProgressBar";
+import DogIcon from "@/assets/DogIcon";
+import CatIcon from "@/assets/CatIcon";
+import { MuiTelInput } from "mui-tel-input";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 
 type OnboardingFormData = {
-  userType: 'petOwner' | 'adopter' | null;
+  userType: "petOwner" | "adopter" | null;
   preferredAnimalTypes: string[];
   animalsToPlace?: string[];
   name?: string;
   email?: string;
+  phone?: string;
+  gender?: "male" | "female" | "other";
   location?: string;
 };
 
 export default function OnboardingForm() {
   const [activeStep, setActiveStep] = useState(0);
+
   const totalSteps = 4;
   const [formData, setFormData] = useState<OnboardingFormData>({
     userType: null,
@@ -24,22 +37,22 @@ export default function OnboardingForm() {
 
   const formContent = [
     {
-      title: 'Tell us about yourself',
+      title: "Tell us about yourself",
       description:
-        'Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?',
+        "Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?",
     },
     {
       title: "Let's Find Your Match",
       description:
-        'What type of animal are you looking to adopt? Don’t worry—you can always change this later.',
+        "What type of animal are you looking to adopt? Don’t worry—you can always change this later.",
     },
     {
-      title: 'List Your Animal(s) for Adoption',
+      title: "List Your Animal(s) for Adoption",
       description:
-        'What type of animal(s) are you looking to place in a loving home? You can add more later.',
+        "What type of animal(s) are you looking to place in a loving home? You can add more later.",
     },
     {
-      title: 'Final Steps!',
+      title: "Final Steps!",
       description:
         "We're almost there! Fill in your personal details to create a profile and start your journey toward a furry friendship.",
     },
@@ -47,18 +60,18 @@ export default function OnboardingForm() {
 
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
-      setActiveStep(prev => prev + 1);
+      setActiveStep((prev) => prev + 1);
     } else {
       handleFinish();
     }
   };
 
   const handleBack = () => {
-    if (activeStep > 0) setActiveStep(prev => prev - 1);
+    if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
 
   const handleFinish = () => {
-    console.log('Submitting:', formData);
+    console.log("Submitting:", formData);
   };
 
   return (
@@ -67,9 +80,9 @@ export default function OnboardingForm() {
         {activeStep > 0 && (
           <button
             onClick={handleBack}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] font-bold z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold z-10"
           >
-            <ArrowBackIcon />
+            <ArrowBackIcon fontSize="large" />
           </button>
         )}
 
@@ -80,45 +93,134 @@ export default function OnboardingForm() {
         </span>
       </div>
 
-      <div className="text-center flex flex-1 flex-col gap-8 justify-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
+      <div className="text-center flex flex-1 flex-col gap-5 justify-center">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-tight">
           {formContent[activeStep].title}
         </h1>
-        <p className="text-gray-600 text-xl leading-relaxed">
+        <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
           {formContent[activeStep].description}
         </p>
 
         {activeStep === 0 && (
           <div className="flex flex-col gap-4 items-center">
-            <div className="flex gap-4">
-              {['adopter', 'petOwner'].map(type => (
+            <div className="flex gap-4 flex-col w-full">
+              {["Pet Adopter", "petOwner"].map((type) => (
                 <button
                   key={type}
                   onClick={() =>
                     setFormData({
                       ...formData,
-                      userType: type as OnboardingFormData['userType'],
+                      userType: type as OnboardingFormData["userType"],
                     })
                   }
-                  className={`px-4 py-2 rounded-full border capitalize ${
+                  className={`flex items-center py-5 hover:border-orange-300 hover:scale-101 md:py-7 rounded-xl border-2 border-gray-200 border w-full h-8 justify-center md:w-3/5 mx-auto ${
                     formData.userType === type
-                      ? 'bg-[#ed9426] text-white'
-                      : 'bg-white text-gray-700'
+                      ? "border-orange-400"
+                      : "bg-white text-gray-700"
                   }`}
                 >
-                  {type === 'petOwner' ? 'Pet Owner' : type}
+                  {type === "petOwner" ? "Pet Owner or Organization" : type}
                 </button>
               ))}
             </div>
+          </div>
+        )}
+        {activeStep === 1 && (
+          <div className="flex flex-col gap-6 items-center">
+            <div className="flex flex-row gap-6 justify-center">
+              {[
+                { label: "Cats", value: "cats", icon: <CatIcon /> },
+                { label: "Dogs", value: "dogs", icon: <DogIcon /> },
+              ].map(({ label, value, icon }) => {
+                const isSelected =
+                  formData.preferredAnimalTypes.includes(value);
+
+                return (
+                  <button
+                    key={value}
+                    onClick={() => {
+                      const newSelection = isSelected
+                        ? formData.preferredAnimalTypes.filter(
+                            (type) => type !== value
+                          )
+                        : [...formData.preferredAnimalTypes, value];
+
+                      setFormData({
+                        ...formData,
+                        preferredAnimalTypes: newSelection,
+                      });
+                    }}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 w-36 h-40 justify-center hover:border-orange-300 hover:scale-105 transition-all ${
+                      isSelected
+                        ? "border-orange-400 bg-orange-50"
+                        : "border-gray-300 bg-white"
+                    }`}
+                  >
+                    <div className="w-16 h-16">{icon}</div>
+                    <span className="text-lg font-semibold text-gray-700">
+                      {label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-sm text-gray-500">
+              You can select more than one.
+            </p>
+          </div>
+        )}
+        {activeStep === 3 && (
+          <div className="flex flex-col gap-6 items-center w-full md:w-3/5 mx-auto">
+            <TextField
+              required
+              fullWidth
+              label="Full Name"
+              color="warning"
+              value={formData.name || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+            />
+
+            <MuiTelInput
+              required
+              fullWidth
+              label="Phone Number"
+              defaultCountry="LT"
+              value={formData.phone || ""}
+              onChange={(newValue) =>
+                setFormData({ ...formData, phone: newValue })
+              }
+            />
+
+            <FormControl fullWidth required color="warning">
+              <InputLabel>Gender</InputLabel>
+              <Select
+                label="Gender"
+                value={formData.gender || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    gender: e.target.value as OnboardingFormData["gender"],
+                  })
+                }
+                sx={{ textAlign: "left" }}
+              >
+                <MenuItem value="male">Male</MenuItem>
+                <MenuItem value="female">Female</MenuItem>
+                <MenuItem value="non-binary">Non-binary</MenuItem>
+                <MenuItem value="prefer-not-to-say">Prefer not to say</MenuItem>
+              </Select>
+            </FormControl>
           </div>
         )}
       </div>
 
       <button
         onClick={handleNext}
-        className="bg-[#ed9426] text-white font-bold px-4 py-2 rounded-full mt-6"
+        className="bg-[#ed9426] hover:bg-orange-300 hover:scale-101 text-white w-full md:w-3/5 mx-auto font-bold px-4 py-2 rounded-full mt-6"
       >
-        {activeStep === totalSteps - 1 ? 'Finish' : 'Next'}
+        {activeStep === totalSteps - 1 ? "Finish" : "Next"}
       </button>
     </div>
   );
