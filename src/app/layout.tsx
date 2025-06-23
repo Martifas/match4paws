@@ -2,6 +2,7 @@ import "../index.scss";
 import "../app/styles/globals.scss";
 import type { Metadata } from "next";
 import SimpleContainer from "@/components/ui/container/Container";
+import ThemeRegistry from "./ThemeRegistry";
 
 export const metadata: Metadata = {
   title: "Match 4 Paws",
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SimpleContainer>{children}</SimpleContainer>
+        <ThemeRegistry>
+          <SimpleContainer>{children}</SimpleContainer>
+        </ThemeRegistry>
       </body>
     </html>
   );
