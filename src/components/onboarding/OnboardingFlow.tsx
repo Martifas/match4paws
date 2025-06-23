@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import PrimaryButton from "../ui/buttons/PrimaryButton";
 
 type Props = {
   userId: string;
@@ -13,27 +14,27 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
 
   const stepContent = [
     {
-      title: 'Match4Paws - Where Furry Tales Begin',
+      title: "Match4Paws - Where Furry Tales Begin",
       description:
-        'Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.',
+        "Embark on a heartwarming journey to find your perfect companion. Swipe, match, and open your heart to a new furry friend.",
     },
     {
-      title: 'Explore a World of Companionship',
+      title: "Explore a World of Companionship",
       description:
-        'Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.',
+        "Discover a diverse array of adorable companions, find your favorites, and let the tail-wagging adventure begin.",
     },
     {
-      title: 'Connect with Caring Pet Owners Around You',
+      title: "Connect with Caring Pet Owners Around You",
       description:
-        'Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.',
+        "Easily connect with pet owners, ask about animals, & make informed decisions. Match4Paws is here to guide you every step of the way.",
     },
   ];
 
   const finishOnboarding = async () => {
     try {
-      const response = await fetch('/api/update-onboarding', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/update-onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       });
 
@@ -41,7 +42,7 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
         onComplete();
       }
     } catch (error) {
-      console.error('Failed to update user metadata:', error);
+      console.error("Failed to update user metadata:", error);
     }
   };
 
@@ -69,8 +70,8 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
             key={index}
             className={`h-2 rounded-full transition-all duration-300 ${
               index === activeStep
-                ? 'bg-[#ed9426] w-10 h-3'
-                : 'bg-gray-300 w-3 h-3'
+                ? "bg-[#ed9426] w-10 h-3"
+                : "bg-gray-300 w-3 h-3"
             }`}
           />
         ))}
@@ -85,12 +86,10 @@ export default function OnboardingFlow({ userId, onComplete }: Props) {
             Skip
           </button>
         )}
-        <button
-          onClick={handleContinue}
-          className="bg-[#ed9426] text-white font-bold py-3 px-6 w-full rounded-full hover:bg-[#d17d1f] transition"
-        >
-          {activeStep === totalSteps - 1 ? 'Get Started' : 'Continue'}
-        </button>
+
+        <PrimaryButton onClick={handleContinue}>
+          {activeStep === totalSteps - 1 ? "Get Started" : "Continue"}
+        </PrimaryButton>
       </div>
     </div>
   );

@@ -34,75 +34,68 @@ function NavigationBar() {
         "/messages",
         "/account"
     ];
-    const currentTab = Math.max(routes.indexOf(pathname), 0);
+    const current = Math.max(routes.indexOf(pathname), 0);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigation$2f$BottomNavigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         showLabels: true,
-        value: currentTab,
-        onChange: (_, newValue)=>router.push(routes[newValue]),
-        sx: (theme)=>({
-                position: "fixed",
-                bottom: 0,
-                width: "100%",
-                maxWidth: theme.breakpoints.values.md,
-                left: "50%",
-                transform: "translateX(-50%)",
-                zIndex: theme.zIndex.appBar,
-                borderTop: `1px solid ${theme.palette.divider}`,
-                paddingBottom: "env(safe-area-inset-bottom)"
-            }),
+        value: current,
+        onChange: (_, i)=>router.push(routes[i]),
+        sx: {
+            width: "100%",
+            maxWidth: (theme)=>theme.breakpoints.values.md
+        },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigationAction$2f$BottomNavigationAction$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 label: "Home",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$HomeFilled$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                    lineNumber: 35,
+                    lineNumber: 24,
                     columnNumber: 50
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                lineNumber: 35,
+                lineNumber: 24,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigationAction$2f$BottomNavigationAction$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 label: "Favorites",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Favorite$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                    lineNumber: 36,
+                    lineNumber: 25,
                     columnNumber: 55
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                lineNumber: 36,
+                lineNumber: 25,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigationAction$2f$BottomNavigationAction$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 label: "Messages",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Message$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                    lineNumber: 37,
+                    lineNumber: 26,
                     columnNumber: 54
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                lineNumber: 37,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigationAction$2f$BottomNavigationAction$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 label: "Account",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Person$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                    lineNumber: 38,
+                    lineNumber: 27,
                     columnNumber: 53
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-                lineNumber: 38,
+                lineNumber: 27,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
-        lineNumber: 19,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 }
