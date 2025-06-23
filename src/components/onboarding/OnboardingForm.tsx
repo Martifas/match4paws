@@ -14,6 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 import BackButton from "../ui/buttons/BackButton";
+import PrimaryButton from "../ui/buttons/PrimaryButton";
 
 type OnboardingFormData = {
   userType: "petOwner" | "adopter" | null;
@@ -239,12 +240,9 @@ export default function OnboardingForm({ userId }: Props) {
         )}
       </div>
 
-      <button
-        onClick={handleNext}
-        className="bg-[#ed9426] hover:bg-orange-300 hover:scale-101 text-white max-w-md w-full md:w-3/5 mx-auto font-bold px-4 py-3 rounded-full mt-6"
-      >
+      <PrimaryButton onClick={handleNext}>
         {activeStep === totalSteps - 1 ? "Finish" : "Next"}
-      </button>
+      </PrimaryButton>
     </div>
   );
 }

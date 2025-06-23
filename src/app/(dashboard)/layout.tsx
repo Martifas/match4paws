@@ -1,5 +1,6 @@
 // app/(dashboard)/layout.tsx                 ⬅️  nested layout
 import NavigationBar from "@/components/navigationBar/NavigationBar";
+import BottomBar from "@/components/ui/containers/BottomBar";
 
 export default function DashboardLayout({
   children,
@@ -10,7 +11,9 @@ export default function DashboardLayout({
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">{children}</main>
 
-      <NavigationBar />
+      <BottomBar alwaysSticky>
+        <NavigationBar />
+      </BottomBar>
     </div>
   );
 }

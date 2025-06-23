@@ -20,8 +20,7 @@ export default function BackButton({
     <button
       {...buttonProps}
       className={clsx(
-        "absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] " +
-          "hover:text-orange-300 hover:scale-110 font-bold z-10",
+        "text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold",
         className
       )}
     >

@@ -1,8 +1,7 @@
 {
   "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
-  "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
-  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
-  "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
+  "/(dashboard)/search/page": "app/(dashboard)/search/page.js",
   "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
-  "/onboarding/page": "app/onboarding/page.js"
+  "/onboarding/page": "app/onboarding/page.js",
+  "/search/page": "app/search/page.js"
 }

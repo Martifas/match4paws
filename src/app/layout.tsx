@@ -1,7 +1,7 @@
 import "../index.scss";
 import "./styles/globals.scss";
 import type { Metadata } from "next";
-import SimpleContainer from "@/components/ui/container/Container";
+import SimpleContainer from "@/components/ui/containers/Container";
 import ThemeRegistry from "./ThemeRegistry";
 
 export const metadata: Metadata = {
