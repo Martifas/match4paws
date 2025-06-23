@@ -2,7 +2,7 @@ import { auth0 } from "@/lib/auth0";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import Box from "@mui/material/Box";
-import NavigationBar from "@/components/navigationBar/NavigationBar";
+import Homepage from "@/components/homepage/Homepage";
 
 export function generateStaticParams() {
   return [{ slug: [""] }];
@@ -40,11 +40,8 @@ export default async function Page() {
   return (
     <>
       <Box sx={{ pb: 8 }}>
-        <h1>Welcome to Match4Paws!</h1>
-        <p>Hello, {session.user.name}!</p>
+        <Homepage />
       </Box>
-
-      <NavigationBar />
     </>
   );
 }
