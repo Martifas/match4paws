@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouter } from "next/navigation";
 import ProgressBar from "../ui/progressBar/ProgressBar";
 import DogIcon from "@/assets/DogIcon";
 import CatIcon from "@/assets/CatIcon";
@@ -13,6 +13,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import BackButton from "../ui/buttons/BackButton";
 
 type OnboardingFormData = {
   userType: "petOwner" | "adopter" | null;
@@ -21,42 +22,50 @@ type OnboardingFormData = {
   name?: string;
   email?: string;
   phone?: string;
-  gender?: "male" | "female" | "other";
+  gender?: "male" | "female" | "other" | "non-binary" | "prefer-not-to-say";
   location?: string;
 };
 
-export default function OnboardingForm() {
-  const [activeStep, setActiveStep] = useState(0);
+type Props = {
+  userId: string;
+};
 
-  const totalSteps = 4;
+export default function OnboardingForm({ userId }: Props) {
+  const [activeStep, setActiveStep] = useState(0);
+  const router = useRouter();
+
+  const totalSteps = 3;
   const [formData, setFormData] = useState<OnboardingFormData>({
     userType: null,
     preferredAnimalTypes: [],
   });
   const progressPercent = ((activeStep + 1) / totalSteps) * 100;
 
-  const formContent = [
-    {
-      title: "Tell us about yourself",
-      description:
-        "Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?",
-    },
-    {
-      title: "Let's Find Your Match",
-      description:
-        "What type of animal are you looking to adopt? Don’t worry—you can always change this later.",
-    },
-    {
-      title: "List Your Animal(s) for Adoption",
-      description:
-        "What type of animal(s) are you looking to place in a loving home? You can add more later.",
-    },
-    {
-      title: "Final Steps!",
-      description:
-        "We're almost there! Fill in your personal details to create a profile and start your journey toward a furry friendship.",
-    },
-  ];
+  const getFormContent = () => {
+    return [
+      {
+        title: "Tell us about yourself",
+        description:
+          "Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?",
+      },
+      formData.userType === "petOwner"
+        ? {
+            title: "List Your Animal(s) for Adoption",
+            description:
+              "What type of animal(s) are you looking to place in a loving home? You can add more later.",
+          }
+        : {
+            title: "Let's Find Your Match",
+            description:
+              "What type of animal are you looking to adopt? Don’t worry—you can always change this later.",
+          },
+      {
+        title: "Final Steps!",
+        description:
+          "We're almost there! Fill in your personal details to create a profile and start your journey toward a furry friendship.",
+      },
+    ];
+  };
 
   const handleNext = () => {
     if (activeStep < totalSteps - 1) {
@@ -70,21 +79,33 @@ export default function OnboardingForm() {
     if (activeStep > 0) setActiveStep((prev) => prev - 1);
   };
 
-  const handleFinish = () => {
-    console.log("Submitting:", formData);
+  const handleFinish = async () => {
+    try {
+      const response = await fetch("/api/update-onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          ...formData,
+        }),
+      });
+
+      if (!response.ok) {
+        const { error } = await response.json();
+        console.error("Failed to complete onboarding:", error);
+        return;
+      }
+
+      router.push("/");
+    } catch (error) {
+      console.error("Error submitting onboarding form:", error);
+    }
   };
 
   return (
     <div className="flex flex-col justify-between flex-1 px-4 py-8 h-full">
       <div className="relative flex items-center justify-center px-8 py-2 min-h-[48px]">
-        {activeStep > 0 && (
-          <button
-            onClick={handleBack}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold z-10"
-          >
-            <ArrowBackIcon fontSize="large" />
-          </button>
-        )}
+        <BackButton onClick={handleBack} hidden={activeStep === 0} />
 
         <ProgressBar value={progressPercent} />
 
@@ -95,10 +116,10 @@ export default function OnboardingForm() {
 
       <div className="text-center flex flex-1 flex-col gap-5 justify-center">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-tight">
-          {formContent[activeStep].title}
+          {getFormContent()[activeStep].title}
         </h1>
         <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
-          {formContent[activeStep].description}
+          {getFormContent()[activeStep].description}
         </p>
 
         {activeStep === 0 && (
@@ -113,7 +134,7 @@ export default function OnboardingForm() {
                       userType: type as OnboardingFormData["userType"],
                     })
                   }
-                  className={`flex items-center py-5 hover:border-orange-300 hover:scale-101 md:py-7 rounded-xl border-2 border-gray-200 border w-full h-8 justify-center md:w-3/5 mx-auto ${
+                  className={`flex items-center py-5 hover:border-orange-300 hover:scale-101 md:py-7 rounded-xl border-2 border-gray-200 w-full h-8 justify-center md:w-3/5 mx-auto ${
                     formData.userType === type
                       ? "border-orange-400"
                       : "bg-white text-gray-700"
@@ -125,6 +146,7 @@ export default function OnboardingForm() {
             </div>
           </div>
         )}
+
         {activeStep === 1 && (
           <div className="flex flex-col gap-6 items-center">
             <div className="flex flex-row gap-6 justify-center">
@@ -169,7 +191,8 @@ export default function OnboardingForm() {
             </p>
           </div>
         )}
-        {activeStep === 3 && (
+
+        {activeStep === 2 && (
           <div className="flex flex-col gap-6 items-center w-full md:w-3/5 mx-auto">
             <TextField
               required
@@ -218,7 +241,7 @@ export default function OnboardingForm() {
 
       <button
         onClick={handleNext}
-        className="bg-[#ed9426] hover:bg-orange-300 hover:scale-101 text-white w-full md:w-3/5 mx-auto font-bold px-4 py-2 rounded-full mt-6"
+        className="bg-[#ed9426] hover:bg-orange-300 hover:scale-101 text-white max-w-md w-full md:w-3/5 mx-auto font-bold px-4 py-3 rounded-full mt-6"
       >
         {activeStep === totalSteps - 1 ? "Finish" : "Next"}
       </button>

@@ -3,5 +3,6 @@
   "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
   "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
   "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
-  "/[[...slug]]/page": "app/[[...slug]]/page.js"
+  "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
+  "/onboarding/page": "app/onboarding/page.js"
 }

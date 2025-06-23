@@ -1,28 +1,16 @@
-import "../../index.scss";
-import "../styles/globals.scss";
-import type { Metadata } from "next";
-import SimpleContainer from "@/components/ui/container/Container";
-import ThemeRegistry from "../ThemeRegistry";
+// app/(dashboard)/layout.tsx                 ⬅️  nested layout
 import NavigationBar from "@/components/navigationBar/NavigationBar";
 
-export const metadata: Metadata = {
-  title: "Match 4 Paws",
-  description: "Web site created with Next.js.",
-};
-
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ThemeRegistry>
-          <SimpleContainer>{children}</SimpleContainer>
-        </ThemeRegistry>
-        <NavigationBar/>
-      </body>
-    </html>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">{children}</main>
+
+      <NavigationBar />
+    </div>
   );
 }
