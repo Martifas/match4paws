@@ -11,6 +11,14 @@ export async function up(db: Kysely<unknown>) {
       col.notNull().defaultTo(false)
     )
     .addColumn('onboarding_completed_at', 'timestamptz')
+    .addColumn('created_at', 'timestamptz', (col) =>
+      col.notNull().defaultTo(db.fn('now'))
+    )
+    .addColumn('last_login_at', 'timestamptz')
+    .addColumn('name', 'text')
+    .addColumn('phone', 'text')
+    .addColumn('gender', 'text')
+    .addColumn('preferred_animal_types', 'jsonb')
     .execute();
 }
 

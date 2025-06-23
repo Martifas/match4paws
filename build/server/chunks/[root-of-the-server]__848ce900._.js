@@ -149,7 +149,7 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 async function POST(req) {
     try {
-        const { userId } = await req.json();
+        const { userId, name, phone, gender, preferredAnimalTypes } = await req.json();
         if (!userId) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 error: "Missing user ID"
@@ -160,7 +160,11 @@ async function POST(req) {
         const now = new Date();
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable("users").set({
             onboardingCompleted: true,
-            onboardingCompletedAt: now
+            onboardingCompletedAt: now,
+            name,
+            phone,
+            gender,
+            preferredAnimalTypes: JSON.stringify(preferredAnimalTypes)
         }).where("auth0Id", "=", userId).execute();
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true

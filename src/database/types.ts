@@ -10,13 +10,31 @@ export type Generated<T> =
     ? ColumnType<S, I | undefined, U>
     : ColumnType<T, T | undefined, T>;
 
+export type Json = JsonValue;
+
+export type JsonArray = JsonValue[];
+
+export type JsonObject = {
+  [x: string]: JsonValue | undefined;
+};
+
+export type JsonPrimitive = boolean | number | string | null;
+
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Users {
   auth0Id: string;
+  createdAt: Generated<Timestamp>;
+  gender: string | null;
   id: Generated<string>;
+  lastLoginAt: Timestamp | null;
+  name: string | null;
   onboardingCompleted: Generated<boolean>;
   onboardingCompletedAt: Timestamp | null;
+  phone: string | null;
+  preferredAnimalTypes: Json | null;
 }
 
 export interface DB {

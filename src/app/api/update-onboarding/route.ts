@@ -3,7 +3,8 @@ import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await req.json();
+    const { userId, name, phone, gender, preferredAnimalTypes } =
+      await req.json();
 
     if (!userId) {
       return NextResponse.json({ error: "Missing user ID" }, { status: 400 });
@@ -16,6 +17,10 @@ export async function POST(req: Request) {
       .set({
         onboardingCompleted: true,
         onboardingCompletedAt: now,
+        name,
+        phone,
+        gender,
+        preferredAnimalTypes: JSON.stringify(preferredAnimalTypes),
       })
       .where("auth0Id", "=", userId)
       .execute();

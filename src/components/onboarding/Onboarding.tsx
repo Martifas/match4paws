@@ -10,11 +10,11 @@ type Props = {
   userId: string;
 };
 
-function Onboarding({ userId }: Props) {
+export default function Onboarding({ userId }: Props) {
   const [flowCompleted, setFlowCompleted] = useState(false);
 
   return flowCompleted ? (
-    <OnboardingForm />
+    <OnboardingForm userId={userId} />
   ) : (
     <div className="flex flex-1 flex-col h-full">
       <div className="flex-1 relative">
@@ -36,5 +36,3 @@ function Onboarding({ userId }: Props) {
     </div>
   );
 }
-
-export default Onboarding;

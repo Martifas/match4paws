@@ -27,6 +27,12 @@ export default async function Page() {
     .onConflict((oc) => oc.column("auth0Id").doNothing())
     .execute();
 
+  await db
+    .updateTable("users")
+    .set({ lastLoginAt: new Date() })
+    .where("auth0Id", "=", userId)
+    .execute();
+
   const user = await db
     .selectFrom("users")
     .select(["onboardingCompleted"])
