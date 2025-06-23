@@ -6,16 +6,20 @@ import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function NavigationBar() {
-  const [value, setValue] = useState(0);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const routes = ["/", "/favorites", "/messages", "/account"];
+  const currentTab = Math.max(routes.indexOf(pathname), 0);
 
   return (
     <BottomNavigation
       showLabels
-      value={value}
-      onChange={(_, newValue) => setValue(newValue)}
+      value={currentTab}
+      onChange={(_, newValue) => router.push(routes[newValue])}
       sx={(theme) => ({
         position: "fixed",
         bottom: 0,
