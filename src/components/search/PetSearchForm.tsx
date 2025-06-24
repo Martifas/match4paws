@@ -1,38 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import ToggleChip, { ToggleValue } from "../ui/buttons/ToggleChip";
-import Header from "../ui/containers/Header";
-import BackButton from "../ui/buttons/BackButton";
-import DogIcon from "@/assets/DogIcon";
-import CatIcon from "@/assets/CatIcon";
-import PrimaryButton from "../ui/buttons/PrimaryButton";
-import BottomBar from "../ui/containers/BottomBar";
-
-const PET_TYPES = [
-  { id: "dog", label: "Dogs", icon: <DogIcon /> },
-  { id: "cat", label: "Cats", icon: <CatIcon /> },
-] as const;
-
-const GENDERS = [
-  { id: "any", label: "Any" },
-  { id: "male", label: "Male" },
-  { id: "female", label: "Female" },
-] as const;
-
-const SIZES = [
-  { id: "small", label: "Small" },
-  { id: "medium", label: "Medium" },
-  { id: "large", label: "Large" },
-] as const;
-
-const AGES = [
-  { id: "baby", label: "Baby" },
-  { id: "young", label: "Young" },
-  { id: "adult", label: "Adult" },
-  { id: "senior", label: "Senior" },
-] as const;
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import ToggleChip, { ToggleValue } from '../ui/buttons/ToggleChip';
+import Header from '../ui/containers/Header';
+import BackButton from '../ui/buttons/BackButton';
+import PrimaryButton from '../ui/buttons/PrimaryButton';
+import BottomBar from '../ui/containers/BottomBar';
+import { AGES, GENDERS, PET_TYPES, SIZES } from '@/lib/constants/petSearch';
 
 export default function PetSearchForm() {
   const router = useRouter();
@@ -42,14 +17,14 @@ export default function PetSearchForm() {
   const [size, setSize] = useState<ToggleValue<typeof SIZES>>(null);
   const [age, setAge] = useState<ToggleValue<typeof AGES>>(null);
 
-  const back = "/";
+  const back = '/';
 
   const handleSubmit = () => {
     const params = new URLSearchParams();
-    if (petType) params.set("type", petType);
-    if (gender && gender !== "any") params.set("gender", gender);
-    if (size) params.set("size", size);
-    if (age) params.set("age", age);
+    if (petType) params.set('type', petType);
+    if (gender && gender !== 'any') params.set('gender', gender);
+    if (size) params.set('size', size);
+    if (age) params.set('age', age);
 
     router.push(`/searchresults?${params.toString()}`);
   };
@@ -71,10 +46,10 @@ export default function PetSearchForm() {
             items={PET_TYPES}
             selected={petType}
             onChange={setPetType}
-            getId={(p) => p.id}
-            render={(p) => (
+            getId={p => p.id}
+            render={p => (
               <span className="flex h-5 items-center gap-1">
-                {p.icon}
+                <p.IconComponent />
                 <span>{p.label}</span>
               </span>
             )}
@@ -89,7 +64,7 @@ export default function PetSearchForm() {
             items={GENDERS}
             selected={gender}
             onChange={setGender}
-            render={(g) => g.label}
+            render={g => g.label}
           />
         </section>
 
@@ -101,7 +76,7 @@ export default function PetSearchForm() {
             items={SIZES}
             selected={size}
             onChange={setSize}
-            render={(s) => s.label}
+            render={s => s.label}
           />
         </section>
 
@@ -113,7 +88,7 @@ export default function PetSearchForm() {
             items={AGES}
             selected={age}
             onChange={setAge}
-            render={(a) => a.label}
+            render={a => a.label}
           />
         </section>
 
