@@ -1,4 +1,3 @@
-// app/(dashboard)/layout.tsx                 ⬅️  nested layout
 import NavigationBar from "@/components/navigationBar/NavigationBar";
 import BottomBar from "@/components/ui/containers/BottomBar";
 
