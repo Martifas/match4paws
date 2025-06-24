@@ -1,8 +1,5 @@
-import Header from "@/components/ui/containers/Header";
-
 import { Suspense } from "react";
 import SearchResults from "@/components/search/SearchResults";
-import BackButton from "@/components/ui/buttons/BackButton";
 
 export default function SearchResultsPage({
   searchParams,
@@ -18,15 +15,6 @@ export default function SearchResultsPage({
 
   return (
     <>
-      <Header
-        left={<BackButton />}
-        center={
-          <h1 className="text-lg font-semibold tracking-wide select-none">
-            Search results
-          </h1>
-        }
-      />
-
       <Suspense fallback={<p className="text-center py-10">Loading…</p>}>
         <SearchResults {...filters} />
       </Suspense>
