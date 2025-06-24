@@ -184,14 +184,14 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function SearchResults(filters) {
-    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").leftJoin("petImages as pi", "pi.petId", "pets.id").select(({ ref })=>[
+    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select(({ ref })=>[
             "pets.id",
             "pets.name",
             ref("pets.ageGroup").as("ageGroup"),
             "pets.breed",
             "pets.size",
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as("imageUrl")
-        ]).orderBy("pets.createdAt desc").limit(20);
+        ]).leftJoin("petImages as pi", (j)=>j.onRef("pi.petId", "=", "pets.id").on("pi.orderIdx", "=", 0)).limit(20);
     if (filters.type) q = q.where("pets.type", "=", filters.type);
     if (filters.gender) q = q.where("pets.gender", "=", filters.gender);
     if (filters.size) q = q.where("pets.size", "=", filters.size);
@@ -203,7 +203,7 @@ async function SearchResults(filters) {
             children: "No pets match those filters yet."
         }, void 0, false, {
             fileName: "[project]/src/components/search/SearchResults.tsx",
-            lineNumber: 36,
+            lineNumber: 37,
             columnNumber: 7
         }, this);
     }
@@ -220,17 +220,17 @@ async function SearchResults(filters) {
                     imageUrl: p.imageUrl
                 }, p.id, false, {
                     fileName: "[project]/src/components/search/SearchResults.tsx",
-                    lineNumber: 46,
+                    lineNumber: 47,
                     columnNumber: 11
                 }, this))
         }, void 0, false, {
             fileName: "[project]/src/components/search/SearchResults.tsx",
-            lineNumber: 44,
+            lineNumber: 45,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/search/SearchResults.tsx",
-        lineNumber: 43,
+        lineNumber: 44,
         columnNumber: 5
     }, this);
 }

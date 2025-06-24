@@ -14,7 +14,7 @@ export default function Header({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="w-full max-w-xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
+    <header className="w-full max-w-md mx-auto  md:max-w-xl py-2 flex items-center justify-between gap-4">
       {children ? (
         children
       ) : (
