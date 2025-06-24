@@ -1,20 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import DogPic from '../../assets/dog-photo.png';
-import Image from 'next/image';
-import OnboardingFlow from './OnboardingFlow';
-import OnboardingForm from './OnboardingForm';
+import { useState } from "react";
+import DogPic from "../../assets/dog-photo.png";
+import Image from "next/image";
+import OnboardingFlow from "./OnboardingFlow";
+import OnboardingForm from "./OnboardingForm";
+import { useAuth } from "@/lib/authProvider";
 
-type Props = {
-  userId: string;
-};
-
-export default function Onboarding({ userId }: Props) {
+export default function Onboarding() {
+  const user = useAuth();
   const [flowCompleted, setFlowCompleted] = useState(false);
 
   return flowCompleted ? (
-    <OnboardingForm userId={userId} />
+    <OnboardingForm userId={user.id} />
   ) : (
     <div className="flex flex-1 flex-col h-full">
       <div className="flex-1 relative">
@@ -29,7 +27,7 @@ export default function Onboarding({ userId }: Props) {
 
       <div className="flex-1">
         <OnboardingFlow
-          userId={userId}
+          userId={user.id}
           onComplete={() => setFlowCompleted(true)}
         />
       </div>

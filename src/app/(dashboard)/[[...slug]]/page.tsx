@@ -1,6 +1,7 @@
 import { auth0 } from "@/lib/auth0";
-import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
+
 import Box from "@mui/material/Box";
 import Homepage from "@/components/homepage/Homepage";
 
@@ -11,43 +12,34 @@ export function generateStaticParams() {
 export default async function Page() {
   const session = await auth0.getSession();
 
-  if (!session) {
-    redirect("/auth/login");
-  }
+  if (session) {
+    const auth0Id = session.user.sub;
 
-  const userId = session.user.sub;
+    await db
+      .insertInto("users")
+      .values({ auth0Id })
+      .onConflict((oc) => oc.column("auth0Id").doNothing())
+      .execute();
 
-  await db
-    .insertInto("users")
-    .values({
-      auth0Id: userId,
-      onboardingCompleted: false,
-      onboardingCompletedAt: null,
-    })
-    .onConflict((oc) => oc.column("auth0Id").doNothing())
-    .execute();
+    await db
+      .updateTable("users")
+      .set({ lastLoginAt: new Date() })
+      .where("auth0Id", "=", auth0Id)
+      .execute();
 
-  await db
-    .updateTable("users")
-    .set({ lastLoginAt: new Date() })
-    .where("auth0Id", "=", userId)
-    .execute();
+    const { onboardingCompleted } =
+      (await db
+        .selectFrom("users")
+        .select(["onboardingCompleted"])
+        .where("auth0Id", "=", auth0Id)
+        .executeTakeFirst()) ?? {};
 
-  const user = await db
-    .selectFrom("users")
-    .select(["onboardingCompleted"])
-    .where("auth0Id", "=", userId)
-    .executeTakeFirst();
-
-  if (!user?.onboardingCompleted) {
-    redirect("/onboarding");
+    if (!onboardingCompleted) redirect("/onboarding");
   }
 
   return (
-    <>
-      <Box sx={{ pb: 8 }}>
-        <Homepage />
-      </Box>
-    </>
+    <Box sx={{ pb: 8 }}>
+      <Homepage />
+    </Box>
   );
 }

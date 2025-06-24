@@ -3,7 +3,7 @@ import type { Kysely } from "kysely";
 import { randomUUID } from "crypto";
 
 export async function up(db: Kysely<unknown>) {
-  const ownerId = "acf3d91d-5fde-402f-9ebd-c2b68062765e";
+  const ownerId = "2c842349-d28e-4257-a59d-f871760c7a90";
   const petId = randomUUID();
 
   await (db as Kysely<any>)
