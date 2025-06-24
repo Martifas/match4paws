@@ -1,7 +1,6 @@
 {
   "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
-  "/(dashboard)/search/page": "app/(dashboard)/search/page.js",
-  "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/search/page": "app/search/page.js"
+  "/(dashboard)/searchresults/page": "app/(dashboard)/searchresults/page.js",
+  "/search/page": "app/search/page.js",
+  "/searchresults/page": "app/searchresults/page.js"
 }

@@ -15,9 +15,24 @@ const PET_TYPES = [
   { id: "cat", label: "Cats", icon: <CatIcon /> },
 ] as const;
 
-const GENDERS = ["Any", "Male", "Female"] as const;
-const SIZES = ["Small", "Medium", "Large"] as const;
-const AGES = ["Baby", "Young", "Adult", "Senior"] as const;
+const GENDERS = [
+  { id: "any", label: "Any" },
+  { id: "male", label: "Male" },
+  { id: "female", label: "Female" },
+] as const;
+
+const SIZES = [
+  { id: "small", label: "Small" },
+  { id: "medium", label: "Medium" },
+  { id: "large", label: "Large" },
+] as const;
+
+const AGES = [
+  { id: "baby", label: "Baby" },
+  { id: "young", label: "Young" },
+  { id: "adult", label: "Adult" },
+  { id: "senior", label: "Senior" },
+] as const;
 
 export default function PetSearchForm() {
   const router = useRouter();
@@ -27,24 +42,22 @@ export default function PetSearchForm() {
   const [size, setSize] = useState<ToggleValue<typeof SIZES>>(null);
   const [age, setAge] = useState<ToggleValue<typeof AGES>>(null);
 
-  const handleBack = () => {
-    router.push("/");
-  };
+  const back = "/";
 
   const handleSubmit = () => {
     const params = new URLSearchParams();
     if (petType) params.set("type", petType);
-    if (gender && gender !== "Any") params.set("gender", gender);
+    if (gender && gender !== "any") params.set("gender", gender);
     if (size) params.set("size", size);
     if (age) params.set("age", age);
 
-    router.push(`/search?${params.toString()}`);
+    router.push(`/searchresults?${params.toString()}`);
   };
 
   return (
     <>
       <Header
-        left={<BackButton onClick={handleBack} />}
+        left={<BackButton to={back} />}
         center={
           <h1 className="text-lg font-semibold tracking-wide select-none">
             Pet Search
@@ -76,7 +89,7 @@ export default function PetSearchForm() {
             items={GENDERS}
             selected={gender}
             onChange={setGender}
-            render={(g) => g}
+            render={(g) => g.label}
           />
         </section>
 
@@ -88,7 +101,7 @@ export default function PetSearchForm() {
             items={SIZES}
             selected={size}
             onChange={setSize}
-            render={(s) => s}
+            render={(s) => s.label}
           />
         </section>
 
@@ -100,7 +113,7 @@ export default function PetSearchForm() {
             items={AGES}
             selected={age}
             onChange={setAge}
-            render={(a) => a}
+            render={(a) => a.label}
           />
         </section>
 

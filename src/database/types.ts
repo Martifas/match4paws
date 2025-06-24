@@ -24,6 +24,35 @@ export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export interface Favourites {
+  createdAt: Generated<Timestamp>;
+  petId: string;
+  userId: string;
+}
+
+export interface PetImages {
+  createdAt: Generated<Timestamp>;
+  id: Generated<string>;
+  orderIdx: Generated<number>;
+  petId: string;
+  url: string;
+}
+
+export interface Pets {
+  ageGroup: string;
+  breed: string | null;
+  createdAt: Generated<Timestamp>;
+  description: string | null;
+  gender: Generated<string>;
+  id: Generated<string>;
+  name: string;
+  ownerId: string;
+  size: string;
+  status: Generated<string>;
+  type: string;
+  updatedAt: Generated<Timestamp>;
+}
+
 export interface Users {
   auth0Id: string;
   createdAt: Generated<Timestamp>;
@@ -35,8 +64,12 @@ export interface Users {
   onboardingCompletedAt: Timestamp | null;
   phone: string | null;
   preferredAnimalTypes: Json | null;
+  userType: string | null;
 }
 
 export interface DB {
+  favourites: Favourites;
+  petImages: PetImages;
+  pets: Pets;
   users: Users;
 }
