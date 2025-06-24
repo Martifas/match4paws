@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { userId, name, phone, gender, preferredAnimalTypes } =
+    const { userId, name, phone, gender, userType, preferredAnimalTypes } =
       await req.json();
 
     if (!userId) {
@@ -20,6 +20,7 @@ export async function POST(req: Request) {
         name,
         phone,
         gender,
+        userType,
         preferredAnimalTypes: JSON.stringify(preferredAnimalTypes),
       })
       .where("auth0Id", "=", userId)
