@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import IconButton from "@mui/material/IconButton";
-import { useTransition, useOptimistic } from "react";
+import { useState } from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 type Props = {
   petId: string;
@@ -11,28 +10,60 @@ type Props = {
 };
 
 export default function FavoriteButton({ petId, initiallyFav }: Props) {
-  const [isPending, start] = useTransition();
-  const [optimistic, setOptimistic] = useOptimistic(initiallyFav);
+  const [isFavorite, setIsFavorite] = useState(initiallyFav);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const toggle = () => {
-    setOptimistic(!optimistic);
-    start(async () => {
-      const method = optimistic ? "DELETE" : "POST";
-      await fetch("/api/favorites", {
-        method,
-        headers: { "Content-Type": "application/json" },
+  const handleClick = async () => {
+    setIsLoading(true);
+    const newFavoriteState = !isFavorite;
+
+    try {
+      const response = await fetch('/api/favorites', {
+        method: newFavoriteState ? 'POST' : 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ petId }),
       });
-    });
+
+      if (response.ok) {
+        setIsFavorite(newFavoriteState);
+      }
+    } catch (error) {
+      console.error('Failed to update favorite:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <IconButton
-      onClick={toggle}
-      disabled={isPending}
-      sx={{ color: optimistic ? "#ed9426" : "inherit" }}
+    <button
+      onClick={handleClick}
+      disabled={isLoading}
+      className={`
+        p-2 rounded-full transition-all duration-200
+        ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}
+        ${!isLoading ? 'hover:bg-orange-200' : ''}
+      `}
+      style={{
+        color: '#ed9426',
+        backgroundColor: isFavorite
+          ? 'rgba(237, 148, 38, 0.15)'
+          : 'transparent',
+      }}
+      onMouseEnter={e => {
+        if (!isLoading) {
+          e.currentTarget.style.backgroundColor = 'rgba(237, 148, 38, 0.3)';
+        }
+      }}
+      onMouseLeave={e => {
+        if (!isLoading) {
+          e.currentTarget.style.backgroundColor = isFavorite
+            ? 'rgba(237, 148, 38, 0.15)'
+            : 'transparent';
+        }
+      }}
+      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
     >
-      {optimistic ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-    </IconButton>
+      {isFavorite ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
+    </button>
   );
 }

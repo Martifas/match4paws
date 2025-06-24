@@ -258,25 +258,26 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function SearchResults(filters) {
-    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select(({ ref })=>[
-            "pets.id",
-            "pets.name",
-            ref("pets.ageGroup").as("ageGroup"),
-            "pets.breed",
-            "pets.size",
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as("imageUrl")
-        ]).leftJoin("petImages as pi", (j)=>j.onRef("pi.petId", "=", "pets.id").on("pi.orderIdx", "=", 0)).limit(20);
-    if (filters.type) q = q.where("pets.type", "=", filters.type);
-    if (filters.gender) q = q.where("pets.gender", "=", filters.gender);
-    if (filters.size) q = q.where("pets.size", "=", filters.size);
-    if (filters.age) q = q.where("pets.ageGroup", "=", filters.age);
+    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').select(({ ref })=>[
+            'pets.id',
+            'pets.name',
+            ref('pets.ageGroup').as('ageGroup'),
+            'pets.breed',
+            'pets.size',
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as('imageUrl'),
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as('isFavorite')
+        ]).leftJoin('petImages as pi', (j)=>j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)).leftJoin('favourites as f', 'f.petId', 'pets.id').limit(20);
+    if (filters.type) q = q.where('pets.type', '=', filters.type);
+    if (filters.gender) q = q.where('pets.gender', '=', filters.gender);
+    if (filters.size) q = q.where('pets.size', '=', filters.size);
+    if (filters.age) q = q.where('pets.ageGroup', '=', filters.age);
     const pets = await q.execute();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$containers$2f$Header$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                 left: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$BackButton$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/search/SearchResults.tsx",
-                    lineNumber: 41,
+                    lineNumber: 45,
                     columnNumber: 15
                 }, void 0),
                 center: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -284,17 +285,17 @@ async function SearchResults(filters) {
                     children: "Search results"
                 }, void 0, false, {
                     fileName: "[project]/src/components/search/SearchResults.tsx",
-                    lineNumber: 43,
+                    lineNumber: 47,
                     columnNumber: 11
                 }, void 0),
                 right: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$SearchButton$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/search/SearchResults.tsx",
-                    lineNumber: 47,
+                    lineNumber: 51,
                     columnNumber: 16
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/components/search/SearchResults.tsx",
-                lineNumber: 40,
+                lineNumber: 44,
                 columnNumber: 7
             }, this),
             pets.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -307,20 +308,21 @@ async function SearchResults(filters) {
                             age: p.ageGroup,
                             breed: p.breed,
                             size: p.size,
-                            imageUrl: p.imageUrl
+                            imageUrl: p.imageUrl,
+                            isFavorite: p.isFavorite
                         }, p.id, false, {
                             fileName: "[project]/src/components/search/SearchResults.tsx",
-                            lineNumber: 53,
+                            lineNumber: 57,
                             columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/search/SearchResults.tsx",
-                    lineNumber: 51,
+                    lineNumber: 55,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/search/SearchResults.tsx",
-                lineNumber: 50,
+                lineNumber: 54,
                 columnNumber: 9
             }, this),
             !pets.length && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -328,7 +330,7 @@ async function SearchResults(filters) {
                 children: "No pets match those filters yet."
             }, void 0, false, {
                 fileName: "[project]/src/components/search/SearchResults.tsx",
-                lineNumber: 67,
+                lineNumber: 72,
                 columnNumber: 9
             }, this)
         ]
@@ -354,12 +356,13 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
-function SearchResultsPage({ searchParams }) {
+async function SearchResultsPage({ searchParams }) {
+    const resolvedSearchParams = await searchParams;
     const filters = {
-        type: searchParams.type,
-        gender: searchParams.gender,
-        size: searchParams.size,
-        age: searchParams.age
+        type: resolvedSearchParams.type,
+        gender: resolvedSearchParams.gender,
+        size: resolvedSearchParams.size,
+        age: resolvedSearchParams.age
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Suspense"], {
@@ -368,19 +371,19 @@ function SearchResultsPage({ searchParams }) {
                 children: "Loading…"
             }, void 0, false, {
                 fileName: "[project]/src/app/searchresults/page.tsx",
-                lineNumber: 18,
+                lineNumber: 20,
                 columnNumber: 27
             }, void 0),
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$search$2f$SearchResults$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                 ...filters
             }, void 0, false, {
                 fileName: "[project]/src/app/searchresults/page.tsx",
-                lineNumber: 19,
+                lineNumber: 21,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/searchresults/page.tsx",
-            lineNumber: 18,
+            lineNumber: 20,
             columnNumber: 7
         }, this)
     }, void 0, false);

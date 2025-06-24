@@ -1,16 +1,18 @@
-import { Suspense } from "react";
-import SearchResults from "@/components/search/SearchResults";
+import { Suspense } from 'react';
+import SearchResults from '@/components/search/SearchResults';
 
-export default function SearchResultsPage({
+export default async function SearchResultsPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  const resolvedSearchParams = await searchParams;
+
   const filters = {
-    type: searchParams.type as string | undefined,
-    gender: searchParams.gender as string | undefined,
-    size: searchParams.size as string | undefined,
-    age: searchParams.age as string | undefined,
+    type: resolvedSearchParams.type as string | undefined,
+    gender: resolvedSearchParams.gender as string | undefined,
+    size: resolvedSearchParams.size as string | undefined,
+    age: resolvedSearchParams.age as string | undefined,
   };
 
   return (
