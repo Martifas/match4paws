@@ -1,33 +1,49 @@
-import { db } from '@/lib/db';
-import { sql } from 'kysely';
-import { PetFilters, PetSearchResult } from '../types/pets';
+import { db } from "@/lib/db";
+import { sql } from "kysely";
+
+export type PetFilters = {
+  type?: string;
+  gender?: string;
+  size?: string;
+  age?: string;
+};
+
+export type PetSearchResult = {
+  id: string;
+  name: string;
+  ageGroup: string;
+  breed: string | null;
+  size: string;
+  imageUrl: string | null;
+  isFavorite: boolean;
+};
 
 export async function searchPets(
   filters: PetFilters
 ): Promise<PetSearchResult[]> {
   let q = db
-    .selectFrom('pets')
+    .selectFrom("pets")
     .select(({ ref }) => [
-      'pets.id',
-      'pets.name',
-      ref('pets.ageGroup').as('ageGroup'),
-      'pets.breed',
-      'pets.size',
-      sql<string>`pi.url`.as('imageUrl'),
+      "pets.id",
+      "pets.name",
+      ref("pets.ageGroup").as("ageGroup"),
+      "pets.breed",
+      "pets.size",
+      sql<string>`pi.url`.as("imageUrl"),
       sql<boolean>`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as(
-        'isFavorite'
+        "isFavorite"
       ),
     ])
-    .leftJoin('petImages as pi', j =>
-      j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)
+    .leftJoin("petImages as pi", (j) =>
+      j.onRef("pi.petId", "=", "pets.id").on("pi.orderIdx", "=", 0)
     )
-    .leftJoin('favourites as f', 'f.petId', 'pets.id')
+    .leftJoin("favourites as f", "f.petId", "pets.id")
     .limit(20);
 
-  if (filters.type) q = q.where('pets.type', '=', filters.type);
-  if (filters.gender) q = q.where('pets.gender', '=', filters.gender);
-  if (filters.size) q = q.where('pets.size', '=', filters.size);
-  if (filters.age) q = q.where('pets.ageGroup', '=', filters.age);
+  if (filters.type) q = q.where("pets.type", "=", filters.type);
+  if (filters.gender) q = q.where("pets.gender", "=", filters.gender);
+  if (filters.size) q = q.where("pets.size", "=", filters.size);
+  if (filters.age) q = q.where("pets.ageGroup", "=", filters.age);
 
   return await q.execute();
 }
@@ -54,17 +70,17 @@ export type PetOwner = {
 export async function getPetById(id: string): Promise<PetDetails | null> {
   return (
     (await db
-      .selectFrom('pets')
-      .where('pets.id', '=', id)
+      .selectFrom("pets")
+      .where("pets.id", "=", id)
       .select([
-        'id',
-        'name',
-        'ageGroup',
-        'breed',
-        'size',
-        'gender',
-        'description',
-        'ownerId',
+        "id",
+        "name",
+        "ageGroup",
+        "breed",
+        "size",
+        "gender",
+        "description",
+        "ownerId",
       ])
       .executeTakeFirst()) || null
   );
@@ -72,31 +88,19 @@ export async function getPetById(id: string): Promise<PetDetails | null> {
 
 export async function getPetPhotos(petId: string): Promise<PetPhoto[]> {
   return await db
-    .selectFrom('petImages')
-    .where('petId', '=', petId)
-    .orderBy('orderIdx')
-    .select(['url'])
+    .selectFrom("petImages")
+    .where("petId", "=", petId)
+    .orderBy("orderIdx")
+    .select(["url"])
     .execute();
 }
 
 export async function getPetOwner(ownerId: string): Promise<PetOwner | null> {
   return (
     (await db
-      .selectFrom('users')
-      .where('id', '=', ownerId)
-      .select(['name'])
-      .executeTakeFirst()) || null
-  );
-}
-
-export async function getUserByAuth0Id(
-  auth0Id: string
-): Promise<{ id: string } | null> {
-  return (
-    (await db
-      .selectFrom('users')
-      .select(['id'])
-      .where('auth0Id', '=', auth0Id)
+      .selectFrom("users")
+      .where("id", "=", ownerId)
+      .select(["name"])
       .executeTakeFirst()) || null
   );
 }
@@ -106,10 +110,10 @@ export async function isPetFavorited(
   userId: string
 ): Promise<boolean> {
   const result = await db
-    .selectFrom('favourites')
-    .select('petId')
-    .where('petId', '=', petId)
-    .where('userId', '=', userId)
+    .selectFrom("favourites")
+    .select("petId")
+    .where("petId", "=", petId)
+    .where("userId", "=", userId)
     .executeTakeFirst();
 
   return !!result;

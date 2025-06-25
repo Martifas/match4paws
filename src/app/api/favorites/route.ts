@@ -1,49 +1,62 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { auth0 } from '@/lib/auth0';
+import { NextRequest } from "next/server";
+import { addFavorite, removeFavorite } from "@/lib/queries/favorites";
+import {
+  getUserFromSession,
+  createErrorResponse,
+  createSuccessResponse,
+  validateJsonBody,
+} from "@/lib/utils/apiUtils";
 
-async function getUserUuid(auth0Id: string | undefined) {
-  if (!auth0Id) return null;
-  const row = await db
-    .selectFrom('users')
-    .select(['id'])
-    .where('auth0Id', '=', auth0Id)
-    .executeTakeFirst();
-  return row?.id ?? null;
-}
+type FavoriteRequestBody = {
+  petId: string;
+};
 
 export async function POST(req: NextRequest) {
-  const { petId } = (await req.json()) as { petId: string };
-  const session = await auth0.getSession();
-  const userUuid = await getUserUuid(session?.user?.sub);
+  try {
+    const bodyOrError = await validateJsonBody<FavoriteRequestBody>(req, [
+      "petId",
+    ]);
+    if (bodyOrError instanceof Response) {
+      return bodyOrError;
+    }
 
-  if (!userUuid)
-    return NextResponse.json({ error: 'unauthenticated' }, { status: 401 });
-  if (!petId)
-    return NextResponse.json({ error: 'missing petId' }, { status: 400 });
+    const { petId } = bodyOrError;
 
-  await db
-    .insertInto('favourites')
-    .values({ userId: userUuid, petId })
-    .onConflict(oc => oc.columns(['userId', 'petId']).doNothing())
-    .execute();
+    const userId = await getUserFromSession(req);
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
+    }
 
-  return NextResponse.json({ ok: true });
+    await addFavorite(userId, petId);
+
+    return createSuccessResponse();
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return createErrorResponse("Internal server error", 500);
+  }
 }
 
 export async function DELETE(req: NextRequest) {
-  const { petId } = (await req.json()) as { petId: string };
-  const session = await auth0.getSession();
-  const userUuid = await getUserUuid(session?.user?.sub);
+  try {
+    const bodyOrError = await validateJsonBody<FavoriteRequestBody>(req, [
+      "petId",
+    ]);
+    if (bodyOrError instanceof Response) {
+      return bodyOrError;
+    }
 
-  if (!userUuid)
-    return NextResponse.json({ error: 'unauthenticated' }, { status: 401 });
+    const { petId } = bodyOrError;
 
-  await db
-    .deleteFrom('favourites')
-    .where('userId', '=', userUuid)
-    .where('petId', '=', petId)
-    .execute();
+    const userId = await getUserFromSession(req);
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
+    }
 
-  return NextResponse.json({ ok: true });
+    await removeFavorite(userId, petId);
+
+    return createSuccessResponse();
+  } catch (error) {
+    console.error("Error removing favorite:", error);
+    return createErrorResponse("Internal server error", 500);
+  }
 }

@@ -1,40 +1,21 @@
-import { auth0 } from "@/lib/auth0";
-import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-
 import Box from "@mui/material/Box";
 import Homepage from "@/components/homepage/Homepage";
+import { getAuthenticatedUser, handleUserSession } from "@/lib/utils/authUtils";
 
 export function generateStaticParams() {
   return [{ slug: [""] }];
 }
 
 export default async function Page() {
-  const session = await auth0.getSession();
+  const user = await getAuthenticatedUser();
 
-  if (session) {
-    const auth0Id = session.user.sub;
+  if (user) {
+    const onboardingCompleted = await handleUserSession(user.sub);
 
-    await db
-      .insertInto("users")
-      .values({ auth0Id })
-      .onConflict((oc) => oc.column("auth0Id").doNothing())
-      .execute();
-
-    await db
-      .updateTable("users")
-      .set({ lastLoginAt: new Date() })
-      .where("auth0Id", "=", auth0Id)
-      .execute();
-
-    const { onboardingCompleted } =
-      (await db
-        .selectFrom("users")
-        .select(["onboardingCompleted"])
-        .where("auth0Id", "=", auth0Id)
-        .executeTakeFirst()) ?? {};
-
-    if (!onboardingCompleted) redirect("/onboarding");
+    if (!onboardingCompleted) {
+      redirect("/onboarding");
+    }
   }
 
   return (

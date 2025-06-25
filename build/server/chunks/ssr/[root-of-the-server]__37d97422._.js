@@ -240,7 +240,6 @@ __turbopack_context__.s({
     "getPetById": (()=>getPetById),
     "getPetOwner": (()=>getPetOwner),
     "getPetPhotos": (()=>getPetPhotos),
-    "getUserByAuth0Id": (()=>getUserByAuth0Id),
     "isPetFavorited": (()=>isPetFavorited),
     "searchPets": (()=>searchPets)
 });
@@ -253,50 +252,45 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function searchPets(filters) {
-    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').select(({ ref })=>[
-            'pets.id',
-            'pets.name',
-            ref('pets.ageGroup').as('ageGroup'),
-            'pets.breed',
-            'pets.size',
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as('imageUrl'),
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as('isFavorite')
-        ]).leftJoin('petImages as pi', (j)=>j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)).leftJoin('favourites as f', 'f.petId', 'pets.id').limit(20);
-    if (filters.type) q = q.where('pets.type', '=', filters.type);
-    if (filters.gender) q = q.where('pets.gender', '=', filters.gender);
-    if (filters.size) q = q.where('pets.size', '=', filters.size);
-    if (filters.age) q = q.where('pets.ageGroup', '=', filters.age);
+    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select(({ ref })=>[
+            "pets.id",
+            "pets.name",
+            ref("pets.ageGroup").as("ageGroup"),
+            "pets.breed",
+            "pets.size",
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as("imageUrl"),
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sql"]`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as("isFavorite")
+        ]).leftJoin("petImages as pi", (j)=>j.onRef("pi.petId", "=", "pets.id").on("pi.orderIdx", "=", 0)).leftJoin("favourites as f", "f.petId", "pets.id").limit(20);
+    if (filters.type) q = q.where("pets.type", "=", filters.type);
+    if (filters.gender) q = q.where("pets.gender", "=", filters.gender);
+    if (filters.size) q = q.where("pets.size", "=", filters.size);
+    if (filters.age) q = q.where("pets.ageGroup", "=", filters.age);
     return await q.execute();
 }
 async function getPetById(id) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').where('pets.id', '=', id).select([
-        'id',
-        'name',
-        'ageGroup',
-        'breed',
-        'size',
-        'gender',
-        'description',
-        'ownerId'
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").where("pets.id", "=", id).select([
+        "id",
+        "name",
+        "ageGroup",
+        "breed",
+        "size",
+        "gender",
+        "description",
+        "ownerId"
     ]).executeTakeFirst() || null;
 }
 async function getPetPhotos(petId) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('petImages').where('petId', '=', petId).orderBy('orderIdx').select([
-        'url'
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").where("petId", "=", petId).orderBy("orderIdx").select([
+        "url"
     ]).execute();
 }
 async function getPetOwner(ownerId) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('users').where('id', '=', ownerId).select([
-        'name'
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("users").where("id", "=", ownerId).select([
+        "name"
     ]).executeTakeFirst() || null;
 }
-async function getUserByAuth0Id(auth0Id) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('users').select([
-        'id'
-    ]).where('auth0Id', '=', auth0Id).executeTakeFirst() || null;
-}
 async function isPetFavorited(petId, userId) {
-    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom('favourites').select('petId').where('petId', '=', petId).where('userId', '=', userId).executeTakeFirst();
+    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("favourites").select("petId").where("petId", "=", petId).where("userId", "=", userId).executeTakeFirst();
     return !!result;
 }
 __turbopack_async_result__();

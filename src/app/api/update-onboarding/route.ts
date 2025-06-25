@@ -1,34 +1,26 @@
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { NextRequest } from "next/server";
+import { updateUserOnboarding } from "@/lib/queries/users";
+import { UpdateOnboardingRequest } from "@/lib/types/onboarding";
+import {
+  createErrorResponse,
+  createSuccessResponse,
+  validateJsonBody,
+} from "@/lib/utils/apiUtils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const { userId, name, phone, gender, userType, preferredAnimalTypes } =
-      await req.json();
-
-    if (!userId) {
-      return NextResponse.json({ error: "Missing user ID" }, { status: 400 });
+    const bodyOrError = await validateJsonBody<UpdateOnboardingRequest>(req, [
+      "userId",
+    ]);
+    if (bodyOrError instanceof Response) {
+      return bodyOrError;
     }
 
-    const now = new Date();
+    await updateUserOnboarding(bodyOrError);
 
-    await db
-      .updateTable("users")
-      .set({
-        onboardingCompleted: true,
-        onboardingCompletedAt: now,
-        name,
-        phone,
-        gender,
-        userType,
-        preferredAnimalTypes: JSON.stringify(preferredAnimalTypes),
-      })
-      .where("auth0Id", "=", userId)
-      .execute();
-
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    const error = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error }, { status: 500 });
+    return createSuccessResponse();
+  } catch (error) {
+    console.error("Error updating onboarding:", error);
+    return createErrorResponse("Failed to complete onboarding", 500);
   }
 }
