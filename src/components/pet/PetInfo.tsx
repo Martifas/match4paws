@@ -1,18 +1,18 @@
-import Header from '@/components/ui/containers/Header';
-import BackButton from '@/components/ui/buttons/BackButton';
-import PetCarousel from '@/components/pet/PetCarousel';
-import StatBadge from '@/components/pet/StatBadge';
-import BottomBar from '../ui/containers/BottomBar';
-import FavoriteButton from '../ui/buttons/FavoriteButton';
-import PrimaryButton from '../ui/buttons/PrimaryButton';
-import { auth0 } from '@/lib/auth0';
+import Header from "@/components/ui/containers/Header";
+import BackButton from "@/components/ui/buttons/BackButton";
+import PetCarousel from "@/components/pet/PetCarousel";
+import StatBadge from "@/components/pet/StatBadge";
+import BottomBar from "../ui/containers/BottomBar";
+import FavoriteButton from "../ui/buttons/FavoriteButton";
+import PrimaryButton from "../ui/buttons/PrimaryButton";
+import { auth0 } from "@/lib/auth0";
 import {
   getPetById,
   getPetPhotos,
   getPetOwner,
-  getUserByAuth0Id,
   isPetFavorited,
-} from '@/lib/queries/pets';
+} from "@/lib/queries/pets";
+import { getUserByAuth0Id } from "@/lib/queries/users";
 
 export default async function PetInfo({ id }: { id: string }) {
   const pet = await getPetById(id);
