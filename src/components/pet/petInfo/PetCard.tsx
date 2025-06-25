@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import FavoriteButton from "../ui/buttons/FavoriteButton";
+import FavoriteButton from "../../ui/buttons/FavoriteButton";
 
 type Props = {
   id: string;

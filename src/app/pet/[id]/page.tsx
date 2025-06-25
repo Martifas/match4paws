@@ -1,4 +1,4 @@
-import PetInfo from "@/components/pet/PetInfo";
+import PetInfo from "@/components/pet/petInfo/PetInfo";
 
 export default function PetPage({ params }: { params: { id: string } }) {
   return (

@@ -237,11 +237,17 @@ __turbopack_async_result__();
 var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
+    "createPet": (()=>createPet),
+    "deletePet": (()=>deletePet),
     "getPetById": (()=>getPetById),
+    "getPetByIdForOwner": (()=>getPetByIdForOwner),
     "getPetOwner": (()=>getPetOwner),
     "getPetPhotos": (()=>getPetPhotos),
+    "getUserPets": (()=>getUserPets),
     "isPetFavorited": (()=>isPetFavorited),
-    "searchPets": (()=>searchPets)
+    "savePetImageUrls": (()=>savePetImageUrls),
+    "searchPets": (()=>searchPets),
+    "updatePet": (()=>updatePet)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/db.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/kysely/dist/esm/raw-builder/sql.js [app-rsc] (ecmascript)");
@@ -292,6 +298,74 @@ async function getPetOwner(ownerId) {
 async function isPetFavorited(petId, userId) {
     const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("favourites").select("petId").where("petId", "=", petId).where("userId", "=", userId).executeTakeFirst();
     return !!result;
+}
+async function createPet(ownerId, petData) {
+    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].insertInto("pets").values({
+        ownerId,
+        ...petData
+    }).returning("id").executeTakeFirstOrThrow();
+    return result.id;
+}
+async function getUserPets(userId) {
+    const pets = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select([
+        "pets.id",
+        "pets.name",
+        "pets.type",
+        "pets.breed",
+        "pets.gender",
+        "pets.size",
+        "pets.ageGroup",
+        "pets.description",
+        "pets.status",
+        "pets.createdAt",
+        "pets.updatedAt"
+    ]).where("pets.ownerId", "=", userId).orderBy("pets.createdAt", "desc").execute();
+    const petsWithImages = await Promise.all(pets.map(async (pet)=>{
+        const images = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").select([
+            "url",
+            "orderIdx"
+        ]).where("petId", "=", pet.id).orderBy("orderIdx", "asc").execute();
+        return {
+            ...pet,
+            images
+        };
+    }));
+    return petsWithImages;
+}
+async function getPetByIdForOwner(petId, userId) {
+    const pet = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").selectAll().where("pets.id", "=", petId).where("pets.ownerId", "=", userId).executeTakeFirst();
+    if (!pet) {
+        return null;
+    }
+    const images = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").select([
+        "url",
+        "orderIdx"
+    ]).where("petId", "=", petId).orderBy("orderIdx", "asc").execute();
+    return {
+        ...pet,
+        images
+    };
+}
+async function updatePet(petId, userId, petData) {
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].updateTable("pets").set({
+        ...petData,
+        updatedAt: new Date()
+    }).where("id", "=", petId).where("ownerId", "=", userId).execute();
+}
+async function deletePet(petId, userId) {
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].deleteFrom("petImages").where("petId", "=", petId).execute();
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].deleteFrom("pets").where("id", "=", petId).where("ownerId", "=", userId).execute();
+}
+async function savePetImageUrls(petId, imageUrls) {
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].deleteFrom("petImages").where("petId", "=", petId).execute();
+    if (imageUrls.length > 0) {
+        const imageRecords = imageUrls.map((url, index)=>({
+                petId: petId,
+                url: url,
+                orderIdx: index
+            }));
+        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].insertInto("petImages").values(imageRecords).execute();
+    }
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),

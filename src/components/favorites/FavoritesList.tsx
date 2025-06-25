@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import PetCard from "@/components/pet/PetCard";
+import PetCard from "@/components/pet/petInfo/PetCard";
 import PrimaryButton from "@/components/ui/buttons/PrimaryButton";
 import { FavoritedPet } from "@/lib/queries/favorites";
 

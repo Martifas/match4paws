@@ -118,3 +118,137 @@ export async function isPetFavorited(
 
   return !!result;
 }
+
+type CreatePetData = {
+  name: string;
+  type: string;
+  breed?: string | null;
+  gender: string;
+  size: string;
+  ageGroup: string;
+  description?: string | null;
+};
+
+type UpdatePetData = CreatePetData & {
+  status?: string;
+};
+
+export async function createPet(
+  ownerId: string,
+  petData: CreatePetData
+): Promise<string> {
+  const result = await db
+    .insertInto("pets")
+    .values({
+      ownerId,
+      ...petData,
+    })
+    .returning("id")
+    .executeTakeFirstOrThrow();
+
+  return result.id;
+}
+
+export async function getUserPets(userId: string) {
+  const pets = await db
+    .selectFrom("pets")
+    .select([
+      "pets.id",
+      "pets.name",
+      "pets.type",
+      "pets.breed",
+      "pets.gender",
+      "pets.size",
+      "pets.ageGroup",
+      "pets.description",
+      "pets.status",
+      "pets.createdAt",
+      "pets.updatedAt",
+    ])
+    .where("pets.ownerId", "=", userId)
+    .orderBy("pets.createdAt", "desc")
+    .execute();
+
+  const petsWithImages = await Promise.all(
+    pets.map(async (pet) => {
+      const images = await db
+        .selectFrom("petImages")
+        .select(["url", "orderIdx"])
+        .where("petId", "=", pet.id)
+        .orderBy("orderIdx", "asc")
+        .execute();
+
+      return {
+        ...pet,
+        images,
+      };
+    })
+  );
+
+  return petsWithImages;
+}
+
+export async function getPetByIdForOwner(petId: string, userId: string) {
+  const pet = await db
+    .selectFrom("pets")
+    .selectAll()
+    .where("pets.id", "=", petId)
+    .where("pets.ownerId", "=", userId)
+    .executeTakeFirst();
+
+  if (!pet) {
+    return null;
+  }
+
+  const images = await db
+    .selectFrom("petImages")
+    .select(["url", "orderIdx"])
+    .where("petId", "=", petId)
+    .orderBy("orderIdx", "asc")
+    .execute();
+
+  return {
+    ...pet,
+    images,
+  };
+}
+
+export async function updatePet(
+  petId: string,
+  userId: string,
+  petData: UpdatePetData
+) {
+  await db
+    .updateTable("pets")
+    .set({
+      ...petData,
+      updatedAt: new Date(),
+    })
+    .where("id", "=", petId)
+    .where("ownerId", "=", userId)
+    .execute();
+}
+
+export async function deletePet(petId: string, userId: string) {
+  await db.deleteFrom("petImages").where("petId", "=", petId).execute();
+
+  await db
+    .deleteFrom("pets")
+    .where("id", "=", petId)
+    .where("ownerId", "=", userId)
+    .execute();
+}
+
+export async function savePetImageUrls(petId: string, imageUrls: string[]) {
+  await db.deleteFrom("petImages").where("petId", "=", petId).execute();
+
+  if (imageUrls.length > 0) {
+    const imageRecords = imageUrls.map((url, index) => ({
+      petId: petId,
+      url: url,
+      orderIdx: index,
+    }));
+
+    await db.insertInto("petImages").values(imageRecords).execute();
+  }
+}

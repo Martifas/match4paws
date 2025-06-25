@@ -1,10 +1,10 @@
 import Header from "@/components/ui/containers/Header";
 import BackButton from "@/components/ui/buttons/BackButton";
-import PetCarousel from "@/components/pet/PetCarousel";
-import StatBadge from "@/components/pet/StatBadge";
-import BottomBar from "../ui/containers/BottomBar";
-import FavoriteButton from "../ui/buttons/FavoriteButton";
-import PrimaryButton from "../ui/buttons/PrimaryButton";
+import PetCarousel from "@/components/pet/petInfo/PetCarousel";
+import StatBadge from "@/components/pet/petInfo/StatBadge";
+import BottomBar from "../../ui/containers/BottomBar";
+import FavoriteButton from "../../ui/buttons/FavoriteButton";
+import PrimaryButton from "../../ui/buttons/PrimaryButton";
 import { auth0 } from "@/lib/auth0";
 import {
   getPetById,
