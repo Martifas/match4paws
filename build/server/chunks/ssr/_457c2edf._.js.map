@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/app/%5B%5B...slug%5D%5D/client.tsx"],"sourcesContent":["\"use client\";\n\nexport function ClientOnly() {\n  return (\n    <>\n      <h1>This works now!</h1>\n    </>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEO,SAAS;IACd,qBACE;kBACE,cAAA,8OAAC;sBAAG;;;;;;;AAGV","debugId":null}},
-    {"offset": {"line": 29, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/node_modules/next/src/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-ssr'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,4HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0],"debugId":null}}]
-}
