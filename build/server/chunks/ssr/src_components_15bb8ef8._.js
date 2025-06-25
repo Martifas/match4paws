@@ -109,71 +109,100 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Favorite$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/Favorite.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$FavoriteBorderOutlined$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/FavoriteBorderOutlined.js [app-ssr] (ecmascript)");
-'use client';
+"use client";
 ;
 ;
 ;
 ;
-function FavoriteButton({ petId, initiallyFav }) {
+function FavoriteButton({ petId, initiallyFav, onUnfavorited, onFavoriteRestored }) {
     const [isFavorite, setIsFavorite] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initiallyFav);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const handleClick = async ()=>{
+    const handleClick = async (e)=>{
+        e.preventDefault(); // Prevent Link navigation
+        e.stopPropagation(); // Prevent event bubbling
+        console.log("🔥 FavoriteButton clicked", {
+            petId,
+            isFavorite,
+            onUnfavorited: !!onUnfavorited
+        });
         setIsLoading(true);
         const newFavoriteState = !isFavorite;
+        const previousFavoriteState = isFavorite;
+        // Optimistic update - update UI immediately
+        setIsFavorite(newFavoriteState);
+        console.log("🔄 Set favorite state to:", newFavoriteState);
+        // If unfavoriting, remove from list immediately
+        if (!newFavoriteState && onUnfavorited) {
+            console.log("❌ Calling onUnfavorited for pet:", petId);
+            onUnfavorited(petId);
+        } else if (!newFavoriteState) {
+            console.log("⚠️ onUnfavorited callback is missing - pet won't be removed from list");
+        }
         try {
-            const response = await fetch('/api/favorites', {
-                method: newFavoriteState ? 'POST' : 'DELETE',
+            console.log("🌐 Making API call...");
+            const response = await fetch("/api/favorites", {
+                method: newFavoriteState ? "POST" : "DELETE",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     petId
                 })
             });
-            if (response.ok) {
-                setIsFavorite(newFavoriteState);
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status}`);
             }
+            console.log("✅ API call successful");
         } catch (error) {
-            console.error('Failed to update favorite:', error);
+            console.error("❌ Failed to update favorite:", error);
+            // Rollback on error
+            setIsFavorite(previousFavoriteState);
+            console.log("🔄 Rolled back favorite state to:", previousFavoriteState);
+            // If we optimistically removed it and API failed, restore it
+            if (!newFavoriteState && onFavoriteRestored) {
+                console.log("🔄 Calling onFavoriteRestored for pet:", petId);
+                onFavoriteRestored(petId);
+            }
         } finally{
             setIsLoading(false);
+            console.log("🏁 Finished processing favorite toggle");
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
         onClick: handleClick,
         disabled: isLoading,
         className: `
-        p-2 rounded-full transition-all duration-200
-        ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}
-        ${!isLoading ? 'hover:bg-orange-200' : ''}
+        p-2 rounded-full transition-all duration-200 z-10 relative
+        ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}
+        ${!isLoading ? "hover:bg-orange-200" : ""}
       `,
         style: {
-            color: '#ed9426',
-            backgroundColor: isFavorite ? 'rgba(237, 148, 38, 0.15)' : 'transparent'
+            color: "#ed9426",
+            backgroundColor: isFavorite ? "rgba(237, 148, 38, 0.15)" : "transparent"
         },
         onMouseEnter: (e)=>{
             if (!isLoading) {
-                e.currentTarget.style.backgroundColor = 'rgba(237, 148, 38, 0.3)';
+                e.currentTarget.style.backgroundColor = "rgba(237, 148, 38, 0.3)";
             }
         },
         onMouseLeave: (e)=>{
             if (!isLoading) {
-                e.currentTarget.style.backgroundColor = isFavorite ? 'rgba(237, 148, 38, 0.15)' : 'transparent';
+                e.currentTarget.style.backgroundColor = isFavorite ? "rgba(237, 148, 38, 0.15)" : "transparent";
             }
         },
-        "aria-label": isFavorite ? 'Remove from favorites' : 'Add to favorites',
+        "aria-label": isFavorite ? "Remove from favorites" : "Add to favorites",
         children: isFavorite ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Favorite$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-            lineNumber: 66,
+            lineNumber: 111,
             columnNumber: 21
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$FavoriteBorderOutlined$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-            lineNumber: 66,
+            lineNumber: 111,
             columnNumber: 40
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-        lineNumber: 38,
+        lineNumber: 83,
         columnNumber: 5
     }, this);
 }
@@ -190,16 +219,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$FavoriteButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/buttons/FavoriteButton.tsx [app-ssr] (ecmascript)");
-'use client';
+"use client";
 ;
 ;
 ;
 ;
-function PetCard({ id, name, imageUrl, isFavorite = false }) {
-    const handleFavoriteClick = (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-    };
+function PetCard({ id, name, age, breed, size, imageUrl, isFavorite = false, onUnfavorited, onFavoriteRestored }) {
+    console.log("🐕 PetCard received props:", {
+        id,
+        isFavorite,
+        onUnfavorited: !!onUnfavorited,
+        onFavoriteRestored: !!onFavoriteRestored,
+        onUnfavoritedType: typeof onUnfavorited,
+        onUnfavoritedValue: onUnfavorited
+    });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative block overflow-hidden hover:opacity-80",
         children: [
@@ -214,7 +247,7 @@ function PetCard({ id, name, imageUrl, isFavorite = false }) {
                         className: "md:h-48 h-38 w-full object-cover rounded-xl"
                     }, void 0, false, {
                         fileName: "[project]/src/components/pet/PetCard.tsx",
-                        lineNumber: 32,
+                        lineNumber: 42,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -224,40 +257,41 @@ function PetCard({ id, name, imageUrl, isFavorite = false }) {
                             children: name
                         }, void 0, false, {
                             fileName: "[project]/src/components/pet/PetCard.tsx",
-                            lineNumber: 42,
+                            lineNumber: 52,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/pet/PetCard.tsx",
-                        lineNumber: 41,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pet/PetCard.tsx",
-                lineNumber: 30,
+                lineNumber: 40,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-2 right-2",
-                onClick: handleFavoriteClick,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$FavoriteButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     petId: id,
-                    initiallyFav: isFavorite
+                    initiallyFav: isFavorite,
+                    onUnfavorited: onUnfavorited,
+                    onFavoriteRestored: onFavoriteRestored
                 }, void 0, false, {
                     fileName: "[project]/src/components/pet/PetCard.tsx",
-                    lineNumber: 47,
+                    lineNumber: 58,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/pet/PetCard.tsx",
-                lineNumber: 46,
+                lineNumber: 57,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/pet/PetCard.tsx",
-        lineNumber: 29,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }

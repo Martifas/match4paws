@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import FavoriteButton from '../ui/buttons/FavoriteButton';
+import Link from "next/link";
+import Image from "next/image";
+import FavoriteButton from "../ui/buttons/FavoriteButton";
 
 type Props = {
   id: string;
@@ -12,6 +12,8 @@ type Props = {
   size: string;
   imageUrl: string | null;
   isFavorite?: boolean;
+  onUnfavorited?: (petId: string) => void;
+  onFavoriteRestored?: (petId: string) => void;
 };
 
 export default function PetCard({
@@ -19,12 +21,9 @@ export default function PetCard({
   name,
   imageUrl,
   isFavorite = false,
+  onUnfavorited,
+  onFavoriteRestored,
 }: Props) {
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   return (
     <div className="relative block overflow-hidden hover:opacity-80">
       <Link href={`/pet/${id}`}>
@@ -43,8 +42,13 @@ export default function PetCard({
         </div>
       </Link>
 
-      <div className="absolute top-2 right-2" onClick={handleFavoriteClick}>
-        <FavoriteButton petId={id} initiallyFav={isFavorite} />
+      <div className="absolute top-2 right-2">
+        <FavoriteButton
+          petId={id}
+          initiallyFav={isFavorite}
+          onUnfavorited={onUnfavorited}
+          onFavoriteRestored={onFavoriteRestored}
+        />
       </div>
     </div>
   );

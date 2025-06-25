@@ -288,7 +288,7 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function getUserFromSession(req) {
-    const session = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth0$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["auth0"].getSession(req);
+    const session = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth0$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["auth0"].getSession();
     if (!session?.user?.sub) {
         return null;
     }

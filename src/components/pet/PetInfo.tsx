@@ -38,7 +38,7 @@ export default async function PetInfo({ id }: { id: string }) {
     <div className="flex flex-col h-screen bg-white">
       <div className="flex flex-col h-1/2 max-h-[50vh] flex-shrink-0">
         <Header
-          left={<BackButton />}
+          left={<BackButton smartNavigation />}
           center={<h1 className="text-lg font-semibold">Pet Details</h1>}
         />
 

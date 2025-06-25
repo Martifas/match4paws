@@ -1,9 +1,9 @@
-import PetCard from '@/components/pet/PetCard';
-import Header from '../ui/containers/Header';
-import BackButton from '../ui/buttons/BackButton';
-import SearchButton from '../ui/buttons/SearchButton';
-import { searchPets } from '@/lib/queries/pets';
-import { PetFilters } from '@/lib/types/pets';
+import PetCard from "@/components/pet/PetCard";
+import Header from "../ui/containers/Header";
+import BackButton from "../ui/buttons/BackButton";
+import SearchButton from "../ui/buttons/SearchButton";
+import { searchPets } from "@/lib/queries/pets";
+import { PetFilters } from "@/lib/types/pets";
 
 export default async function SearchResults(filters: PetFilters) {
   const pets = await searchPets(filters);
@@ -11,7 +11,7 @@ export default async function SearchResults(filters: PetFilters) {
   return (
     <>
       <Header
-        left={<BackButton />}
+        left={<BackButton smartNavigation />}
         center={
           <h1 className="text-lg font-semibold tracking-wide select-none">
             Search results
@@ -22,7 +22,7 @@ export default async function SearchResults(filters: PetFilters) {
       {pets.length > 0 && (
         <div className="max-w-xl mx-auto flex">
           <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-3 py-6">
-            {pets.map(p => (
+            {pets.map((p) => (
               <PetCard
                 key={p.id}
                 id={p.id}

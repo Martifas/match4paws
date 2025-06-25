@@ -1,5 +1,7 @@
-import { Suspense } from 'react';
-import SearchResults from '@/components/search/SearchResults';
+import { Suspense } from "react";
+import SearchResults from "@/components/search/SearchResults";
+import BottomBar from "@/components/ui/containers/BottomBar";
+import NavigationBar from "@/components/navigationBar/NavigationBar";
 
 export default async function SearchResultsPage({
   searchParams,
@@ -20,6 +22,9 @@ export default async function SearchResultsPage({
       <Suspense fallback={<p className="text-center py-10">Loading…</p>}>
         <SearchResults {...filters} />
       </Suspense>
+      <BottomBar alwaysSticky>
+        <NavigationBar />
+      </BottomBar>
     </>
   );
 }
