@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/components/pet/PetCard.tsx"],"sourcesContent":["\"use client\";\n\nimport Link from \"next/link\";\nimport Image from \"next/image\";\n\ntype Props = {\n  id: string;\n  name: string;\n  age: string;\n  breed: string | null;\n  size: string;\n  imageUrl: string | null;\n};\n\nexport default function PetCard({ id, name, imageUrl }: Props) {\n  return (\n    <Link\n      href={`/pet/${id}`}\n      className=\"block overflow-hidden hover:opacity-80\"\n    >\n      {imageUrl && (\n        <Image\n          src={imageUrl}\n          alt={name}\n          width={400}\n          height={300}\n          className=\"md:h-48 h-38 w-full object-cover rounded-xl\"\n        />\n      )}\n\n      <div className=\"p-4 space-y-1\">\n        <h3 className=\"font-semibold text-lg\">{name}</h3>\n      </div>\n    </Link>\n  );\n}\n"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAce,SAAS,QAAQ,EAAE,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAS;IAC3D,qBACE,6LAAC,+JAAA,CAAA,UAAI;QACH,MAAM,CAAC,KAAK,EAAE,IAAI;QAClB,WAAU;;YAET,0BACC,6LAAC,gIAAA,CAAA,UAAK;gBACJ,KAAK;gBACL,KAAK;gBACL,OAAO;gBACP,QAAQ;gBACR,WAAU;;;;;;0BAId,6LAAC;gBAAI,WAAU;0BACb,cAAA,6LAAC;oBAAG,WAAU;8BAAyB;;;;;;;;;;;;;;;;;AAI/C;KArBwB","debugId":null}}]
-}

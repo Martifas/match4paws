@@ -14,32 +14,43 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$FavoriteBorderOutlined$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/FavoriteBorderOutlined.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-'use client';
+"use client";
 ;
 ;
 ;
-function FavoriteButton({ petId, initiallyFav }) {
+function FavoriteButton({ petId, initiallyFav, onUnfavorited, onFavoriteRestored }) {
     _s();
     const [isFavorite, setIsFavorite] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initiallyFav);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const handleClick = async ()=>{
+    const handleClick = async (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
         setIsLoading(true);
         const newFavoriteState = !isFavorite;
+        const previousFavoriteState = isFavorite;
+        setIsFavorite(newFavoriteState);
+        if (!newFavoriteState && onUnfavorited) {
+            onUnfavorited(petId);
+        }
         try {
-            const response = await fetch('/api/favorites', {
-                method: newFavoriteState ? 'POST' : 'DELETE',
+            const response = await fetch("/api/favorites", {
+                method: newFavoriteState ? "POST" : "DELETE",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     petId
                 })
             });
-            if (response.ok) {
-                setIsFavorite(newFavoriteState);
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status}`);
             }
         } catch (error) {
-            console.error('Failed to update favorite:', error);
+            console.error("Failed to update favorite:", error);
+            setIsFavorite(previousFavoriteState);
+            if (!newFavoriteState && onFavoriteRestored) {
+                onFavoriteRestored(petId);
+            }
         } finally{
             setIsLoading(false);
         }
@@ -48,37 +59,37 @@ function FavoriteButton({ petId, initiallyFav }) {
         onClick: handleClick,
         disabled: isLoading,
         className: `
-        p-2 rounded-full transition-all duration-200
-        ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}
-        ${!isLoading ? 'hover:bg-orange-200' : ''}
+        p-2 rounded-full transition-all duration-200 z-10 relative
+        ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}
+        ${!isLoading ? "hover:bg-orange-200" : ""}
       `,
         style: {
-            color: '#ed9426',
-            backgroundColor: isFavorite ? 'rgba(237, 148, 38, 0.15)' : 'transparent'
+            color: "#ed9426",
+            backgroundColor: isFavorite ? "rgba(237, 148, 38, 0.15)" : "transparent"
         },
         onMouseEnter: (e)=>{
             if (!isLoading) {
-                e.currentTarget.style.backgroundColor = 'rgba(237, 148, 38, 0.3)';
+                e.currentTarget.style.backgroundColor = "rgba(237, 148, 38, 0.3)";
             }
         },
         onMouseLeave: (e)=>{
             if (!isLoading) {
-                e.currentTarget.style.backgroundColor = isFavorite ? 'rgba(237, 148, 38, 0.15)' : 'transparent';
+                e.currentTarget.style.backgroundColor = isFavorite ? "rgba(237, 148, 38, 0.15)" : "transparent";
             }
         },
-        "aria-label": isFavorite ? 'Remove from favorites' : 'Add to favorites',
+        "aria-label": isFavorite ? "Remove from favorites" : "Add to favorites",
         children: isFavorite ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Favorite$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-            lineNumber: 66,
+            lineNumber: 89,
             columnNumber: 21
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$FavoriteBorderOutlined$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-            lineNumber: 66,
+            lineNumber: 89,
             columnNumber: 40
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/ui/buttons/FavoriteButton.tsx",
-        lineNumber: 38,
+        lineNumber: 61,
         columnNumber: 5
     }, this);
 }
@@ -102,16 +113,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$FavoriteButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/buttons/FavoriteButton.tsx [app-client] (ecmascript)");
-'use client';
+"use client";
 ;
 ;
 ;
 ;
-function PetCard({ id, name, imageUrl, isFavorite = false }) {
-    const handleFavoriteClick = (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-    };
+function PetCard({ id, name, imageUrl, isFavorite = false, onUnfavorited, onFavoriteRestored }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative block overflow-hidden hover:opacity-80",
         children: [
@@ -126,7 +133,7 @@ function PetCard({ id, name, imageUrl, isFavorite = false }) {
                         className: "md:h-48 h-38 w-full object-cover rounded-xl"
                     }, void 0, false, {
                         fileName: "[project]/src/components/pet/PetCard.tsx",
-                        lineNumber: 32,
+                        lineNumber: 31,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -136,40 +143,41 @@ function PetCard({ id, name, imageUrl, isFavorite = false }) {
                             children: name
                         }, void 0, false, {
                             fileName: "[project]/src/components/pet/PetCard.tsx",
-                            lineNumber: 42,
+                            lineNumber: 41,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/pet/PetCard.tsx",
-                        lineNumber: 41,
+                        lineNumber: 40,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pet/PetCard.tsx",
-                lineNumber: 30,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-2 right-2",
-                onClick: handleFavoriteClick,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$FavoriteButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                     petId: id,
-                    initiallyFav: isFavorite
+                    initiallyFav: isFavorite,
+                    onUnfavorited: onUnfavorited,
+                    onFavoriteRestored: onFavoriteRestored
                 }, void 0, false, {
                     fileName: "[project]/src/components/pet/PetCard.tsx",
-                    lineNumber: 47,
+                    lineNumber: 46,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/pet/PetCard.tsx",
-                lineNumber: 46,
+                lineNumber: 45,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/pet/PetCard.tsx",
-        lineNumber: 29,
+        lineNumber: 28,
         columnNumber: 5
     }, this);
 }
@@ -249,19 +257,27 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-'use client';
+"use client";
 ;
 ;
 ;
-function BackButton({ to, hidden, className, onClick, ...buttonProps }) {
+function BackButton({ to, hidden, className, onClick, smartNavigation = false, ...buttonProps }) {
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     if (hidden) return null;
     const handleClick = ()=>{
         if (onClick) {
             onClick();
         } else if (to) {
             router.push(to);
+        } else if (smartNavigation) {
+            const referrer = document.referrer;
+            if (referrer.includes("/favorites") || pathname.startsWith("/pet/")) {
+                router.push("/favorites?refresh=" + Date.now());
+            } else {
+                router.back();
+            }
         } else {
             router.back();
         }
@@ -269,24 +285,25 @@ function BackButton({ to, hidden, className, onClick, ...buttonProps }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
         type: "button",
         onClick: handleClick,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])('text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold', className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold", className),
         ...buttonProps,
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$ArrowBack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
             fontSize: "large"
         }, void 0, false, {
             fileName: "[project]/src/components/ui/buttons/BackButton.tsx",
-            lineNumber: 46,
+            lineNumber: 57,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/ui/buttons/BackButton.tsx",
-        lineNumber: 37,
+        lineNumber: 48,
         columnNumber: 5
     }, this);
 }
-_s(BackButton, "fN7XvhJ+p5oE6+Xlo0NJmXpxjC8=", false, function() {
+_s(BackButton, "gA9e4WsoP6a20xDgQgrFkfMP8lc=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = BackButton;

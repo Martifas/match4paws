@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///home/mgrumadas/projects/match4paws/src/components/ui/container/Container.tsx"],"sourcesContent":["\"use client\";\n\nimport CssBaseline from \"@mui/material/CssBaseline\";\nimport Container from \"@mui/material/Container\";\nimport { ReactNode } from \"react\";\n\ninterface SimpleContainerProps {\n  children: ReactNode;\n}\n\nexport default function SimpleContainer({ children }: SimpleContainerProps) {\n  return (\n    <>\n      <CssBaseline />\n      <Container\n        maxWidth=\"md\"\n        disableGutters\n        sx={{\n          height: \"100vh\",\n          display: \"flex\",\n          flexDirection: \"column\",\n          backgroundColor: \"white\",\n        }}\n      >\n        {children}\n      </Container>\n    </>\n  );\n}\n"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAUe,SAAS,gBAAgB,EAAE,QAAQ,EAAwB;IACxE,qBACE;;0BACE,8OAAC,sKAAA,CAAA,UAAW;;;;;0BACZ,8OAAC,kKAAA,CAAA,UAAS;gBACR,UAAS;gBACT,cAAc;gBACd,IAAI;oBACF,QAAQ;oBACR,SAAS;oBACT,eAAe;oBACf,iBAAiB;gBACnB;0BAEC;;;;;;;;AAIT","debugId":null}}]
-}
