@@ -1,4 +1,4 @@
-import PetCard from "@/components/pet/PetCard";
+import PetCard from "@/components/pet/petInfo/PetCard";
 import Header from "../ui/containers/Header";
 import BackButton from "../ui/buttons/BackButton";
 import SearchButton from "../ui/buttons/SearchButton";
