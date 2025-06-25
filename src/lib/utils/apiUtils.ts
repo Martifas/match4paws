@@ -7,7 +7,7 @@ import { getUserByAuth0Id } from "@/lib/queries/users";
 export async function getUserFromSession(
   req?: NextRequest
 ): Promise<string | null> {
-  const session = await auth0.getSession(req);
+  const session = await auth0.getSession();
 
   if (!session?.user?.sub) {
     return null;

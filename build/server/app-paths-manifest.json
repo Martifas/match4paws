@@ -1,5 +1,7 @@
 {
   "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
+  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
+  "/api/favorites/route": "app/api/favorites/route.js",
   "/pet/[id]/page": "app/pet/[id]/page.js",
   "/search/page": "app/search/page.js",
   "/searchresults/page": "app/searchresults/page.js"

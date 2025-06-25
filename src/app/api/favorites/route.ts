@@ -1,5 +1,9 @@
 import { NextRequest } from "next/server";
-import { addFavorite, removeFavorite } from "@/lib/queries/favorites";
+import {
+  addFavorite,
+  removeFavorite,
+  getUserFavoritedPets,
+} from "@/lib/queries/favorites";
 import {
   getUserFromSession,
   createErrorResponse,
@@ -10,6 +14,22 @@ import {
 type FavoriteRequestBody = {
   petId: string;
 };
+
+export async function GET() {
+  try {
+    const userId = await getUserFromSession();
+    if (!userId) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
+    const favoritedPets = await getUserFavoritedPets(userId);
+
+    return createSuccessResponse({ pets: favoritedPets });
+  } catch (error) {
+    console.error("Error fetching favorites:", error);
+    return createErrorResponse("Internal server error", 500);
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     const { petId } = bodyOrError;
 
-    const userId = await getUserFromSession(req);
+    const userId = await getUserFromSession();
     if (!userId) {
       return createErrorResponse("Unauthorized", 401);
     }
@@ -47,7 +67,7 @@ export async function DELETE(req: NextRequest) {
 
     const { petId } = bodyOrError;
 
-    const userId = await getUserFromSession(req);
+    const userId = await getUserFromSession();
     if (!userId) {
       return createErrorResponse("Unauthorized", 401);
     }
