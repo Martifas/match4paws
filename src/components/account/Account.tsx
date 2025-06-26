@@ -1,18 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import {
-  Box,
-  Typography,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Avatar,
-  Paper,
-} from '@mui/material';
-import { ChevronRight } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 import { ACCOUNT_MENU_ITEMS } from '@/lib/constants/accountMenu';
 import useUserProfile from '@/hooks/useUserProfile';
+import AccountInfoCard from './AccountInfoCard';
+import AcccountMenuList from './AccountMenuList';
+import AccountHeader from './AccountHeader';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -46,84 +40,11 @@ export default function AccountPage() {
 
   return (
     <Box sx={{ maxWidth: 600, mx: 'auto', p: 2 }}>
-      <Box textAlign="center" mb={3}>
-        <Typography variant="h4" fontWeight="bold" gutterBottom>
-          Account
-        </Typography>
-      </Box>
+      <AccountHeader title="Account" />
 
-      <Paper sx={{ p: 3, mb: 3, textAlign: 'center' }}>
-        <Avatar
-          sx={{
-            width: 80,
-            height: 80,
-            mx: 'auto',
-            mb: 2,
-            bgcolor: '#ed9426',
-            fontSize: '2rem',
-          }}
-        >
-          {user.name?.charAt(0)?.toUpperCase() || 'U'}
-        </Avatar>
+      <AccountInfoCard user={user} />
 
-        <Typography variant="h5" fontWeight="bold" gutterBottom>
-          {user.name || 'User'}
-        </Typography>
-
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          {user.userType === 'petOwner' ? 'Pet Owner' : 'Pet Adopter'}
-        </Typography>
-
-        {user.email && (
-          <Typography variant="body2" color="text.secondary">
-            {user.email}
-          </Typography>
-        )}
-      </Paper>
-
-      <Box sx={{ mt: 2 }}>
-        {menuItems.map(item => (
-          <Paper key={item.id} sx={{ mb: 2 }}>
-            <ListItem
-              onClick={item.onClick}
-              sx={{
-                cursor: 'pointer',
-                py: 3,
-                px: 3,
-                borderRadius: 1,
-                '&:hover': {
-                  backgroundColor: 'action.hover',
-                },
-                ...(item.isDanger && {
-                  color: 'error.main',
-                  '&:hover': {
-                    backgroundColor: 'error.light',
-                    color: 'error.dark',
-                  },
-                }),
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  color: item.isDanger ? 'error.main' : 'inherit',
-                  minWidth: 40,
-                }}
-              >
-                <item.IconComponent />
-              </ListItemIcon>
-
-              <ListItemText
-                primary={item.label}
-                primaryTypographyProps={{
-                  fontWeight: 500,
-                }}
-              />
-
-              {!item.isDanger && <ChevronRight color="action" />}
-            </ListItem>
-          </Paper>
-        ))}
-      </Box>
+      <AcccountMenuList items={menuItems} />
     </Box>
   );
 }
