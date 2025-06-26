@@ -1,11 +1,4 @@
-export type UserType = "petOwner" | "adopter";
-
-export type Gender =
-  | "male"
-  | "female"
-  | "other"
-  | "non-binary"
-  | "prefer-not-to-say";
+export type UserType = 'petOwner' | 'adopter';
 
 export type OnboardingFormData = {
   userType: UserType | null;
@@ -14,7 +7,6 @@ export type OnboardingFormData = {
   name?: string;
   email?: string;
   phone?: string;
-  gender?: Gender;
   location?: string;
 };
 
@@ -27,7 +19,6 @@ export type UpdateOnboardingRequest = {
   userId: string;
   name?: string;
   phone?: string;
-  gender?: Gender;
   userType?: UserType;
   preferredAnimalTypes?: string[];
 };

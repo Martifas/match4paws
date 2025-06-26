@@ -564,7 +564,6 @@ var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "ANIMAL_TYPES": (()=>ANIMAL_TYPES),
-    "GENDER_OPTIONS": (()=>GENDER_OPTIONS),
     "ONBOARDING_STEPS": (()=>ONBOARDING_STEPS),
     "USER_TYPES": (()=>USER_TYPES)
 });
@@ -574,53 +573,35 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$CatIcon$2e$
 ;
 const USER_TYPES = [
     {
-        id: "adopter",
-        label: "Pet Adopter"
+        id: 'adopter',
+        label: 'Pet Adopter'
     },
     {
-        id: "petOwner",
-        label: "Pet Owner or Organization"
+        id: 'petOwner',
+        label: 'Pet Owner or Organization'
     }
 ];
 const ANIMAL_TYPES = [
     {
-        id: "cats",
-        label: "Cats",
+        id: 'cats',
+        label: 'Cats',
         IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$CatIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"]
     },
     {
-        id: "dogs",
-        label: "Dogs",
+        id: 'dogs',
+        label: 'Dogs',
         IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$DogIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"]
-    }
-];
-const GENDER_OPTIONS = [
-    {
-        value: "male",
-        label: "Male"
-    },
-    {
-        value: "female",
-        label: "Female"
-    },
-    {
-        value: "non-binary",
-        label: "Non-binary"
-    },
-    {
-        value: "prefer-not-to-say",
-        label: "Prefer not to say"
     }
 ];
 const ONBOARDING_STEPS = [
     {
-        title: "Tell us about yourself",
-        description: "Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?"
+        title: 'Tell us about yourself',
+        description: 'Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?'
     },
     {
         petOwner: {
-            title: "List Your Animal(s) for Adoption",
-            description: "What type of animal(s) are you looking to place in a loving home? You can add more later."
+            title: 'List Your Animal(s) for Adoption',
+            description: 'What type of animal(s) are you looking to place in a loving home? You can add more later.'
         },
         adopter: {
             title: "Let's Find Your Match",
@@ -628,7 +609,7 @@ const ONBOARDING_STEPS = [
         }
     },
     {
-        title: "Final Steps!",
+        title: 'Final Steps!',
         description: "We're almost there! Fill in your personal details to create a profile and start your journey toward a furry friendship."
     }
 ];
@@ -645,10 +626,6 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TextField$2f$TextField$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TextField$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/TextField/TextField.js [app-ssr] (ecmascript) <export default as TextField>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$FormControl$2f$FormControl$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FormControl$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/FormControl/FormControl.js [app-ssr] (ecmascript) <export default as FormControl>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$InputLabel$2f$InputLabel$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__InputLabel$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/InputLabel/InputLabel.js [app-ssr] (ecmascript) <export default as InputLabel>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$MenuItem$2f$MenuItem$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MenuItem$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/MenuItem/MenuItem.js [app-ssr] (ecmascript) <export default as MenuItem>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Select$2f$Select$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Select$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/Select/Select.js [app-ssr] (ecmascript) <export default as Select>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mui$2d$tel$2d$input$2f$dist$2f$mui$2d$tel$2d$input$2e$es$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/mui-tel-input/dist/mui-tel-input.es.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2f$onboarding$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/constants/onboarding.ts [app-ssr] (ecmascript)");
 ;
@@ -669,17 +646,17 @@ function UserTypeStep({ formData, setFormData }) {
                     children: type.label
                 }, type.id, false, {
                     fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                    lineNumber: 21,
+                    lineNumber: 11,
                     columnNumber: 11
                 }, this))
         }, void 0, false, {
             fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-            lineNumber: 19,
+            lineNumber: 9,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-        lineNumber: 18,
+        lineNumber: 8,
         columnNumber: 5
     }, this);
 }
@@ -710,12 +687,12 @@ function AnimalTypeStep({ formData, setFormData }) {
                                 className: "w-16 h-16",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {}, void 0, false, {
                                     fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 63,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                                lineNumber: 72,
+                                lineNumber: 62,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -723,19 +700,19 @@ function AnimalTypeStep({ formData, setFormData }) {
                                 children: label
                             }, void 0, false, {
                                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                                lineNumber: 75,
+                                lineNumber: 65,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, id, true, {
                         fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                        lineNumber: 63,
+                        lineNumber: 53,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 58,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -743,13 +720,13 @@ function AnimalTypeStep({ formData, setFormData }) {
                 children: "You can select more than one."
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 82,
+                lineNumber: 72,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-        lineNumber: 57,
+        lineNumber: 47,
         columnNumber: 5
     }, this);
 }
@@ -769,7 +746,7 @@ function PersonalDetailsStep({ formData, setFormData }) {
                     })
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 93,
+                lineNumber: 83,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mui$2d$tel$2d$input$2f$dist$2f$mui$2d$tel$2d$input$2e$es$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["MuiTelInput"], {
@@ -784,54 +761,13 @@ function PersonalDetailsStep({ formData, setFormData }) {
                     })
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 102,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$FormControl$2f$FormControl$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FormControl$3e$__["FormControl"], {
-                fullWidth: true,
-                required: true,
-                color: "warning",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$InputLabel$2f$InputLabel$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__InputLabel$3e$__["InputLabel"], {
-                        children: "Gender"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                        lineNumber: 112,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Select$2f$Select$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Select$3e$__["Select"], {
-                        label: "Gender",
-                        value: formData.gender || '',
-                        onChange: (e)=>setFormData({
-                                ...formData,
-                                gender: e.target.value
-                            }),
-                        sx: {
-                            textAlign: 'left'
-                        },
-                        children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2f$onboarding$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["GENDER_OPTIONS"].map((option)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$MenuItem$2f$MenuItem$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MenuItem$3e$__["MenuItem"], {
-                                value: option.value,
-                                children: option.label
-                            }, option.value, false, {
-                                fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                                lineNumber: 125,
-                                columnNumber: 13
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                        lineNumber: 113,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 111,
+                lineNumber: 92,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-        lineNumber: 92,
+        lineNumber: 82,
         columnNumber: 5
     }, this);
 }
@@ -862,7 +798,7 @@ function validateStep(activeStep, formData) {
         case 1:
             return formData.preferredAnimalTypes.length > 0;
         case 2:
-            return !!(formData.name && formData.phone && formData.gender);
+            return !!(formData.name && formData.phone);
         default:
             return true;
     }
