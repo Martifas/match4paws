@@ -1,7 +1,11 @@
 {
   "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
+  "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
   "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
+  "/api/pets/route": "app/api/pets/route.js",
+  "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
   "/api/user/profile/route": "app/api/user/profile/route.js",
+  "/onboarding/page": "app/onboarding/page.js",
   "/pet/[id]/page": "app/pet/[id]/page.js",
   "/search/page": "app/search/page.js",
   "/searchresults/page": "app/searchresults/page.js"

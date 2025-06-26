@@ -1,7 +1,9 @@
+import AccountPage from '@/components/account/Account';
+
 export default function Page() {
   return (
     <>
-      <p>Placeholder for account</p>
+      <AccountPage />
     </>
   );
 }

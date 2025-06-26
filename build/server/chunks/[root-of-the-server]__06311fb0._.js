@@ -229,40 +229,40 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ([__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__);
 ;
 async function getUserByAuth0Id(auth0Id) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("users").select([
-        "id"
-    ]).where("auth0Id", "=", auth0Id).executeTakeFirst() || null;
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('users').select([
+        'id'
+    ]).where('auth0Id', '=', auth0Id).executeTakeFirst() || null;
 }
 async function getUserById(id) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("users").selectAll().where("id", "=", id).executeTakeFirst() || null;
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('users').selectAll().where('id', '=', id).executeTakeFirst() || null;
 }
 async function createUser(auth0Id) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto("users").values({
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto('users').values({
         auth0Id
-    }).onConflict((oc)=>oc.column("auth0Id").doNothing()).execute();
+    }).onConflict((oc)=>oc.column('auth0Id').doNothing()).execute();
 }
 async function updateLastLogin(auth0Id) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable("users").set({
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set({
         lastLoginAt: new Date()
-    }).where("auth0Id", "=", auth0Id).execute();
+    }).where('auth0Id', '=', auth0Id).execute();
 }
 async function getUserOnboardingStatus(auth0Id) {
-    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("users").select([
-        "onboardingCompleted"
-    ]).where("auth0Id", "=", auth0Id).executeTakeFirst();
+    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('users').select([
+        'onboardingCompleted'
+    ]).where('auth0Id', '=', auth0Id).executeTakeFirst();
     return result?.onboardingCompleted ?? false;
 }
 async function updateUserOnboarding(data) {
     const { userId, ...updateData } = data;
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable("users").set({
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set({
         onboardingCompleted: true,
         onboardingCompletedAt: new Date(),
         ...updateData,
         preferredAnimalTypes: updateData.preferredAnimalTypes ? JSON.stringify(updateData.preferredAnimalTypes) : undefined
-    }).where("auth0Id", "=", userId).execute();
+    }).where('auth0Id', '=', userId).execute();
 }
 async function updateUserProfile(userId, updates) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable("users").set(updates).where("id", "=", userId).execute();
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set(updates).where('id', '=', userId).execute();
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
@@ -483,25 +483,24 @@ async function GET() {
     try {
         const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
         if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Unauthorized", 401);
+            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
         }
         const pets = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserPets"])(userId);
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])({
             pets
         });
     } catch (error) {
-        console.error("Error fetching pets:", error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Internal server error", 500);
+        console.error('Error fetching pets:', error);
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
 async function POST(req) {
     try {
         const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
         if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Unauthorized", 401);
+            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
         }
         const body = await req.json();
-        // Extract pet data
         const petData = {
             name: body.name,
             type: body.type,
@@ -511,13 +510,10 @@ async function POST(req) {
             ageGroup: body.ageGroup,
             description: body.description || null
         };
-        // Validate required fields
         if (!petData.name || !petData.type || !petData.gender || !petData.size || !petData.ageGroup) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Missing required fields", 400);
+            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Missing required fields', 400);
         }
-        // Create the pet
         const petId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createPet"])(userId, petData);
-        // Handle image URLs
         const imageUrls = body.imageUrls || [];
         if (imageUrls.length > 0) {
             await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["savePetImageUrls"])(petId, imageUrls);
@@ -526,8 +522,8 @@ async function POST(req) {
             petId
         });
     } catch (error) {
-        console.error("Error creating pet:", error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Internal server error", 500);
+        console.error('Error creating pet:', error);
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
 __turbopack_async_result__();

@@ -24,7 +24,7 @@ export function validateStep(
     case 1:
       return formData.preferredAnimalTypes.length > 0;
     case 2:
-      return !!(formData.name && formData.phone && formData.gender);
+      return !!(formData.name && formData.phone);
     default:
       return true;
   }

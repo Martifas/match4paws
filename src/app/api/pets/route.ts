@@ -1,23 +1,23 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 import {
   createErrorResponse,
   createSuccessResponse,
   getUserFromSession,
-} from "@/lib/utils/apiUtils";
-import { createPet, getUserPets, savePetImageUrls } from "@/lib/queries/pets";
+} from '@/lib/utils/apiUtils';
+import { createPet, getUserPets, savePetImageUrls } from '@/lib/queries/pets';
 
 export async function GET() {
   try {
     const userId = await getUserFromSession();
     if (!userId) {
-      return createErrorResponse("Unauthorized", 401);
+      return createErrorResponse('Unauthorized', 401);
     }
 
     const pets = await getUserPets(userId);
     return createSuccessResponse({ pets });
   } catch (error) {
-    console.error("Error fetching pets:", error);
-    return createErrorResponse("Internal server error", 500);
+    console.error('Error fetching pets:', error);
+    return createErrorResponse('Internal server error', 500);
   }
 }
 
@@ -25,12 +25,11 @@ export async function POST(req: NextRequest) {
   try {
     const userId = await getUserFromSession();
     if (!userId) {
-      return createErrorResponse("Unauthorized", 401);
+      return createErrorResponse('Unauthorized', 401);
     }
 
     const body = await req.json();
 
-    // Extract pet data
     const petData = {
       name: body.name,
       type: body.type,
@@ -41,7 +40,6 @@ export async function POST(req: NextRequest) {
       description: body.description || null,
     };
 
-    // Validate required fields
     if (
       !petData.name ||
       !petData.type ||
@@ -49,13 +47,11 @@ export async function POST(req: NextRequest) {
       !petData.size ||
       !petData.ageGroup
     ) {
-      return createErrorResponse("Missing required fields", 400);
+      return createErrorResponse('Missing required fields', 400);
     }
 
-    // Create the pet
     const petId = await createPet(userId, petData);
 
-    // Handle image URLs
     const imageUrls = body.imageUrls || [];
     if (imageUrls.length > 0) {
       await savePetImageUrls(petId, imageUrls);
@@ -63,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     return createSuccessResponse({ petId });
   } catch (error) {
-    console.error("Error creating pet:", error);
-    return createErrorResponse("Internal server error", 500);
+    console.error('Error creating pet:', error);
+    return createErrorResponse('Internal server error', 500);
   }
 }

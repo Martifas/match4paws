@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -15,9 +15,11 @@ import {
   IconButton,
   Menu,
   MenuItem,
-} from "@mui/material";
-import { Add, MoreVert, Edit, Delete, Visibility } from "@mui/icons-material";
-import AddPetModal from "./AddPetModal";
+} from '@mui/material';
+import { Add, MoreVert, Edit, Delete, Visibility } from '@mui/icons-material';
+import AddPetModal from './AddPetModal';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
+import { getStatusColor, truncateText } from '@/lib/utils/petUtils';
 
 type Pet = {
   id: string;
@@ -34,7 +36,7 @@ type Pet = {
 };
 
 type PetManagementSectionProps = {
-  userType: "petOwner" | "adopter" | null;
+  userType: 'petOwner' | 'adopter' | null;
 };
 
 export default function PetManagementSection({
@@ -47,47 +49,42 @@ export default function PetManagementSection({
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchPets();
-  }, []);
+    if (userType === 'petOwner') {
+      fetchPets();
+    } else {
+      setIsLoading(false);
+    }
+  }, [userType]);
 
-  if (userType !== "petOwner") {
+  if (userType !== 'petOwner') {
     return null;
   }
 
   const fetchPets = async () => {
     try {
-      const response = await fetch("/api/pets");
+      const response = await fetch('/api/pets');
       if (response.ok) {
         const data = await response.json();
         setPets(data.pets || []);
       }
     } catch (error) {
-      console.error("Error fetching pets:", error);
+      console.error('Error fetching pets:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleAddPet = async (petData: any) => {
-    const formData = new FormData();
-
-    Object.keys(petData).forEach((key) => {
-      if (key !== "images") {
-        formData.append(key, petData[key]);
-      }
-    });
-
-    petData.images.forEach((image: File) => {
-      formData.append(`images`, image);
-    });
-
-    const response = await fetch("/api/pets", {
-      method: "POST",
-      body: formData,
+    const response = await fetch('/api/pets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(petData),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to add pet");
+      throw new Error('Failed to add pet');
     }
 
     fetchPets();
@@ -111,30 +108,17 @@ export default function PetManagementSection({
 
     try {
       const response = await fetch(`/api/pets/${selectedPetId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
 
       if (response.ok) {
         fetchPets();
       }
     } catch (error) {
-      console.error("Error deleting pet:", error);
+      console.error('Error deleting pet:', error);
     }
 
     handleMenuClose();
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "available":
-        return "success";
-      case "pending":
-        return "warning";
-      case "adopted":
-        return "default";
-      default:
-        return "default";
-    }
   };
 
   if (isLoading) {
@@ -152,42 +136,40 @@ export default function PetManagementSection({
         <Typography variant="h5" fontWeight="bold">
           My Pets
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<Add />}
-          onClick={() => setIsModalOpen(true)}
-          sx={{
-            backgroundColor: "#ed9426",
-            "&:hover": { backgroundColor: "#d4841f" },
-          }}
-        >
-          Add Pet
-        </Button>
+        <div className="w-auto">
+          <PrimaryButton
+            onClick={() => setIsModalOpen(true)}
+            fullWidth={false}
+            className="flex items-center gap-2 px-4 py-2"
+          >
+            <Add fontSize="small" />
+            Add Pet
+          </PrimaryButton>
+        </div>
       </Box>
 
       {pets.length === 0 ? (
-        <Card sx={{ p: 4, textAlign: "center" }}>
+        <Card sx={{ p: 4, textAlign: 'center' }}>
           <Typography variant="h6" color="text.secondary" gutterBottom>
             No pets added yet
           </Typography>
           <Typography variant="body2" color="text.secondary" mb={2}>
             Start by adding your first pet to help them find loving homes
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<Add />}
-            onClick={() => setIsModalOpen(true)}
-            sx={{
-              backgroundColor: "#ed9426",
-              "&:hover": { backgroundColor: "#d4841f" },
-            }}
-          >
-            Add Your First Pet
-          </Button>
+          <div className="flex justify-center">
+            <PrimaryButton
+              onClick={() => setIsModalOpen(true)}
+              fullWidth={false}
+              className="flex items-center gap-2 px-4 py-2"
+            >
+              <Add fontSize="small" />
+              Add Your First Pet
+            </PrimaryButton>
+          </div>
         </Card>
       ) : (
         <Grid container spacing={3}>
-          {pets.map((pet) => (
+          {pets.map(pet => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={pet.id}>
               <Card>
                 {pet.images.length > 0 && (
@@ -209,7 +191,7 @@ export default function PetManagementSection({
                     </Typography>
                     <IconButton
                       size="small"
-                      onClick={(e) => handleMenuOpen(e, pet.id)}
+                      onClick={e => handleMenuOpen(e, pet.id)}
                     >
                       <MoreVert />
                     </IconButton>
@@ -235,9 +217,7 @@ export default function PetManagementSection({
 
                   {pet.description && (
                     <Typography variant="body2" color="text.secondary">
-                      {pet.description.length > 100
-                        ? `${pet.description.substring(0, 100)}...`
-                        : pet.description}
+                      {truncateText(pet.description, 100)}
                     </Typography>
                   )}
                 </CardContent>
@@ -264,7 +244,7 @@ export default function PetManagementSection({
           <Edit fontSize="small" sx={{ mr: 1 }} />
           Edit
         </MenuItem>
-        <MenuItem onClick={handleDeletePet} sx={{ color: "error.main" }}>
+        <MenuItem onClick={handleDeletePet} sx={{ color: 'error.main' }}>
           <Delete fontSize="small" sx={{ mr: 1 }} />
           Delete
         </MenuItem>

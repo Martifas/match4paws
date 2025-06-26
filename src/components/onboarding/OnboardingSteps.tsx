@@ -1,16 +1,6 @@
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
+import { TextField } from '@mui/material';
 import { MuiTelInput } from 'mui-tel-input';
-import {
-  USER_TYPES,
-  ANIMAL_TYPES,
-  GENDER_OPTIONS,
-} from '@/lib/constants/onboarding';
+import { USER_TYPES, ANIMAL_TYPES } from '@/lib/constants/onboarding';
 import { OnboardingStepProps } from '@/lib/types/onboarding';
 
 export function UserTypeStep({ formData, setFormData }: OnboardingStepProps) {
@@ -107,27 +97,6 @@ export function PersonalDetailsStep({
         value={formData.phone || ''}
         onChange={newValue => setFormData({ ...formData, phone: newValue })}
       />
-
-      <FormControl fullWidth required color="warning">
-        <InputLabel>Gender</InputLabel>
-        <Select
-          label="Gender"
-          value={formData.gender || ''}
-          onChange={e =>
-            setFormData({
-              ...formData,
-              gender: e.target.value as typeof formData.gender,
-            })
-          }
-          sx={{ textAlign: 'left' }}
-        >
-          {GENDER_OPTIONS.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
     </div>
   );
 }

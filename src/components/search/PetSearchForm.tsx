@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import ToggleChip, { ToggleValue } from "../ui/buttons/ToggleChip";
-import Header from "../ui/containers/Header";
-import BackButton from "../ui/buttons/BackButton";
-import PrimaryButton from "../ui/buttons/PrimaryButton";
-import BottomBar from "../ui/containers/BottomBar";
-import { AGES, GENDERS, PET_TYPES, SIZES } from "@/lib/constants/petSearch";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import ToggleChip, { ToggleValue } from '../ui/buttons/ToggleChip';
+import Header from '../ui/containers/Header';
+import BackButton from '../ui/buttons/BackButton';
+import PrimaryButton from '../ui/buttons/PrimaryButton';
+import BottomBar from '../ui/containers/BottomBar';
+import { AGES, GENDERS, PET_TYPES, SIZES } from '@/lib/constants/pet';
 
 export default function PetSearchForm() {
   const router = useRouter();
@@ -17,14 +17,14 @@ export default function PetSearchForm() {
   const [size, setSize] = useState<ToggleValue<typeof SIZES>>(null);
   const [age, setAge] = useState<ToggleValue<typeof AGES>>(null);
 
-  const back = "/";
+  const back = '/';
 
   const handleSubmit = () => {
     const params = new URLSearchParams();
-    if (petType) params.set("type", petType);
-    if (gender && gender !== "any") params.set("gender", gender);
-    if (size) params.set("size", size);
-    if (age) params.set("age", age);
+    if (petType) params.set('type', petType);
+    if (gender && gender !== 'any') params.set('gender', gender);
+    if (size) params.set('size', size);
+    if (age) params.set('age', age);
 
     router.push(`/searchresults?${params.toString()}`);
   };
@@ -46,8 +46,8 @@ export default function PetSearchForm() {
             items={PET_TYPES}
             selected={petType}
             onChange={setPetType}
-            getId={(p) => p.id.toLowerCase()}
-            render={(p) => (
+            getId={p => p.id.toLowerCase()}
+            render={p => (
               <span className="flex h-5 items-center gap-1">
                 <p.IconComponent />
                 <span>{p.label}</span>
@@ -64,7 +64,7 @@ export default function PetSearchForm() {
             items={GENDERS}
             selected={gender}
             onChange={setGender}
-            render={(g) => g.label}
+            render={g => g.label}
           />
         </section>
 
@@ -76,7 +76,7 @@ export default function PetSearchForm() {
             items={SIZES}
             selected={size}
             onChange={setSize}
-            render={(s) => s.label}
+            render={s => s.label}
           />
         </section>
 
@@ -88,7 +88,7 @@ export default function PetSearchForm() {
             items={AGES}
             selected={age}
             onChange={setAge}
-            render={(a) => a.label}
+            render={a => a.label}
           />
         </section>
 

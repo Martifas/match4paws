@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -10,13 +10,13 @@ import {
   Grid,
   IconButton,
   Box,
-} from "@mui/material";
-import { Close } from "@mui/icons-material";
-import { AGES, GENDERS, PET_TYPES, SIZES } from "@/lib/constants/petSearch";
-import { FormSelect } from "@/components/ui/forms/FormSelect";
-import { ImageUrlManager } from "@/components/ui/forms/ImageUrlManager";
-import { usePetForm, PetFormData } from "@/hooks/usePetForm";
-import PrimaryButton from "@/components/ui/buttons/PrimaryButton";
+} from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { AGES, GENDERS, PET_TYPES, SIZES } from '@/lib/constants/pet';
+import { FormSelect } from '@/components/ui/forms/FormSelect';
+import { ImageUrlManager } from '@/components/ui/forms/ImageUrlManager';
+import { usePetForm, PetFormData } from '@/hooks/usePetForm';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
 
 type AddPetModalProps = {
   open: boolean;
@@ -57,7 +57,7 @@ export default function AddPetModal({
                 fullWidth
                 label="Pet Name"
                 value={formData.name}
-                onChange={(e) => updateField("name", e.target.value)}
+                onChange={e => updateField('name', e.target.value)}
               />
             </Grid>
 
@@ -65,7 +65,7 @@ export default function AddPetModal({
               <FormSelect
                 label="Type"
                 value={formData.type}
-                onChange={(value) => updateField("type", value)}
+                onChange={value => updateField('type', value)}
                 options={PET_TYPES}
                 required
               />
@@ -76,7 +76,7 @@ export default function AddPetModal({
                 fullWidth
                 label="Breed"
                 value={formData.breed}
-                onChange={(e) => updateField("breed", e.target.value)}
+                onChange={e => updateField('breed', e.target.value)}
                 placeholder="e.g., Golden Retriever, Persian"
               />
             </Grid>
@@ -85,7 +85,7 @@ export default function AddPetModal({
               <FormSelect
                 label="Gender"
                 value={formData.gender}
-                onChange={(value) => updateField("gender", value)}
+                onChange={value => updateField('gender', value)}
                 options={GENDERS}
                 required
               />
@@ -95,7 +95,7 @@ export default function AddPetModal({
               <FormSelect
                 label="Size"
                 value={formData.size}
-                onChange={(value) => updateField("size", value)}
+                onChange={value => updateField('size', value)}
                 options={SIZES}
                 required
               />
@@ -105,7 +105,7 @@ export default function AddPetModal({
               <FormSelect
                 label="Age Group"
                 value={formData.ageGroup}
-                onChange={(value) => updateField("ageGroup", value)}
+                onChange={value => updateField('ageGroup', value)}
                 options={AGES}
                 required
               />
@@ -118,7 +118,7 @@ export default function AddPetModal({
                 rows={4}
                 label="Description"
                 value={formData.description}
-                onChange={(e) => updateField("description", e.target.value)}
+                onChange={e => updateField('description', e.target.value)}
                 placeholder="Tell potential adopters about this pet's personality, habits, medical needs, etc."
               />
             </Grid>
@@ -126,7 +126,7 @@ export default function AddPetModal({
             <Grid size={{ xs: 12 }}>
               <ImageUrlManager
                 imageUrls={formData.imageUrls}
-                onUrlsChange={(urls) => updateField("imageUrls", urls)}
+                onUrlsChange={urls => updateField('imageUrls', urls)}
               />
             </Grid>
           </Grid>
@@ -140,7 +140,7 @@ export default function AddPetModal({
             fullWidth={false}
             className="px-6"
           >
-            {isSubmitting ? "Adding Pet..." : "Add Pet"}
+            {isSubmitting ? 'Adding Pet...' : 'Add Pet'}
           </PrimaryButton>
         </DialogActions>
       </form>

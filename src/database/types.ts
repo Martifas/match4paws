@@ -56,7 +56,6 @@ export interface Pets {
 export interface Users {
   auth0Id: string;
   createdAt: Generated<Timestamp>;
-  gender: string | null;
   id: Generated<string>;
   lastLoginAt: Timestamp | null;
   name: string | null;
