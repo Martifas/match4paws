@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import { ReactNode } from "react";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import { ReactNode } from 'react';
 
 interface SimpleContainerProps {
   children: ReactNode;
@@ -16,10 +16,10 @@ export default function SimpleContainer({ children }: SimpleContainerProps) {
         maxWidth="md"
         disableGutters
         sx={{
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "white",
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'white',
         }}
       >
         {children}

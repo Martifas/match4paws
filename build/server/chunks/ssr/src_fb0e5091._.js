@@ -1262,7 +1262,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$authProvider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/authProvider.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$pet$2f$petModal$2f$AddPetModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/pet/petModal/AddPetModal.tsx [app-ssr] (ecmascript)");
-"use client";
+'use client';
 ;
 ;
 ;
@@ -1284,10 +1284,10 @@ function NavigationBar() {
     const [isAddPetModalOpen, setIsAddPetModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const routes = [
-        "/",
-        "/favorites",
-        "/messages",
-        "/account"
+        '/',
+        '/favorites',
+        '/messages',
+        '/account'
     ];
     const current = Math.max(routes.indexOf(pathname), 0);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -1297,13 +1297,13 @@ function NavigationBar() {
                 return;
             }
             try {
-                const response = await fetch("/api/user/profile");
+                const response = await fetch('/api/user/profile');
                 if (response.ok) {
                     const userData = await response.json();
                     setUser(userData.user);
                 }
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error('Error fetching user data:', error);
             } finally{
                 setIsLoading(false);
             }
@@ -1313,22 +1313,22 @@ function NavigationBar() {
         authUser?.id
     ]);
     const handleAddPet = async (petData)=>{
-        const response = await fetch("/api/pets", {
-            method: "POST",
+        const response = await fetch('/api/pets', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(petData)
         });
         if (!response.ok) {
-            throw new Error("Failed to add pet");
+            throw new Error('Failed to add pet');
         }
-        router.push("/");
+        router.push('/');
     };
     if (isLoading || !authUser?.id) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
             sx: {
-                width: "100%",
+                width: '100%',
                 maxWidth: (theme)=>theme.breakpoints.values.md
             },
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigation$2f$BottomNavigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1336,7 +1336,7 @@ function NavigationBar() {
                 value: current,
                 onChange: (_, i)=>router.push(routes[i]),
                 sx: {
-                    width: "100%"
+                    width: '100%'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$BottomNavigationAction$2f$BottomNavigationAction$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1401,8 +1401,8 @@ function NavigationBar() {
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
         sx: {
-            position: "relative",
-            width: "100%",
+            position: 'relative',
+            width: '100%',
             maxWidth: (theme)=>theme.breakpoints.values.md
         },
         children: [
@@ -1411,14 +1411,14 @@ function NavigationBar() {
                 value: current,
                 onChange: (_, i)=>router.push(routes[i]),
                 sx: {
-                    width: "100%",
-                    "& .MuiBottomNavigationAction-root": {
-                        ...user?.userType === "petOwner" && {
-                            "&:nth-of-type(1), &:nth-of-type(2)": {
-                                marginRight: "28px"
+                    width: '100%',
+                    '& .MuiBottomNavigationAction-root': {
+                        ...user?.userType === 'petOwner' && {
+                            '&:nth-of-type(1), &:nth-of-type(2)': {
+                                marginRight: '28px'
                             },
-                            "&:nth-of-type(3), &:nth-of-type(4)": {
-                                marginLeft: "28px"
+                            '&:nth-of-type(3), &:nth-of-type(4)': {
+                                marginLeft: '28px'
                             }
                         }
                     }
@@ -1478,21 +1478,21 @@ function NavigationBar() {
                 lineNumber: 96,
                 columnNumber: 7
             }, this),
-            user?.userType === "petOwner" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Fab$2f$Fab$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Fab$3e$__["Fab"], {
+            user?.userType === 'petOwner' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Fab$2f$Fab$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Fab$3e$__["Fab"], {
                 size: "small",
                 color: "primary",
                 onClick: ()=>setIsAddPetModalOpen(true),
                 sx: {
-                    position: "absolute",
+                    position: 'absolute',
                     top: -28,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    backgroundColor: "#ed9426",
-                    "&:hover": {
-                        backgroundColor: "#d4841f"
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: '#ed9426',
+                    '&:hover': {
+                        backgroundColor: '#d4841f'
                     },
                     zIndex: 1000,
-                    boxShadow: "0 4px 12px rgba(237, 148, 38, 0.4)"
+                    boxShadow: '0 4px 12px rgba(237, 148, 38, 0.4)'
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Add$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/components/navigationBar/NavigationBar.tsx",
@@ -1504,7 +1504,7 @@ function NavigationBar() {
                 lineNumber: 121,
                 columnNumber: 9
             }, this),
-            user?.userType === "petOwner" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$pet$2f$petModal$2f$AddPetModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+            user?.userType === 'petOwner' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$pet$2f$petModal$2f$AddPetModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 open: isAddPetModalOpen,
                 onClose: ()=>setIsAddPetModalOpen(false),
                 onSubmit: handleAddPet

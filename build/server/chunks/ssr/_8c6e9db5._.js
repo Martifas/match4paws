@@ -6,7 +6,8 @@ module.exports = {
 var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
-    "ACCOUNT_MENU_ITEMS": (()=>ACCOUNT_MENU_ITEMS)
+    "PET_ADOPTER_MENU_ITEMS": (()=>PET_ADOPTER_MENU_ITEMS),
+    "PET_OWNER_MENU_ITEMS": (()=>PET_OWNER_MENU_ITEMS)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Pets$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/Pets.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Person$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/Person.js [app-ssr] (ecmascript)");
@@ -14,7 +15,29 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$ico
 ;
 ;
 ;
-const ACCOUNT_MENU_ITEMS = [
+const PET_OWNER_MENU_ITEMS = [
+    {
+        id: 'petManagement',
+        label: 'My Pet Management',
+        IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Pets$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
+        route: '/account/petmanagement',
+        isDanger: false
+    },
+    {
+        id: 'profile',
+        label: 'My Profile',
+        IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Person$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
+        route: '/account/profile',
+        isDanger: false
+    },
+    {
+        id: 'logout',
+        label: 'Logout',
+        IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Logout$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
+        isDanger: true
+    }
+];
+const PET_ADOPTER_MENU_ITEMS = [
     {
         id: 'preferences',
         label: 'My Pet Preferences',
@@ -338,7 +361,13 @@ function AccountPage() {
     const handleLogout = async ()=>{
         router.push('/auth/logout');
     };
-    const menuItems = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2f$accountMenu$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ACCOUNT_MENU_ITEMS"].map((item)=>({
+    const getMenuItems = ()=>{
+        if (user?.userType === 'petOwner') {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2f$accountMenu$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PET_OWNER_MENU_ITEMS"];
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2f$accountMenu$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PET_ADOPTER_MENU_ITEMS"];
+    };
+    const menuItems = getMenuItems().map((item)=>({
             ...item,
             onClick: item.id === 'logout' ? handleLogout : ()=>router.push(item.route)
         }));
@@ -351,12 +380,12 @@ function AccountPage() {
                 children: "Loading..."
             }, void 0, false, {
                 fileName: "[project]/src/components/account/Account.tsx",
-                lineNumber: 28,
+                lineNumber: 38,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/account/Account.tsx",
-            lineNumber: 27,
+            lineNumber: 37,
             columnNumber: 7
         }, this);
     }
@@ -369,12 +398,12 @@ function AccountPage() {
                 children: "Unable to load user profile"
             }, void 0, false, {
                 fileName: "[project]/src/components/account/Account.tsx",
-                lineNumber: 36,
+                lineNumber: 46,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/account/Account.tsx",
-            lineNumber: 35,
+            lineNumber: 45,
             columnNumber: 7
         }, this);
     }
@@ -389,27 +418,27 @@ function AccountPage() {
                 title: "Account"
             }, void 0, false, {
                 fileName: "[project]/src/components/account/Account.tsx",
-                lineNumber: 43,
+                lineNumber: 53,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$account$2f$AccountInfoCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 user: user
             }, void 0, false, {
                 fileName: "[project]/src/components/account/Account.tsx",
-                lineNumber: 45,
+                lineNumber: 54,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$account$2f$AccountMenuList$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 items: menuItems
             }, void 0, false, {
                 fileName: "[project]/src/components/account/Account.tsx",
-                lineNumber: 47,
+                lineNumber: 55,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/account/Account.tsx",
-        lineNumber: 42,
+        lineNumber: 52,
         columnNumber: 5
     }, this);
 }
