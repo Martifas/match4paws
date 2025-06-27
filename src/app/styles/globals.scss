@@ -1,4 +1,4 @@
-@import url("tailwindcss");
+@import url('tailwindcss');
 
 .no-scrollbar {
   -ms-overflow-style: none;
@@ -6,4 +6,10 @@
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
 }

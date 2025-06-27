@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import { MuiTelInput } from 'mui-tel-input';
-import { USER_TYPES, ANIMAL_TYPES } from '@/lib/constants/onboarding';
+import { USER_TYPES } from '@/lib/constants/onboarding';
 import { OnboardingStepProps } from '@/lib/types/onboarding';
 
 export function UserTypeStep({ formData, setFormData }: OnboardingStepProps) {
@@ -26,50 +26,6 @@ export function UserTypeStep({ formData, setFormData }: OnboardingStepProps) {
           </button>
         ))}
       </div>
-    </div>
-  );
-}
-
-export function AnimalTypeStep({ formData, setFormData }: OnboardingStepProps) {
-  const toggleAnimalType = (value: string) => {
-    const isSelected = formData.preferredAnimalTypes.includes(value);
-    const newSelection = isSelected
-      ? formData.preferredAnimalTypes.filter(type => type !== value)
-      : [...formData.preferredAnimalTypes, value];
-
-    setFormData({
-      ...formData,
-      preferredAnimalTypes: newSelection,
-    });
-  };
-
-  return (
-    <div className="flex flex-col gap-6 items-center">
-      <div className="flex flex-row gap-6 justify-center">
-        {ANIMAL_TYPES.map(({ id, label, IconComponent }) => {
-          const isSelected = formData.preferredAnimalTypes.includes(id);
-
-          return (
-            <button
-              key={id}
-              onClick={() => toggleAnimalType(id)}
-              className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 w-36 h-40 justify-center hover:border-orange-300 hover:scale-105 transition-all ${
-                isSelected
-                  ? 'border-orange-400 bg-orange-50'
-                  : 'border-gray-300 bg-white'
-              }`}
-            >
-              <div className="w-16 h-16">
-                <IconComponent />
-              </div>
-              <span className="text-lg font-semibold text-gray-700">
-                {label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <p className="text-sm text-gray-500">You can select more than one.</p>
     </div>
   );
 }

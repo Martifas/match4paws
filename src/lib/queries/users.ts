@@ -74,10 +74,6 @@ export async function updateUserOnboarding(
       onboardingCompleted: true,
       onboardingCompletedAt: new Date(),
       ...updateData,
-
-      preferredAnimalTypes: updateData.preferredAnimalTypes
-        ? JSON.stringify(updateData.preferredAnimalTypes)
-        : undefined,
     })
     .where('auth0Id', '=', userId)
     .execute();

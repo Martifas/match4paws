@@ -17,18 +17,7 @@ export const ONBOARDING_STEPS = [
     description:
       'Are you a Pet Owner or Organization ready to find loving homes? Or a Pet Adopter looking for your new best friend?',
   },
-  {
-    petOwner: {
-      title: 'List Your Animal(s) for Adoption',
-      description:
-        'What type of animal(s) are you looking to place in a loving home? You can add more later.',
-    },
-    adopter: {
-      title: "Let's Find Your Match",
-      description:
-        "What type of animal are you looking to adopt? Don't worry—you can always change this later.",
-    },
-  },
+
   {
     title: 'Final Steps!',
     description:

@@ -1,0 +1,3 @@
+{
+  "/api/pets/search/route": "app/api/pets/search/route.js"
+}

@@ -257,8 +257,7 @@ async function updateUserOnboarding(data) {
     await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set({
         onboardingCompleted: true,
         onboardingCompletedAt: new Date(),
-        ...updateData,
-        preferredAnimalTypes: updateData.preferredAnimalTypes ? JSON.stringify(updateData.preferredAnimalTypes) : undefined
+        ...updateData
     }).where('auth0Id', '=', userId).execute();
 }
 async function updateUserProfile(userId, updates) {
@@ -340,6 +339,7 @@ __turbopack_context__.s({
     "isPetFavorited": (()=>isPetFavorited),
     "savePetImageUrls": (()=>savePetImageUrls),
     "searchPets": (()=>searchPets),
+    "searchPetsSlice": (()=>searchPetsSlice),
     "updatePet": (()=>updatePet),
     "updatePetWithImages": (()=>updatePetWithImages)
 });
@@ -351,6 +351,27 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ([__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__);
 ;
 ;
+async function searchPetsSlice(filters, page, limit) {
+    /* 1️⃣  base builder with filters, no joins yet ------------------ */ let base = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets');
+    if (filters.type) base = base.where('pets.type', '=', filters.type);
+    if (filters.gender) base = base.where('pets.gender', '=', filters.gender);
+    if (filters.size) base = base.where('pets.size', '=', filters.size);
+    if (filters.age) base = base.where('pets.ageGroup', '=', filters.age);
+    /* 2️⃣  total count ---------------------------------------------- */ const { count } = await base.clearSelect() // keep builder clean
+    .select((eb)=>eb.fn.countAll().as('count')).executeTakeFirstOrThrow();
+    /* 3️⃣  data slice with join + select ---------------------------- */ const pets = await base.leftJoin('petImages as pi', (j)=>j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)).offset((page - 1) * limit).limit(limit).orderBy('pets.createdAt', 'desc').select([
+        'pets.id',
+        'pets.name',
+        'pets.breed',
+        'pets.size',
+        'pets.ageGroup',
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as('imageUrl')
+    ]).execute();
+    return {
+        pets,
+        totalCount: Number(count)
+    };
+}
 async function searchPets(filters) {
     let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').select(({ ref })=>[
             'pets.id',

@@ -69,8 +69,10 @@ export default async function PetInfo({ id }: { id: string }) {
       </div>
 
       <BottomBar alwaysSticky>
-        <FavoriteButton petId={id} initiallyFav={initiallyFav} />
-        <PrimaryButton>Adopt</PrimaryButton>
+        <div className="flex max-w-lg w-full gap-2">
+          <FavoriteButton petId={id} initiallyFav={initiallyFav} />
+          <PrimaryButton>Adopt</PrimaryButton>
+        </div>
       </BottomBar>
     </div>
   );
