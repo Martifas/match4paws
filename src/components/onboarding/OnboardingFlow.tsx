@@ -1,74 +1,59 @@
 'use client';
 
 import { useState } from 'react';
-import PrimaryButton from '../ui/buttons/PrimaryButton';
-import StepIndicator from '../ui/stepIndicator/StepIndicator';
-import { ONBOARDING_FLOW_STEPS } from '@/lib/constants/onboardingFlow';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
+import StepIndicator from '@/components/ui/stepIndicator/StepIndicator';
 import { completeOnboardingFlow } from '@/lib/utils/onboardingFlowUtils';
+import { ONBOARDING_FLOW_STEPS } from '@/lib/constants/onboardingFlow';
 
-type Props = {
-  userId: string;
-  onComplete: () => void;
-};
+type Props = { userId: string; onComplete: () => void };
 
 export default function OnboardingFlow({ userId, onComplete }: Props) {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [step, setStep] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const totalSteps = ONBOARDING_FLOW_STEPS.length;
-  const isLastStep = activeStep === totalSteps - 1;
-  const currentStep = ONBOARDING_FLOW_STEPS[activeStep];
+  const isLast = step === ONBOARDING_FLOW_STEPS.length - 1;
 
-  const finishOnboarding = async () => {
-    setIsLoading(true);
-    try {
-      await completeOnboardingFlow(userId);
-      onComplete();
-    } catch (error) {
-      console.error('Failed to complete onboarding flow:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleContinue = async () => {
-    if (isLastStep) {
-      await finishOnboarding();
-    } else {
-      setActiveStep(prev => prev + 1);
-    }
+  const finish = async () => {
+    setLoading(true);
+    await completeOnboardingFlow(userId);
+    setLoading(false);
+    onComplete();
   };
 
   return (
-    <div className="flex flex-col justify-between flex-1 px-4 py-8 h-full">
+    <div className="flex flex-col justify-between flex-1 px-4 py-8">
       <div className="text-center flex flex-1 flex-col justify-center items-center gap-6 max-w-lg mx-auto">
         <h1 className="text-3xl font-bold text-gray-800 leading-tight">
-          {currentStep.title}
+          {ONBOARDING_FLOW_STEPS[step].title}
         </h1>
         <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
-          {currentStep.description}
+          {ONBOARDING_FLOW_STEPS[step].description}
         </p>
       </div>
 
       <StepIndicator
-        totalSteps={totalSteps}
-        activeStep={activeStep}
+        totalSteps={ONBOARDING_FLOW_STEPS.length}
+        activeStep={step}
         className="pt-4"
       />
 
       <div className="flex flex-col md:flex-row gap-4 items-center pt-6 w-full max-w-md mx-auto">
-        {!isLastStep && (
+        {!isLast && (
           <button
-            onClick={finishOnboarding}
-            disabled={isLoading}
-            className="text-[#ed9426] font-bold py-3 px-6 w-full rounded-full bg-orange-100 hover:bg-orange-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={finish}
+            disabled={loading}
+            className="text-[#ed9426] font-bold py-3 px-6 w-full rounded-full bg-orange-100 hover:bg-orange-200 transition disabled:opacity-50"
           >
             Skip
           </button>
         )}
 
-        <PrimaryButton onClick={handleContinue} disabled={isLoading}>
-          {isLoading ? 'Loading...' : isLastStep ? 'Get Started' : 'Continue'}
+        <PrimaryButton
+          onClick={() => (isLast ? finish() : setStep(s => s + 1))}
+          disabled={loading}
+        >
+          {loading ? 'Loading…' : isLast ? 'Get Started' : 'Continue'}
         </PrimaryButton>
       </div>
     </div>

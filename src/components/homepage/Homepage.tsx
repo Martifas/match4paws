@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import PawIcon from "@/assets/PawIcon";
-import Header from "@/components/ui/containers/Header";
-import SearchButton from "@/components/ui/buttons/SearchButton";
-import Link from "next/link";
-import { useAuth } from "@/lib/authProvider";
+import PawIcon from '@/assets/PawIcon';
+import Header from '@/components/ui/containers/Header';
+import SearchButton from '@/components/ui/buttons/SearchButton';
+import Link from 'next/link';
+import { useAuth } from '@/lib/authProvider';
 
 export default function HomepageHeader() {
   const user = useAuth();
@@ -18,13 +18,9 @@ export default function HomepageHeader() {
       }
       right={
         <div className="flex items-center gap-3">
-          <SearchButton />
-
           {user ? (
             <>
-              <Link href="/auth/logout" className="text-[#ed9426] font-medium">
-                Log&nbsp;out
-              </Link>
+              <SearchButton />
             </>
           ) : (
             <Link href="/auth/login" className="text-[#ed9426] font-medium">

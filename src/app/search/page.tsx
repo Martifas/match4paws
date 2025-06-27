@@ -1,5 +1,7 @@
-import PetSearchForm from '@/components/search/PetSearchForm';
+'use client';
+
+import Search from '@/components/search/Search';
 
 export default function SearchPage() {
-  return <PetSearchForm />;
+  return <Search />;
 }

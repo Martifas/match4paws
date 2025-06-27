@@ -2,7 +2,7 @@ export type UserType = 'petOwner' | 'adopter';
 
 export type OnboardingFormData = {
   userType: UserType | null;
-  preferredAnimalTypes: string[];
+
   animalsToPlace?: string[];
   name?: string;
   email?: string;
@@ -20,5 +20,4 @@ export type UpdateOnboardingRequest = {
   name?: string;
   phone?: string;
   userType?: UserType;
-  preferredAnimalTypes?: string[];
 };

@@ -2,112 +2,79 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import ProgressBar from '../ui/progressBar/ProgressBar';
-import BackButton from '../ui/buttons/BackButton';
-import PrimaryButton from '../ui/buttons/PrimaryButton';
-import {
-  UserTypeStep,
-  AnimalTypeStep,
-  PersonalDetailsStep,
-} from './OnboardingSteps';
+import BackButton from '@/components/ui/buttons/BackButton';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
+import ProgressBar from '@/components/ui/progressBar/ProgressBar';
+import { UserTypeStep, PersonalDetailsStep } from './OnboardingSteps';
+import { submitOnboarding } from '@/lib/utils/onboardingUtils';
 import { OnboardingFormData } from '@/lib/types/onboarding';
-import {
-  getStepContent,
-  validateStep,
-  submitOnboarding,
-} from '@/lib/utils/onboardingUtils';
 
-const TOTAL_STEPS = 3;
+const STEPS = [
+  {
+    title: 'Tell us who you are',
+    description: 'Select the role that best describes you.',
+    render: UserTypeStep,
+    validate: (data: OnboardingFormData) => !!data.userType,
+  },
+  {
+    title: 'Your contact details',
+    description: 'So shelters and adopters can reach you.',
+    render: PersonalDetailsStep,
+    validate: (data: OnboardingFormData) =>
+      Boolean(data.name?.trim()) && Boolean(data.phone?.trim()),
+  },
+];
 
-type Props = {
-  userId: string;
-};
+type Props = { userId: string };
 
 export default function OnboardingForm({ userId }: Props) {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [step, setStep] = useState(0);
+  const [busy, setBusy] = useState(false);
   const router = useRouter();
 
-  const [formData, setFormData] = useState<OnboardingFormData>({
+  const [form, setForm] = useState<OnboardingFormData>({
     userType: null,
-    preferredAnimalTypes: [],
   });
 
-  const progressPercent = ((activeStep + 1) / TOTAL_STEPS) * 100;
-  const stepContent = getStepContent(activeStep, formData.userType);
-  const isStepValid = validateStep(activeStep, formData);
-  const isLastStep = activeStep === TOTAL_STEPS - 1;
+  const isLast = step === STEPS.length - 1;
+  const StepComponent = STEPS[step].render;
+  const valid = STEPS[step].validate(form);
+  const progress = ((step + 1) / STEPS.length) * 100;
 
-  const handleNext = async () => {
-    if (!isStepValid) return;
-
-    if (isLastStep) {
-      await handleFinish();
-    } else {
-      setActiveStep(prev => prev + 1);
-    }
-  };
-
-  const handleBack = () => {
-    if (activeStep > 0) {
-      setActiveStep(prev => prev - 1);
-    }
-  };
-
-  const handleFinish = async () => {
-    setIsSubmitting(true);
-
-    try {
-      await submitOnboarding(userId, formData);
+  const next = async () => {
+    if (!valid) return;
+    if (isLast) {
+      setBusy(true);
+      await submitOnboarding(userId, form);
       router.push('/');
-    } catch (error) {
-      console.error('Error submitting onboarding form:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const renderStepContent = () => {
-    const stepProps = { formData, setFormData };
-
-    switch (activeStep) {
-      case 0:
-        return <UserTypeStep {...stepProps} />;
-      case 1:
-        return <AnimalTypeStep {...stepProps} />;
-      case 2:
-        return <PersonalDetailsStep {...stepProps} />;
-      default:
-        return null;
+    } else {
+      setStep(s => s + 1);
     }
   };
 
   return (
-    <div className="flex flex-col justify-between flex-1 px-4 py-8 h-full">
+    <div className="flex flex-col justify-between flex-1 px-4 py-8">
       <div className="relative flex items-center justify-center px-8 py-2 min-h-[48px]">
-        <BackButton onClick={handleBack} hidden={activeStep === 0} />
-        <ProgressBar value={progressPercent} />
-        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium z-10">
-          {activeStep + 1}/{TOTAL_STEPS}
+        <BackButton hidden={step === 0} onClick={() => setStep(s => s - 1)} />
+        <ProgressBar value={progress} />
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
+          {step + 1}/{STEPS.length}
         </span>
       </div>
 
       <div className="text-center flex flex-1 flex-col gap-5 justify-center">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-tight">
-          {stepContent.title}
+          {STEPS[step].title}
         </h1>
         <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
-          {stepContent.description}
+          {STEPS[step].description}
         </p>
 
-        {renderStepContent()}
+        <StepComponent formData={form} setFormData={setForm} />
       </div>
 
-      <PrimaryButton
-        onClick={handleNext}
-        disabled={!isStepValid || isSubmitting}
-      >
-        {isSubmitting ? 'Submitting...' : isLastStep ? 'Finish' : 'Next'}
+      <PrimaryButton onClick={next} disabled={!valid || busy}>
+        {busy ? 'Submitting…' : isLast ? 'Finish' : 'Next'}
       </PrimaryButton>
     </div>
   );
