@@ -4,6 +4,7 @@ import {
   createSuccessResponse,
   getUserFromSession,
 } from '@/lib/utils/apiUtils';
+
 import {
   deletePet,
   updatePet,
@@ -11,76 +12,98 @@ import {
   savePetImageUrls,
 } from '@/lib/queries/pets';
 
-type Params = {
-  params: {
-    petId: string;
-  };
+type Params = { params: { petId: string } };
+
+type Body = {
+  name?: string;
+  type?: string;
+  breed?: string | null;
+  gender?: string;
+  size?: string;
+  ageGroup?: string;
+  description?: string | null;
+  status?: string;
+  imageUrls?: string[];
 };
 
-export async function GET(req: NextRequest, { params }: Params) {
-  try {
-    const userId = await getUserFromSession();
-    if (!userId) {
-      return createErrorResponse('Unauthorized', 401);
-    }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function owner(req: NextRequest) {
+  const uid = await getUserFromSession();
+  if (!uid) throw new Error('401');
+  return uid;
+}
 
+async function updatePetAndImages(petId: string, ownerId: string, body: Body) {
+  const {
+    imageUrls = [],
+    name,
+    type,
+    breed,
+    gender,
+    size,
+    ageGroup,
+    description,
+    status,
+  } = body;
+
+  const petData = {
+    ...(name !== undefined && { name }),
+    ...(type !== undefined && { type }),
+    ...(breed !== undefined && { breed }),
+    ...(gender !== undefined && { gender }),
+    ...(size !== undefined && { size }),
+    ...(ageGroup !== undefined && { ageGroup }),
+    ...(description !== undefined && { description }),
+    ...(status !== undefined && { status }),
+  };
+
+  if (Object.keys(petData).length) {
+    await updatePet(petId, ownerId, petData);
+  }
+
+  await savePetImageUrls(petId, imageUrls);
+}
+
+export async function GET(_req: NextRequest, { params }: Params) {
+  try {
+    const userId = await owner(_req);
     const pet = await getPetByIdForOwner(params.petId, userId);
-    if (!pet) {
-      return createErrorResponse('Pet not found', 404);
-    }
+    if (!pet) return createErrorResponse('Pet not found', 404);
 
     return createSuccessResponse({ pet });
-  } catch (error) {
-    console.error('Error fetching pet:', error);
-    return createErrorResponse('Internal server error', 500);
+  } catch (e) {
+    return e.message === '401'
+      ? createErrorResponse('Unauthorized', 401)
+      : createErrorResponse('Internal server error', 500);
   }
 }
 
-export async function PUT(req: NextRequest, { params }: Params) {
+export async function PUT(req: NextRequest, ctx: Params) {
+  return PATCH(req, ctx);
+}
+export async function PATCH(req: NextRequest, { params }: Params) {
   try {
-    const userId = await getUserFromSession();
-    if (!userId) {
-      return createErrorResponse('Unauthorized', 401);
-    }
+    const ownerId = await owner(req);
+    const body: Body = await req.json();
 
-    const body = await req.json();
-
-    const petData = {
-      name: body.name,
-      type: body.type,
-      breed: body.breed || null,
-      gender: body.gender,
-      size: body.size,
-      ageGroup: body.ageGroup,
-      description: body.description || null,
-      status: body.status,
-    };
-
-    await updatePet(params.petId, userId, petData);
-
-    const imageUrls = body.imageUrls || [];
-    if (imageUrls.length > 0) {
-      await savePetImageUrls(params.petId, imageUrls);
-    }
+    await updatePetAndImages(params.petId, ownerId, body);
 
     return createSuccessResponse();
-  } catch (error) {
-    console.error('Error updating pet:', error);
-    return createErrorResponse('Internal server error', 500);
+  } catch (e) {
+    return e.message === '401'
+      ? createErrorResponse('Unauthorized', 401)
+      : createErrorResponse('Internal server error', 500);
   }
 }
 
 export async function DELETE(req: NextRequest, { params }: Params) {
   try {
-    const userId = await getUserFromSession();
-    if (!userId) {
-      return createErrorResponse('Unauthorized', 401);
-    }
-
-    await deletePet(params.petId, userId);
+    const ownerId = await owner(req);
+    await deletePet(params.petId, ownerId);
     return createSuccessResponse();
-  } catch (error) {
-    console.error('Error deleting pet:', error);
-    return createErrorResponse('Internal server error', 500);
+  } catch (e) {
+    return e.message === '401'
+      ? createErrorResponse('Unauthorized', 401)
+      : createErrorResponse('Internal server error', 500);
   }
 }

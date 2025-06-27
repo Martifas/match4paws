@@ -236,6 +236,8 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 __turbopack_context__.s({
     "AGES": (()=>AGES),
     "GENDERS": (()=>GENDERS),
+    "PAGE_SIZE": (()=>PAGE_SIZE),
+    "PET_FILTERS": (()=>PET_FILTERS),
     "PET_TYPES": (()=>PET_TYPES),
     "SIZES": (()=>SIZES)
 });
@@ -301,6 +303,53 @@ const AGES = [
         label: 'Senior'
     }
 ];
+const PET_FILTERS = [
+    {
+        id: 'cat',
+        label: 'Cat'
+    },
+    {
+        id: 'dog',
+        label: 'Dog'
+    },
+    {
+        id: 'female',
+        label: 'Female'
+    },
+    {
+        id: 'male',
+        label: 'Male'
+    },
+    {
+        id: 'small',
+        label: 'Small'
+    },
+    {
+        id: 'medium',
+        label: 'Medium'
+    },
+    {
+        id: 'large',
+        label: 'Large'
+    },
+    {
+        id: 'baby',
+        label: 'Baby'
+    },
+    {
+        id: 'young',
+        label: 'Young'
+    },
+    {
+        id: 'adult',
+        label: 'Adult'
+    },
+    {
+        id: 'senior',
+        label: 'Senior'
+    }
+];
+const PAGE_SIZE = 9;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -557,28 +606,35 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature();
 ;
 const initialFormData = {
-    name: "",
-    type: "",
-    breed: "",
-    gender: "",
-    size: "",
-    ageGroup: "",
-    description: "",
+    name: '',
+    type: '',
+    breed: '',
+    gender: '',
+    size: '',
+    ageGroup: '',
+    description: '',
     imageUrls: []
 };
 function usePetForm() {
     _s();
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialFormData);
     const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const updateField = (field, value)=>{
-        setFormData((prev)=>({
-                ...prev,
-                [field]: value
-            }));
-    };
-    const resetForm = ()=>{
-        setFormData(initialFormData);
-    };
+    const updateField = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "usePetForm.useCallback[updateField]": (key, val)=>setFormData({
+                "usePetForm.useCallback[updateField]": (d)=>({
+                        ...d,
+                        [key]: val
+                    })
+            }["usePetForm.useCallback[updateField]"])
+    }["usePetForm.useCallback[updateField]"], []);
+    const resetForm = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "usePetForm.useCallback[resetForm]": (next)=>{
+            setFormData(next ? {
+                ...initialFormData,
+                ...next
+            } : initialFormData);
+        }
+    }["usePetForm.useCallback[resetForm]"], []);
     const isFormValid = formData.name && formData.type && formData.gender && formData.size && formData.ageGroup;
     const submitForm = async (onSubmit, onSuccess)=>{
         if (!isFormValid) return;
@@ -588,7 +644,7 @@ function usePetForm() {
             resetForm();
             onSuccess?.();
         } catch (error) {
-            console.error("Error submitting pet form:", error);
+            console.error('Error submitting pet form:', error);
             throw error;
         } finally{
             setIsSubmitting(false);
@@ -603,7 +659,7 @@ function usePetForm() {
         submitForm
     };
 }
-_s(usePetForm, "IprTGOSk8tie7sDH5Db4sdFhWME=");
+_s(usePetForm, "fkHMTxqIFKIgq8A7EVsH6o0dyJg=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -662,6 +718,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$f
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$forms$2f$ImageUrlManager$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/forms/ImageUrlManager.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$usePetForm$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/usePetForm.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$PrimaryButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/buttons/PrimaryButton.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -672,13 +729,37 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function AddPetModal({ open, onClose, onSubmit }) {
+;
+function AddPetModal({ open, onClose, onSubmit, pet = null }) {
     _s();
-    const { formData, isSubmitting, isFormValid, updateField, submitForm } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$usePetForm$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePetForm"])();
+    const { formData, isSubmitting, isFormValid, updateField, submitForm, resetForm } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$usePetForm$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePetForm"])();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AddPetModal.useEffect": ()=>{
+            if (pet && open) {
+                // 1️⃣ clear any previous data
+                resetForm?.(); // <- no args
+                // 2️⃣ patch in the existing values
+                updateField('name', pet.name ?? '');
+                updateField('type', pet.type ?? 'dog');
+                updateField('breed', pet.breed ?? '');
+                updateField('gender', pet.gender ?? 'female');
+                updateField('size', pet.size ?? 'medium');
+                updateField('ageGroup', pet.ageGroup ?? 'adult');
+                updateField('description', pet.description ?? '');
+                updateField('imageUrls', pet.imageUrls ?? []);
+            }
+        }
+    }["AddPetModal.useEffect"], [
+        pet,
+        open,
+        resetForm,
+        updateField
+    ]);
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        await submitForm(onSubmit, onClose);
+        await submitForm((data)=>onSubmit(data, pet?.id), onClose);
     };
+    const isEdit = !!pet;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Dialog$2f$Dialog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Dialog$3e$__["Dialog"], {
         open: open,
         onClose: onClose,
@@ -691,28 +772,28 @@ function AddPetModal({ open, onClose, onSubmit }) {
                     justifyContent: "space-between",
                     alignItems: "center",
                     children: [
-                        "Add New Pet",
+                        isEdit ? 'Edit Pet' : 'Add New Pet',
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
                             onClick: onClose,
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Close$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                lineNumber: 46,
+                                lineNumber: 77,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                            lineNumber: 45,
+                            lineNumber: 76,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                    lineNumber: 43,
+                    lineNumber: 74,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                lineNumber: 42,
+                lineNumber: 73,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -736,12 +817,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         onChange: (e)=>updateField('name', e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 86,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 85,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -757,12 +838,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 65,
+                                        lineNumber: 96,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 64,
+                                    lineNumber: 95,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -778,12 +859,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         placeholder: "e.g., Golden Retriever, Persian"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 106,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 105,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -799,12 +880,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 85,
+                                        lineNumber: 116,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 84,
+                                    lineNumber: 115,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -820,12 +901,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 95,
+                                        lineNumber: 126,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 125,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -841,12 +922,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 136,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 135,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -863,12 +944,12 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         placeholder: "Tell potential adopters about this pet's personality, habits, medical needs, etc."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 146,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 145,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Grid$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Grid$3e$__["Grid"], {
@@ -880,23 +961,23 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                         onUrlsChange: (urls)=>updateField('imageUrls', urls)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 158,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                    lineNumber: 126,
+                                    lineNumber: 157,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                            lineNumber: 53,
+                            lineNumber: 84,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                        lineNumber: 52,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$DialogActions$2f$DialogActions$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__DialogActions$3e$__["DialogActions"], {
@@ -906,7 +987,7 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                lineNumber: 136,
+                                lineNumber: 167,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$buttons$2f$PrimaryButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -914,32 +995,32 @@ function AddPetModal({ open, onClose, onSubmit }) {
                                 disabled: !isFormValid || isSubmitting,
                                 fullWidth: false,
                                 className: "px-6",
-                                children: isSubmitting ? 'Adding Pet...' : 'Add Pet'
+                                children: isSubmitting ? isEdit ? 'Saving…' : 'Adding…' : isEdit ? 'Save Changes' : 'Add Pet'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                                lineNumber: 137,
+                                lineNumber: 168,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                        lineNumber: 135,
+                        lineNumber: 166,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-                lineNumber: 51,
+                lineNumber: 82,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/pet/petModal/AddPetModal.tsx",
-        lineNumber: 41,
+        lineNumber: 72,
         columnNumber: 5
     }, this);
 }
-_s(AddPetModal, "V8fQSWwBJghxVjo4DTfHNblzzmk=", false, function() {
+_s(AddPetModal, "MqmhV/pxTmJkPLgCSsrZIv7x/XM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$usePetForm$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePetForm"]
     ];
@@ -1261,13 +1342,13 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-client] (ecmascript)");
-"use client";
+'use client';
 ;
 ;
 function BottomBar({ children, className, alwaysSticky = false }) {
-    const base = "px-4 pt-1 mb-2 h-14 flex items-center justify-center gap-4 " + "pb-[env(safe-area-inset-bottom)] " + "border-t border-gray-200 bg-white";
-    const sticky = "fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-xl z-30";
-    const responsive = alwaysSticky ? sticky : "lg:static lg:translate-x-0";
+    const base = 'px-4 pt-1 h-14 flex items-center justify-center gap-4 ' + 'pb-[env(safe-area-inset-bottom)] ' + 'border-t border-gray-200 bg-white';
+    const sticky = 'fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl z-30';
+    const responsive = alwaysSticky ? sticky : 'lg:static lg:translate-x-0';
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(base, responsive, className),
         children: children

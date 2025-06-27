@@ -471,6 +471,7 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 __turbopack_context__.s({
     "AGES": (()=>AGES),
     "GENDERS": (()=>GENDERS),
+    "PET_FILTERS": (()=>PET_FILTERS),
     "PET_TYPES": (()=>PET_TYPES),
     "SIZES": (()=>SIZES)
 });
@@ -519,6 +520,52 @@ const SIZES = [
     }
 ];
 const AGES = [
+    {
+        id: 'baby',
+        label: 'Baby'
+    },
+    {
+        id: 'young',
+        label: 'Young'
+    },
+    {
+        id: 'adult',
+        label: 'Adult'
+    },
+    {
+        id: 'senior',
+        label: 'Senior'
+    }
+];
+const PET_FILTERS = [
+    {
+        id: 'cat',
+        label: 'Cat'
+    },
+    {
+        id: 'dog',
+        label: 'Dog'
+    },
+    {
+        id: 'female',
+        label: 'Female'
+    },
+    {
+        id: 'male',
+        label: 'Male'
+    },
+    {
+        id: 'small',
+        label: 'Small'
+    },
+    {
+        id: 'medium',
+        label: 'Medium'
+    },
+    {
+        id: 'large',
+        label: 'Large'
+    },
     {
         id: 'baby',
         label: 'Baby'

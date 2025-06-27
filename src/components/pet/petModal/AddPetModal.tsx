@@ -12,36 +12,67 @@ import {
   Box,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
+
 import { AGES, GENDERS, PET_TYPES, SIZES } from '@/lib/constants/pet';
 import { FormSelect } from '@/components/ui/forms/FormSelect';
 import { ImageUrlManager } from '@/components/ui/forms/ImageUrlManager';
 import { usePetForm, PetFormData } from '@/hooks/usePetForm';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
+import { useEffect } from 'react';
 
-type AddPetModalProps = {
+export type AddPetModalProps = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (petData: PetFormData) => Promise<void>;
+  onSubmit: (petData: PetFormData, id?: string) => Promise<void>;
+  pet?: (Partial<PetFormData> & { id: string }) | null;
 };
+
+export type PetFormValues = PetFormData;
 
 export default function AddPetModal({
   open,
   onClose,
   onSubmit,
+  pet = null,
 }: AddPetModalProps) {
-  const { formData, isSubmitting, isFormValid, updateField, submitForm } =
-    usePetForm();
+  const {
+    formData,
+    isSubmitting,
+    isFormValid,
+    updateField,
+    submitForm,
+    resetForm,
+  } = usePetForm();
+
+  useEffect(() => {
+    if (pet && open) {
+      // 1️⃣ clear any previous data
+      resetForm?.(); // <- no args
+
+      // 2️⃣ patch in the existing values
+      updateField('name', pet.name ?? '');
+      updateField('type', pet.type ?? 'dog');
+      updateField('breed', pet.breed ?? '');
+      updateField('gender', pet.gender ?? 'female');
+      updateField('size', pet.size ?? 'medium');
+      updateField('ageGroup', pet.ageGroup ?? 'adult');
+      updateField('description', pet.description ?? '');
+      updateField('imageUrls', pet.imageUrls ?? []);
+    }
+  }, [pet, open, resetForm, updateField]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await submitForm(onSubmit, onClose);
+    await submitForm(data => onSubmit(data, pet?.id), onClose);
   };
+
+  const isEdit = !!pet;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          Add New Pet
+          {isEdit ? 'Edit Pet' : 'Add New Pet'}
           <IconButton onClick={onClose}>
             <Close />
           </IconButton>
@@ -140,7 +171,13 @@ export default function AddPetModal({
             fullWidth={false}
             className="px-6"
           >
-            {isSubmitting ? 'Adding Pet...' : 'Add Pet'}
+            {isSubmitting
+              ? isEdit
+                ? 'Saving…'
+                : 'Adding…'
+              : isEdit
+                ? 'Save Changes'
+                : 'Add Pet'}
           </PrimaryButton>
         </DialogActions>
       </form>

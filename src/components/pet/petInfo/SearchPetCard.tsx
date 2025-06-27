@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import FavoriteButton from "../../ui/buttons/FavoriteButton";
+import Link from 'next/link';
+import Image from 'next/image';
+import FavoriteButton from '../../ui/buttons/FavoriteButton';
 
 type Props = {
   id: string;
@@ -16,7 +16,7 @@ type Props = {
   onFavoriteRestored?: (petId: string) => void;
 };
 
-export default function PetCard({
+export default function SearchPetCard({
   id,
   name,
   imageUrl,

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import PetCard from "@/components/pet/petInfo/PetCard";
-import PrimaryButton from "@/components/ui/buttons/PrimaryButton";
-import { FavoritedPet } from "@/lib/queries/favorites";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import PetCard from '@/components/pet/petInfo/SearchPetCard';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
+import { FavoritedPet } from '@/lib/queries/favorites';
 
 type FavoritesListProps = {
   initialPets: FavoritedPet[];
@@ -15,14 +15,14 @@ export default function FavoritesList({ initialPets }: FavoritesListProps) {
   const [pets, setPets] = useState<FavoritedPet[]>(initialPets);
 
   const handlePetUnfavorited = (petId: string) => {
-    setPets((prev) => prev.filter((pet) => pet.id !== petId));
+    setPets(prev => prev.filter(pet => pet.id !== petId));
   };
 
   const handlePetFavoriteRestored = (petId: string) => {
-    const petToRestore = initialPets.find((pet) => pet.id === petId);
+    const petToRestore = initialPets.find(pet => pet.id === petId);
     if (petToRestore) {
-      setPets((prev) => {
-        const exists = prev.some((pet) => pet.id === petId);
+      setPets(prev => {
+        const exists = prev.some(pet => pet.id === petId);
         if (!exists) {
           return [...prev, petToRestore];
         }
@@ -39,7 +39,7 @@ export default function FavoritesList({ initialPets }: FavoritesListProps) {
     <div className="max-w-xl mx-auto px-4">
       {pets.length > 0 ? (
         <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-3 py-6">
-          {pets.map((pet) => (
+          {pets.map(pet => (
             <div key={pet.id} className="relative">
               <PetCard
                 id={pet.id}
@@ -65,7 +65,7 @@ export default function FavoritesList({ initialPets }: FavoritesListProps) {
             Start exploring pets and add some to your favorites!
           </p>
           <PrimaryButton
-            onClick={() => router.push("/search")}
+            onClick={() => router.push('/search')}
             fullWidth={false}
             className="max-w-none w-auto"
           >

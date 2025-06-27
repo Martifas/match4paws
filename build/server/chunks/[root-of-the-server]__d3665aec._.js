@@ -336,10 +336,12 @@ __turbopack_context__.s({
     "getPetOwner": (()=>getPetOwner),
     "getPetPhotos": (()=>getPetPhotos),
     "getUserPets": (()=>getUserPets),
+    "getUserPetsSlice": (()=>getUserPetsSlice),
     "isPetFavorited": (()=>isPetFavorited),
     "savePetImageUrls": (()=>savePetImageUrls),
     "searchPets": (()=>searchPets),
-    "updatePet": (()=>updatePet)
+    "updatePet": (()=>updatePet),
+    "updatePetWithImages": (()=>updatePetWithImages)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/db.ts [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/kysely/dist/esm/raw-builder/sql.js [app-route] (ecmascript)");
@@ -350,113 +352,181 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function searchPets(filters) {
-    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select(({ ref })=>[
-            "pets.id",
-            "pets.name",
-            ref("pets.ageGroup").as("ageGroup"),
-            "pets.breed",
-            "pets.size",
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as("imageUrl"),
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["sql"]`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as("isFavorite")
-        ]).leftJoin("petImages as pi", (j)=>j.onRef("pi.petId", "=", "pets.id").on("pi.orderIdx", "=", 0)).leftJoin("favourites as f", "f.petId", "pets.id").limit(20);
-    if (filters.type) q = q.where("pets.type", "=", filters.type);
-    if (filters.gender) q = q.where("pets.gender", "=", filters.gender);
-    if (filters.size) q = q.where("pets.size", "=", filters.size);
-    if (filters.age) q = q.where("pets.ageGroup", "=", filters.age);
+    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').select(({ ref })=>[
+            'pets.id',
+            'pets.name',
+            ref('pets.ageGroup').as('ageGroup'),
+            'pets.breed',
+            'pets.size',
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["sql"]`pi.url`.as('imageUrl'),
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$kysely$2f$dist$2f$esm$2f$raw$2d$builder$2f$sql$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["sql"]`CASE WHEN f.pet_id IS NOT NULL THEN true ELSE false END`.as('isFavorite')
+        ]).leftJoin('petImages as pi', (j)=>j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)).leftJoin('favourites as f', 'f.petId', 'pets.id').limit(20);
+    if (filters.type) q = q.where('pets.type', '=', filters.type);
+    if (filters.gender) q = q.where('pets.gender', '=', filters.gender);
+    if (filters.size) q = q.where('pets.size', '=', filters.size);
+    if (filters.age) q = q.where('pets.ageGroup', '=', filters.age);
     return await q.execute();
 }
-async function getPetById(id) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").where("pets.id", "=", id).select([
-        "id",
-        "name",
-        "ageGroup",
-        "breed",
-        "size",
-        "gender",
-        "description",
-        "ownerId"
-    ]).executeTakeFirst() || null;
-}
-async function getPetPhotos(petId) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").where("petId", "=", petId).orderBy("orderIdx").select([
-        "url"
-    ]).execute();
-}
-async function getPetOwner(ownerId) {
-    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("users").where("id", "=", ownerId).select([
-        "name"
-    ]).executeTakeFirst() || null;
-}
-async function isPetFavorited(petId, userId) {
-    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("favourites").select("petId").where("petId", "=", petId).where("userId", "=", userId).executeTakeFirst();
-    return !!result;
-}
-async function createPet(ownerId, petData) {
-    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto("pets").values({
-        ownerId,
-        ...petData
-    }).returning("id").executeTakeFirstOrThrow();
-    return result.id;
-}
-async function getUserPets(userId) {
-    const pets = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").select([
-        "pets.id",
-        "pets.name",
-        "pets.type",
-        "pets.breed",
-        "pets.gender",
-        "pets.size",
-        "pets.ageGroup",
-        "pets.description",
-        "pets.status",
-        "pets.createdAt",
-        "pets.updatedAt"
-    ]).where("pets.ownerId", "=", userId).orderBy("pets.createdAt", "desc").execute();
-    const petsWithImages = await Promise.all(pets.map(async (pet)=>{
-        const images = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").select([
-            "url",
-            "orderIdx"
-        ]).where("petId", "=", pet.id).orderBy("orderIdx", "asc").execute();
-        return {
-            ...pet,
-            images
-        };
-    }));
-    return petsWithImages;
-}
-async function getPetByIdForOwner(petId, userId) {
-    const pet = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("pets").selectAll().where("pets.id", "=", petId).where("pets.ownerId", "=", userId).executeTakeFirst();
-    if (!pet) {
-        return null;
-    }
-    const images = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom("petImages").select([
-        "url",
-        "orderIdx"
-    ]).where("petId", "=", petId).orderBy("orderIdx", "asc").execute();
+async function getPetByIdForOwner(petId, ownerId) {
+    const pet = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').selectAll().where('id', '=', petId).where('ownerId', '=', ownerId).executeTakeFirst();
+    if (!pet) return null;
+    const images = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('petImages').select([
+        'url',
+        'orderIdx'
+    ]).where('petId', '=', petId).orderBy('orderIdx', 'asc').execute();
     return {
         ...pet,
         images
     };
 }
-async function updatePet(petId, userId, petData) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable("pets").set({
+async function getPetById(id) {
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').where('pets.id', '=', id).select([
+        'id',
+        'name',
+        'ageGroup',
+        'breed',
+        'size',
+        'gender',
+        'description',
+        'ownerId'
+    ]).executeTakeFirst() || null;
+}
+async function getPetPhotos(petId) {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('petImages').where('petId', '=', petId).orderBy('orderIdx').select([
+        'url'
+    ]).execute();
+}
+async function getPetOwner(ownerId) {
+    return await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('users').where('id', '=', ownerId).select([
+        'name'
+    ]).executeTakeFirst() || null;
+}
+async function isPetFavorited(petId, userId) {
+    const res = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('favourites').select('petId').where('petId', '=', petId).where('userId', '=', userId).executeTakeFirst();
+    return !!res;
+}
+async function createPet(ownerId, petData) {
+    const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto('pets').values({
+        ownerId,
+        ...petData
+    }).returning('id').executeTakeFirstOrThrow();
+    return result.id;
+}
+async function getUserPets(userId) {
+    const pets = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').select([
+        'pets.id',
+        'pets.name',
+        'pets.type',
+        'pets.breed',
+        'pets.gender',
+        'pets.size',
+        'pets.ageGroup',
+        'pets.description',
+        'pets.status',
+        'pets.createdAt',
+        'pets.updatedAt'
+    ]).where('pets.ownerId', '=', userId).orderBy('pets.createdAt', 'desc').execute();
+    const petsWithImages = await Promise.all(pets.map(async (p)=>({
+            ...p,
+            images: await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('petImages').select([
+                'url',
+                'orderIdx'
+            ]).where('petId', '=', p.id).orderBy('orderIdx', 'asc').execute()
+        })));
+    return petsWithImages;
+}
+async function getUserPetsSlice(userId, offset, limit, chips) {
+    let q = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('pets').where('ownerId', '=', userId);
+    if (chips.includes('cat') || chips.includes('dog')) q = q.where('type', 'in', chips.filter((c)=>c === 'cat' || c === 'dog'));
+    if (chips.includes('female') || chips.includes('male')) q = q.where('gender', 'in', chips.filter((c)=>c === 'female' || c === 'male'));
+    if ([
+        'small',
+        'medium',
+        'large'
+    ].some((c)=>chips.includes(c))) q = q.where('size', 'in', chips.filter((c)=>[
+            'small',
+            'medium',
+            'large'
+        ].includes(c)));
+    if ([
+        'baby',
+        'young',
+        'adult',
+        'senior'
+    ].some((c)=>chips.includes(c))) q = q.where('ageGroup', 'in', chips.filter((c)=>[
+            'baby',
+            'young',
+            'adult',
+            'senior'
+        ].includes(c)));
+    const [{ count }] = await q.select((eb)=>eb.fn.countAll().as('count')).execute();
+    const pets = await q.offset(offset).limit(limit).orderBy('createdAt', 'desc').selectAll().execute();
+    const petsWithImages = await Promise.all(pets.map(async (p)=>({
+            ...p,
+            images: await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].selectFrom('petImages').select([
+                'url',
+                'orderIdx'
+            ]).where('petId', '=', p.id).orderBy('orderIdx', 'asc').execute()
+        })));
+    return {
+        pets: petsWithImages,
+        totalCount: Number(count)
+    };
+}
+async function updatePet(petId, ownerId, petData) {
+    if (!Object.keys(petData).length) return;
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('pets').set({
         ...petData,
         updatedAt: new Date()
-    }).where("id", "=", petId).where("ownerId", "=", userId).execute();
+    }).where('id', '=', petId).where('ownerId', '=', ownerId).execute();
 }
-async function deletePet(petId, userId) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom("petImages").where("petId", "=", petId).execute();
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom("pets").where("id", "=", petId).where("ownerId", "=", userId).execute();
+async function updatePetWithImages(petId, ownerId, petData, imageUrls) {
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].transaction().execute(async (trx)=>{
+        if (Object.keys(petData).length) {
+            await trx.updateTable('pets').set({
+                ...petData,
+                updatedAt: new Date()
+            }).where('id', '=', petId).where('ownerId', '=', ownerId).execute();
+        }
+        const existing = await trx.selectFrom('petImages').select([
+            'id',
+            'url'
+        ]).where('petId', '=', petId).execute();
+        const currentUrls = new Set(existing.map((e)=>e.url));
+        const newUrls = new Set(imageUrls);
+        const toDelete = existing.filter((e)=>!newUrls.has(e.url)).map((e)=>e.id);
+        if (toDelete.length) {
+            await trx.deleteFrom('petImages').where('id', 'in', toDelete).execute();
+        }
+        const toInsert = imageUrls.map((url, idx)=>currentUrls.has(url) ? null : {
+                id: crypto.randomUUID(),
+                petId,
+                url,
+                orderIdx: idx
+            }).filter(Boolean);
+        if (toInsert.length) await trx.insertInto('petImages').values(toInsert).execute();
+        await Promise.all(imageUrls.map(async (url, idx)=>{
+            const row = existing.find((e)=>e.url === url);
+            if (row) {
+                await trx.updateTable('petImages').set({
+                    orderIdx: idx
+                }).where('id', '=', row.id).execute();
+            }
+        }));
+    });
+}
+async function deletePet(petId, ownerId) {
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom('petImages').where('petId', '=', petId).execute();
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom('pets').where('id', '=', petId).where('ownerId', '=', ownerId).execute();
 }
 async function savePetImageUrls(petId, imageUrls) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom("petImages").where("petId", "=", petId).execute();
-    if (imageUrls.length > 0) {
-        const imageRecords = imageUrls.map((url, index)=>({
-                petId: petId,
-                url: url,
-                orderIdx: index
-            }));
-        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto("petImages").values(imageRecords).execute();
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].deleteFrom('petImages').where('petId', '=', petId).execute();
+    if (imageUrls.length) {
+        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].insertInto('petImages').values(imageUrls.map((url, idx)=>({
+                petId,
+                url,
+                orderIdx: idx
+            }))).execute();
     }
 }
 __turbopack_async_result__();
@@ -469,6 +539,7 @@ __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __tur
 __turbopack_context__.s({
     "DELETE": (()=>DELETE),
     "GET": (()=>GET),
+    "PATCH": (()=>PATCH),
     "PUT": (()=>PUT)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils/apiUtils.ts [app-route] (ecmascript)");
@@ -480,63 +551,77 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ([__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__);
 ;
 ;
-async function GET(req, { params }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function owner(req) {
+    const uid = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
+    if (!uid) throw new Error('401');
+    return uid;
+}
+async function updatePetAndImages(petId, ownerId, body) {
+    const { imageUrls = [], name, type, breed, gender, size, ageGroup, description, status } = body;
+    const petData = {
+        ...name !== undefined && {
+            name
+        },
+        ...type !== undefined && {
+            type
+        },
+        ...breed !== undefined && {
+            breed
+        },
+        ...gender !== undefined && {
+            gender
+        },
+        ...size !== undefined && {
+            size
+        },
+        ...ageGroup !== undefined && {
+            ageGroup
+        },
+        ...description !== undefined && {
+            description
+        },
+        ...status !== undefined && {
+            status
+        }
+    };
+    if (Object.keys(petData).length) {
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["updatePet"])(petId, ownerId, petData);
+    }
+    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["savePetImageUrls"])(petId, imageUrls);
+}
+async function GET(_req, { params }) {
     try {
-        const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
-        if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
-        }
+        const userId = await owner(_req);
         const pet = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getPetByIdForOwner"])(params.petId, userId);
-        if (!pet) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Pet not found', 404);
-        }
+        if (!pet) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Pet not found', 404);
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])({
             pet
         });
-    } catch (error) {
-        console.error('Error fetching pet:', error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
+    } catch (e) {
+        return e.message === '401' ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
-async function PUT(req, { params }) {
+async function PUT(req, ctx) {
+    return PATCH(req, ctx);
+}
+async function PATCH(req, { params }) {
     try {
-        const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
-        if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
-        }
+        const ownerId = await owner(req);
         const body = await req.json();
-        const petData = {
-            name: body.name,
-            type: body.type,
-            breed: body.breed || null,
-            gender: body.gender,
-            size: body.size,
-            ageGroup: body.ageGroup,
-            description: body.description || null,
-            status: body.status
-        };
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["updatePet"])(params.petId, userId, petData);
-        const imageUrls = body.imageUrls || [];
-        if (imageUrls.length > 0) {
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["savePetImageUrls"])(params.petId, imageUrls);
-        }
+        await updatePetAndImages(params.petId, ownerId, body);
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])();
-    } catch (error) {
-        console.error('Error updating pet:', error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
+    } catch (e) {
+        return e.message === '401' ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
 async function DELETE(req, { params }) {
     try {
-        const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
-        if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
-        }
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["deletePet"])(params.petId, userId);
+        const ownerId = await owner(req);
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$pets$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["deletePet"])(params.petId, ownerId);
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])();
-    } catch (error) {
-        console.error('Error deleting pet:', error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
+    } catch (e) {
+        return e.message === '401' ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
 __turbopack_async_result__();
