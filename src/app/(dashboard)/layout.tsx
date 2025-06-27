@@ -1,5 +1,5 @@
-import NavigationBar from "@/components/navigationBar/NavigationBar";
-import BottomBar from "@/components/ui/containers/BottomBar";
+import NavigationBar from '@/components/navigationBar/NavigationBar';
+import BottomBar from '@/components/ui/containers/BottomBar';
 
 export default function DashboardLayout({
   children,

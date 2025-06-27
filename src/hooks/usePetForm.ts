@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from 'react';
 
 export type PetFormData = {
   name: string;
@@ -12,13 +12,13 @@ export type PetFormData = {
 };
 
 const initialFormData: PetFormData = {
-  name: "",
-  type: "",
-  breed: "",
-  gender: "",
-  size: "",
-  ageGroup: "",
-  description: "",
+  name: '',
+  type: '',
+  breed: '',
+  gender: '',
+  size: '',
+  ageGroup: '',
+  description: '',
   imageUrls: [],
 };
 
@@ -26,13 +26,15 @@ export function usePetForm() {
   const [formData, setFormData] = useState<PetFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateField = (field: keyof PetFormData, value: string | string[]) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  const updateField = useCallback(
+    <K extends keyof PetFormData>(key: K, val: PetFormData[K]) =>
+      setFormData(d => ({ ...d, [key]: val })),
+    []
+  );
 
-  const resetForm = () => {
-    setFormData(initialFormData);
-  };
+  const resetForm = useCallback((next?: Partial<PetFormData>) => {
+    setFormData(next ? { ...initialFormData, ...next } : initialFormData);
+  }, []);
 
   const isFormValid =
     formData.name &&
@@ -53,7 +55,7 @@ export function usePetForm() {
       resetForm();
       onSuccess?.();
     } catch (error) {
-      console.error("Error submitting pet form:", error);
+      console.error('Error submitting pet form:', error);
       throw error;
     } finally {
       setIsSubmitting(false);
