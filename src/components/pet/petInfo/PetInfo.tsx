@@ -4,7 +4,7 @@ import PetCarousel from '@/components/pet/petInfo/PetCarousel';
 import StatBadge from '@/components/pet/petInfo/StatBadge';
 import BottomBar from '../../ui/containers/BottomBar';
 import FavoriteButton from '../../ui/buttons/FavoriteButton';
-import PrimaryButton from '../../ui/buttons/PrimaryButton';
+
 import { auth0 } from '@/lib/auth0';
 import {
   getPetById,
@@ -13,6 +13,7 @@ import {
   isPetFavorited,
 } from '@/lib/queries/pets';
 import { getUserByAuth0Id } from '@/lib/queries/users';
+import AdoptButton from '@/components/chat/AdoptButton';
 
 export default async function PetInfo({ id }: { id: string }) {
   const pet = await getPetById(id);
@@ -71,7 +72,7 @@ export default async function PetInfo({ id }: { id: string }) {
       <BottomBar alwaysSticky>
         <div className="flex max-w-lg w-full gap-2">
           <FavoriteButton petId={id} initiallyFav={initiallyFav} />
-          <PrimaryButton>Adopt</PrimaryButton>
+          <AdoptButton petId={id} ownerId={pet.ownerId} />
         </div>
       </BottomBar>
     </div>

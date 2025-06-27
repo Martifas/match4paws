@@ -1,0 +1,3 @@
+{
+  "/(dashboard)/account/petManagement/page": "app/(dashboard)/account/petManagement/page.js"
+}

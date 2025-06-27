@@ -1,8 +1,11 @@
 {
   "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
-  "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
   "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
-  "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
+  "/(dashboard)/messages/[id]/page": "app/(dashboard)/messages/[id]/page.js",
+  "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
+  "/api/conversations/[id]/route": "app/api/conversations/[id]/route.js",
+  "/api/conversations/route": "app/api/conversations/route.js",
+  "/api/messages/route": "app/api/messages/route.js",
   "/api/user/profile/route": "app/api/user/profile/route.js",
-  "/onboarding/page": "app/onboarding/page.js"
+  "/pet/[id]/page": "app/pet/[id]/page.js"
 }
