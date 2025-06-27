@@ -44,6 +44,14 @@ export function PersonalDetailsStep({
         value={formData.name || ''}
         onChange={e => setFormData({ ...formData, name: e.target.value })}
       />
+      <TextField
+        required
+        fullWidth
+        label="Address"
+        color="warning"
+        value={formData.address || ''}
+        onChange={e => setFormData({ ...formData, address: e.target.value })}
+      />
 
       <MuiTelInput
         required

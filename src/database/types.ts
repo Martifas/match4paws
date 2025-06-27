@@ -42,6 +42,7 @@ export interface Pets {
 }
 
 export interface Users {
+  address: string | null;
   auth0Id: string;
   createdAt: Generated<Timestamp>;
   id: Generated<string>;

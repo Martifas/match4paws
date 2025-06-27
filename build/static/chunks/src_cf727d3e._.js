@@ -720,6 +720,21 @@ function PersonalDetailsStep({ formData, setFormData }) {
                 lineNumber: 39,
                 columnNumber: 7
             }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TextField$2f$TextField$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TextField$3e$__["TextField"], {
+                required: true,
+                fullWidth: true,
+                label: "Address",
+                color: "warning",
+                value: formData.address || '',
+                onChange: (e)=>setFormData({
+                        ...formData,
+                        address: e.target.value
+                    })
+            }, void 0, false, {
+                fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
+                lineNumber: 47,
+                columnNumber: 7
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mui$2d$tel$2d$input$2f$dist$2f$mui$2d$tel$2d$input$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MuiTelInput"], {
                 required: true,
                 fullWidth: true,
@@ -732,7 +747,7 @@ function PersonalDetailsStep({ formData, setFormData }) {
                     })
             }, void 0, false, {
                 fileName: "[project]/src/components/onboarding/OnboardingSteps.tsx",
-                lineNumber: 48,
+                lineNumber: 56,
                 columnNumber: 7
             }, this)
         ]
