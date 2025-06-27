@@ -5,14 +5,14 @@ export const PET_OWNER_MENU_ITEMS = [
     id: 'petManagement',
     label: 'My Pet Management',
     IconComponent: Pets,
-    route: '/account/petmanagement',
+    route: '/account/petManagement',
     isDanger: false,
   },
   {
     id: 'profile',
-    label: 'My Profile',
+    label: 'Edit my profile',
     IconComponent: Person,
-    route: '/account/profile',
+    route: '/account/profileManagement',
     isDanger: false,
   },
   {
@@ -25,17 +25,10 @@ export const PET_OWNER_MENU_ITEMS = [
 
 export const PET_ADOPTER_MENU_ITEMS = [
   {
-    id: 'preferences',
-    label: 'My Pet Preferences',
-    IconComponent: Pets,
-    route: '/account/preferences',
-    isDanger: false,
-  },
-  {
     id: 'profile',
-    label: 'My Profile',
+    label: 'Edit my profile',
     IconComponent: Person,
-    route: '/account/profile',
+    route: '/account/profileManagement',
     isDanger: false,
   },
   {

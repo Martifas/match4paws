@@ -11,6 +11,7 @@ export type User = {
   onboardingCompleted: boolean;
   createdAt: Date;
   lastLoginAt?: Date;
+  address: string;
 };
 
 export async function getUserByAuth0Id(
@@ -81,7 +82,12 @@ export async function updateUserOnboarding(
 
 export async function updateUserProfile(
   userId: string,
-  updates: Partial<Pick<User, 'name' | 'email' | 'phone'>>
-): Promise<void> {
-  await db.updateTable('users').set(updates).where('id', '=', userId).execute();
+  updates: Partial<Pick<User, 'name' | 'email' | 'phone' | 'address'>>
+) {
+  if (!Object.keys(updates).length) return;
+  await db
+    .updateTable('users')
+    .set({ ...updates })
+    .where('id', '=', userId)
+    .execute();
 }

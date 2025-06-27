@@ -12,10 +12,27 @@ export type Generated<T> =
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export interface Conversations {
+  adopterId: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<string>;
+  ownerId: string;
+  petId: string;
+}
+
 export interface Favourites {
   createdAt: Generated<Timestamp>;
   petId: string;
   userId: string;
+}
+
+export interface Messages {
+  body: string;
+  conversationId: string;
+  id: Generated<string>;
+  readAt: Timestamp | null;
+  senderId: string;
+  sentAt: Generated<Timestamp>;
 }
 
 export interface PetImages {
@@ -55,7 +72,9 @@ export interface Users {
 }
 
 export interface DB {
+  conversations: Conversations;
   favourites: Favourites;
+  messages: Messages;
   petImages: PetImages;
   pets: Pets;
   users: Users;

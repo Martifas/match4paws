@@ -20,14 +20,14 @@ const PET_OWNER_MENU_ITEMS = [
         id: 'petManagement',
         label: 'My Pet Management',
         IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Pets$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
-        route: '/account/petmanagement',
+        route: '/account/petManagement',
         isDanger: false
     },
     {
         id: 'profile',
-        label: 'My Profile',
+        label: 'Edit my profile',
         IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Person$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
-        route: '/account/profile',
+        route: '/account/profileManagement',
         isDanger: false
     },
     {
@@ -39,17 +39,10 @@ const PET_OWNER_MENU_ITEMS = [
 ];
 const PET_ADOPTER_MENU_ITEMS = [
     {
-        id: 'preferences',
-        label: 'My Pet Preferences',
-        IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Pets$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
-        route: '/account/preferences',
-        isDanger: false
-    },
-    {
         id: 'profile',
-        label: 'My Profile',
+        label: 'Edit my profile',
         IconComponent: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Person$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"],
-        route: '/account/profile',
+        route: '/account/profileManagement',
         isDanger: false
     },
     {

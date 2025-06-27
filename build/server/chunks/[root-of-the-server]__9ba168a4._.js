@@ -261,7 +261,10 @@ async function updateUserOnboarding(data) {
     }).where('auth0Id', '=', userId).execute();
 }
 async function updateUserProfile(userId, updates) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set(updates).where('id', '=', userId).execute();
+    if (!Object.keys(updates).length) return;
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set({
+        ...updates
+    }).where('id', '=', userId).execute();
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
@@ -328,7 +331,8 @@ __turbopack_async_result__();
 var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
-    "GET": (()=>GET)
+    "GET": (()=>GET),
+    "PATCH": (()=>PATCH)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils/apiUtils.ts [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$users$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/queries/users.ts [app-route] (ecmascript)");
@@ -342,19 +346,31 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 async function GET() {
     try {
         const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
-        if (!userId) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Unauthorized", 401);
-        }
+        if (!userId) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
         const user = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$users$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserById"])(userId);
-        if (!user) {
-            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("User not found", 404);
-        }
+        if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('User not found', 404);
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])({
             user
         });
-    } catch (error) {
-        console.error("Error fetching user profile:", error);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])("Internal server error", 500);
+    } catch (e) {
+        console.error('Error fetching user profile:', e);
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
+    }
+}
+async function PATCH(req) {
+    try {
+        const userId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getUserFromSession"])();
+        if (!userId) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Unauthorized', 401);
+        const { name, phone, address } = await req.json();
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$queries$2f$users$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["updateUserProfile"])(userId, {
+            name,
+            phone,
+            address
+        });
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createSuccessResponse"])();
+    } catch (e) {
+        console.error('Error updating profile:', e);
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$apiUtils$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["createErrorResponse"])('Internal server error', 500);
     }
 }
 __turbopack_async_result__();

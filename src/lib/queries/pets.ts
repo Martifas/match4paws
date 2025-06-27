@@ -23,7 +23,7 @@ export async function searchPetsSlice(
   page: number,
   limit: number
 ) {
-  /* 1️⃣  base builder with filters, no joins yet ------------------ */
+
   let base = db.selectFrom('pets');
 
   if (filters.type) base = base.where('pets.type', '=', filters.type);
@@ -31,13 +31,13 @@ export async function searchPetsSlice(
   if (filters.size) base = base.where('pets.size', '=', filters.size);
   if (filters.age) base = base.where('pets.ageGroup', '=', filters.age);
 
-  /* 2️⃣  total count ---------------------------------------------- */
+
   const { count } = await base
-    .clearSelect() // keep builder clean
+    .clearSelect() 
     .select(eb => eb.fn.countAll().as('count'))
     .executeTakeFirstOrThrow();
 
-  /* 3️⃣  data slice with join + select ---------------------------- */
+
   const pets = await base
     .leftJoin('petImages as pi', j =>
       j.onRef('pi.petId', '=', 'pets.id').on('pi.orderIdx', '=', 0)

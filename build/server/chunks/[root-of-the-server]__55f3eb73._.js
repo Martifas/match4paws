@@ -176,7 +176,10 @@ async function updateUserOnboarding(data) {
     }).where('auth0Id', '=', userId).execute();
 }
 async function updateUserProfile(userId, updates) {
-    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set(updates).where('id', '=', userId).execute();
+    if (!Object.keys(updates).length) return;
+    await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].updateTable('users').set({
+        ...updates
+    }).where('id', '=', userId).execute();
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),

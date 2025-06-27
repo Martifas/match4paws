@@ -19,7 +19,7 @@ import {
 import { Add, MoreVert, Edit, Delete, Visibility } from '@mui/icons-material';
 import AddPetModal from './AddPetModal';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
-import { getStatusColor, truncateText } from '@/lib/utils/petUtils';
+import { truncateText } from '@/lib/utils/petUtils';
 
 type Pet = {
   id: string;
@@ -207,11 +207,7 @@ export default function PetManagementSection({
                   </Typography>
 
                   <Box display="flex" gap={1} mt={1} mb={2}>
-                    <Chip
-                      label={pet.status}
-                      size="small"
-                      color={getStatusColor(pet.status)}
-                    />
+                    <Chip label={pet.status} size="small" />
                     <Chip label={pet.size} size="small" variant="outlined" />
                   </Box>
 
