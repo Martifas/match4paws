@@ -18,6 +18,7 @@ export async function up(db: Kysely<unknown>) {
     .addColumn('last_login_at', 'timestamptz')
     .addColumn('name', 'text')
     .addColumn('phone', 'text')
+    .addColumn('address', 'text')
     .execute();
 }
 

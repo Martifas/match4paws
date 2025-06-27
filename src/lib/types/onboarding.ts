@@ -2,12 +2,10 @@ export type UserType = 'petOwner' | 'adopter';
 
 export type OnboardingFormData = {
   userType: UserType | null;
-
-  animalsToPlace?: string[];
   name?: string;
   email?: string;
   phone?: string;
-  location?: string;
+  address?: string;
 };
 
 export type OnboardingStepProps = {
