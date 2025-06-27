@@ -2,7 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { Box, Typography } from '@mui/material';
-import { ACCOUNT_MENU_ITEMS } from '@/lib/constants/accountMenu';
+import {
+  PET_ADOPTER_MENU_ITEMS,
+  PET_OWNER_MENU_ITEMS,
+} from '@/lib/constants/accountMenu';
 import useUserProfile from '@/hooks/useUserProfile';
 import AccountInfoCard from './AccountInfoCard';
 import AcccountMenuList from './AccountMenuList';
@@ -16,7 +19,14 @@ export default function AccountPage() {
     router.push('/auth/logout');
   };
 
-  const menuItems = ACCOUNT_MENU_ITEMS.map(item => ({
+  const getMenuItems = () => {
+    if (user?.userType === 'petOwner') {
+      return PET_OWNER_MENU_ITEMS;
+    }
+    return PET_ADOPTER_MENU_ITEMS;
+  };
+
+  const menuItems = getMenuItems().map(item => ({
     ...item,
     onClick:
       item.id === 'logout' ? handleLogout : () => router.push(item.route!),
@@ -41,9 +51,7 @@ export default function AccountPage() {
   return (
     <Box sx={{ maxWidth: 600, mx: 'auto', p: 2 }}>
       <AccountHeader title="Account" />
-
       <AccountInfoCard user={user} />
-
       <AcccountMenuList items={menuItems} />
     </Box>
   );
