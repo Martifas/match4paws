@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import { vi } from 'vitest';
@@ -26,8 +27,6 @@ vi.mock('next/link', () => ({
     </a>
   ),
 }));
-
-
 
 vi.mock('next/image', () => ({
   __esModule: true,

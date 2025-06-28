@@ -21,6 +21,9 @@ export default function Conversations() {
           onClick={() => router.push(`/messages/${c.id}`)}
         >
           <Image
+            
+            width={12}
+            height={12}
             src={c.thumbUrl ?? '/placeholder.png'}
             alt=""
             className="w-12 h-12 rounded-full object-cover flex-shrink-0"
