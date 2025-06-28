@@ -17,6 +17,6 @@
   "/(dashboard)/messages/[id]/page": "/messages/[id]",
   "/(dashboard)/messages/page": "/messages",
   "/search/page": "/search",
-  "/(dashboard)/favorites/page": "/favorites",
-  "/(dashboard)/[[...slug]]/page": "/[[...slug]]"
+  "/(dashboard)/[[...slug]]/page": "/[[...slug]]",
+  "/(dashboard)/favorites/page": "/favorites"
 }

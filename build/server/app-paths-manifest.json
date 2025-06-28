@@ -17,6 +17,6 @@
   "/(dashboard)/messages/[id]/page": "app/(dashboard)/messages/[id]/page.js",
   "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
   "/search/page": "app/search/page.js",
-  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
-  "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js"
+  "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
+  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js"
 }
