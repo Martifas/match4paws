@@ -1,10 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { loginAsOwner } from './utils/login';
+import { loginAsOwner, logout } from './utils/user';
 import { addPet, removePet } from './utils/petActions';
 
 test.describe('Browse-pets navigation stays on home URL', () => {
   test.beforeEach(async ({ page }) => {
     await loginAsOwner(page);
+  });
+  test.afterEach(async ({ page }) => {
+    await logout(page);
   });
 
   test('Add Pet → Edit → Make sure info changed -> Remove pet', async ({

@@ -1,9 +1,15 @@
 import { test, expect } from '@playwright/test';
-import { loginAsAdopter } from './utils/login';
+import { loginAsOwner, logout } from './utils/user';
+import { addPet, removePet } from './utils/petActions';
 
 test.describe('home page – authenticated user', () => {
   test.beforeEach(async ({ page }) => {
-    await loginAsAdopter(page);
+    await loginAsOwner(page);
+    await addPet(page);
+  });
+  test.afterEach(async ({ page }) => {
+    await removePet(page);
+    await logout(page);
   });
 
   test('core sections are visible', async ({ page }) => {
