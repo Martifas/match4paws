@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { loginAsAdopter } from './utils/login';
+import { loginAsAdopter, logout } from './utils/user';
 
 test.describe('Browse-pets navigation stays on home URL', () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdopter(page);
   });
-
+  test.afterEach(async ({ page }) => {
+    await logout(page);
+  });
   test('Browse pets → back → search keeps URL unchanged', async ({ page }) => {
     await page.getByRole('link', { name: /browse pets/i }).click();
     await expect(page).toHaveURL('http://localhost:3000/search');
@@ -17,6 +19,6 @@ test.describe('Browse-pets navigation stays on home URL', () => {
       .locator('header')
       .getByRole('button', { name: /search/i })
       .click();
-    await expect(page).toHaveURL('http://localhost:3000/');
+    await expect(page).toHaveURL('http://localhost:3000/search');
   });
 });

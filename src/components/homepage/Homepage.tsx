@@ -27,7 +27,11 @@ export default function Homepage({ pets }: { pets: FeaturedPet[] }) {
                 <SearchButton />
               </>
             ) : (
-              <Link href="/auth/login" className="text-[#ed9426] font-medium">
+              <Link
+                aria-label="Login"
+                href="/auth/login"
+                className="text-[#ed9426] font-medium"
+              >
                 Log&nbsp;in
               </Link>
             )}

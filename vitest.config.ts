@@ -15,6 +15,7 @@ export default defineConfig({
 
     coverage: {
       exclude: [
+        '**/**.spec.ts',
         'src/**/*.d.ts',
         'src/database/**',
         'src/**/*.config.ts',
