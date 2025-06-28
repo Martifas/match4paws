@@ -109,7 +109,12 @@ export default function ChatWindow({
         left={<BackButton smartNavigation />}
         center={<h1 className="text-lg font-semibold">Messages</h1>}
         right={
-          <IconButton onClick={handleDeleteClick} edge="end" size="small">
+          <IconButton
+            aria-label="Delete conversation"
+            onClick={handleDeleteClick}
+            edge="end"
+            size="small"
+          >
             <DeleteIcon fontSize="small" />
           </IconButton>
         }

@@ -48,7 +48,7 @@ export default async function PetInfo({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto flex flex-col gap-4 px-4 py-3 max-w-xl mx-auto w-full">
+      <div className="flex-1 overflow-y-auto flex flex-col gap-4 px-4 py-3 max-w-xl mx-auto w-full mb-28">
         <div>
           <span className="font-bold text-lg pr-1">{pet.name}</span>
           <span className="text-gray-500">({pet.breed})</span>
@@ -65,12 +65,15 @@ export default async function PetInfo({ id }: { id: string }) {
             Posted by <span className="font-bold">{owner.name}</span>
           </p>
         )}
-
-        {pet.description && <p>{pet.description}</p>}
+        <div className="flex-1 overflow-y-auto">
+          {pet.description && (
+            <p className="text-gray-700">{pet.description}</p>
+          )}
+        </div>
       </div>
 
       <BottomBar alwaysSticky>
-        <div className="flex max-w-lg w-full gap-2">
+        <div className="flex max-w-lg w-full pb-30  gap-2">
           <FavoriteButton petId={id} initiallyFav={initiallyFav} />
           <AdoptButton petId={id} ownerId={pet.ownerId} />
         </div>

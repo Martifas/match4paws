@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRouter, usePathname } from "next/navigation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import clsx from "clsx";
-import { ComponentPropsWithoutRef } from "react";
+import { useRouter, usePathname } from 'next/navigation';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import clsx from 'clsx';
+import { ComponentPropsWithoutRef } from 'react';
 
 type BackButtonProps = {
   to?: string;
@@ -11,7 +11,7 @@ type BackButtonProps = {
   className?: string;
   onClick?: () => void;
   smartNavigation?: boolean;
-} & Omit<ComponentPropsWithoutRef<"button">, "children" | "onClick">;
+} & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'onClick'>;
 
 export default function BackButton({
   to,
@@ -34,8 +34,8 @@ export default function BackButton({
     } else if (smartNavigation) {
       const referrer = document.referrer;
 
-      if (referrer.includes("/favorites") || pathname.startsWith("/pet/")) {
-        router.push("/favorites?refresh=" + Date.now());
+      if (referrer.includes('/favorites') || pathname.startsWith('/pet/')) {
+        router.push('/favorites?refresh=' + Date.now());
       } else {
         router.back();
       }
@@ -46,10 +46,11 @@ export default function BackButton({
 
   return (
     <button
+      aria-label="Back button"
       type="button"
       onClick={handleClick}
       className={clsx(
-        "text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold",
+        'text-[#ed9426] hover:text-orange-300 hover:scale-110 font-bold',
         className
       )}
       {...buttonProps}

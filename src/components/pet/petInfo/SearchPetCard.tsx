@@ -25,7 +25,10 @@ export default function SearchPetCard({
   onFavoriteRestored,
 }: Props) {
   return (
-    <div className="relative block overflow-hidden hover:opacity-80">
+    <div
+      aria-label="Pet card"
+      className="relative block overflow-hidden hover:opacity-80"
+    >
       <Link href={`/pet/${id}`}>
         {imageUrl && (
           <Image
