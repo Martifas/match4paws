@@ -1,5 +1,5 @@
-import DogIcon from '@/assets/DogIcon';
-import CatIcon from '@/assets/CatIcon';
+import DogIcon from '@/assets/icons/DogIcon';
+import CatIcon from '@/assets/icons/CatIcon';
 
 export const PET_TYPES = [
   { id: 'dog', label: 'Dog', IconComponent: DogIcon },

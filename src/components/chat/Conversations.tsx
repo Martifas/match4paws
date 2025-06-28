@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import useConversations from '@/hooks/useConversations';
+import Image from 'next/image';
 
 export default function Conversations() {
   const router = useRouter();
@@ -12,14 +13,14 @@ export default function Conversations() {
     return <p className="text-center text-gray-500 py-10">No messages yet.</p>;
 
   return (
-    <ul className="divide-y flex w-full justify-center mx-auto">
+    <ul className="divide-y flex flex-col w-full justify-center mx-auto">
       {conversations.map(c => (
         <li
           key={c.id}
           className="flex items-center gap-4 p-4 sm:pl-30 hover:bg-gray-50 cursor-pointer w-full border-t border-b border-gray-300"
           onClick={() => router.push(`/messages/${c.id}`)}
         >
-          <img
+          <Image
             src={c.thumbUrl ?? '/placeholder.png'}
             alt=""
             className="w-12 h-12 rounded-full object-cover flex-shrink-0"

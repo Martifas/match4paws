@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BackButton from '@/components/ui/buttons/BackButton';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
@@ -8,6 +8,9 @@ import ProgressBar from '@/components/ui/progressBar/ProgressBar';
 import { UserTypeStep, PersonalDetailsStep } from './OnboardingSteps';
 import { submitOnboarding } from '@/lib/utils/onboardingUtils';
 import { OnboardingFormData } from '@/lib/types/onboarding';
+
+const DoneStep = () => <Fragment />;
+const alwaysTrue = () => true;
 
 const STEPS = [
   {
@@ -22,6 +25,13 @@ const STEPS = [
     render: PersonalDetailsStep,
     validate: (data: OnboardingFormData) =>
       Boolean(data.name?.trim()) && Boolean(data.phone?.trim()),
+  },
+  {
+    title: 'You are done!',
+    description:
+      'Awesome—you’re all set! Jump in to browse pets, manage your listings, and connect with our community of animal lovers.',
+    render: DoneStep,
+    validate: alwaysTrue,
   },
 ];
 

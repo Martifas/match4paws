@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import { MuiTelInput } from 'mui-tel-input';
-import { USER_TYPES } from '@/lib/constants/onboarding';
+import { USER_TYPES } from '@/lib/constants/onboardingForm';
 import { OnboardingStepProps } from '@/lib/types/onboarding';
 
 export function UserTypeStep({ formData, setFormData }: OnboardingStepProps) {

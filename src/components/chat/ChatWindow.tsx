@@ -109,24 +109,9 @@ export default function ChatWindow({
         left={<BackButton smartNavigation />}
         center={<h1 className="text-lg font-semibold">Messages</h1>}
         right={
-          // Choose one of these three options:
-
-          // Option 1: Dialog confirmation
           <IconButton onClick={handleDeleteClick} edge="end" size="small">
             <DeleteIcon fontSize="small" />
           </IconButton>
-
-          // Option 2: Toast with undo (uncomment to use)
-          // <IconButton onClick={deleteWithUndo} edge="end" size="small">
-          //   <DeleteIcon fontSize="small" />
-          // </IconButton>
-
-          // Option 3: Long press delete (uncomment to use)
-          // <LongPressDelete onDelete={longPressDelete}>
-          //   <IconButton edge="end" size="small">
-          //     <DeleteIcon fontSize="small" />
-          //   </IconButton>
-          // </LongPressDelete>
         }
       />
 
@@ -175,7 +160,7 @@ export default function ChatWindow({
         <div ref={bottomRef} />
       </div>
 
-      <div className="p-3 border-t flex gap-2">
+      <div className="p-3 border-t pb-15 flex gap-2">
         <input
           className="flex-1 border rounded px-3 py-2"
           value={draft}
