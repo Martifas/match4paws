@@ -26,7 +26,11 @@ export default function usePetSearch(
     const run = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/pets/search?${query.toString()}`);
+
+        const searchParams = new URLSearchParams(query.toString());
+        searchParams.set('limit', String(limit));
+
+        const res = await fetch(`/api/pets/search?${searchParams.toString()}`);
         const json: { pets: Pet[]; totalCount: number } = await res.json();
         setPets(json.pets);
         setTotal(json.totalCount);
@@ -39,7 +43,7 @@ export default function usePetSearch(
     };
 
     run();
-  }, [query]);
+  }, [query, limit]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
   return { pets, page, totalPages, loading, error };

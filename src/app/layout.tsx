@@ -1,16 +1,12 @@
-import "../index.scss";
-import "./styles/globals.scss";
-import type { Metadata } from "next";
+import '../index.scss';
+import './styles/globals.scss';
 
-import { auth0 } from "@/lib/auth0";
-import { AuthProvider } from "@/lib/authProvider";
-import SimpleContainer from "@/components/ui/containers/Container";
-import ThemeRegistry from "./ThemeRegistry";
-
-export const metadata: Metadata = {
-  title: "Match 4 Paws",
-  description: "Web site created with Next.js.",
-};
+import { auth0 } from '@/lib/auth0';
+import { AuthProvider } from '@/lib/authProvider';
+import SimpleContainer from '@/components/ui/containers/Container';
+import ThemeRegistry from './ThemeRegistry';
+import { metadata } from '@/lib/metadata';
+export { metadata };
 
 export default async function RootLayout({
   children,

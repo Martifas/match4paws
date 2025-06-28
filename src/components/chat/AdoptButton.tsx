@@ -1,41 +1,61 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import PrimaryButton from '../ui/buttons/PrimaryButton';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { pushMock } from 'tests/setup';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
-export default function AdoptButton({
-  petId,
-  ownerId,
-}: {
-  petId: string;
-  ownerId: string;
-}) {
-  const router = useRouter();
-  const [busy, setBusy] = useState(false);
+const importBtn = () => import('@/components/chat/AdoptButton');
 
-  const startChat = async () => {
-    setBusy(true);
-    try {
-      const res = await fetch('/api/conversations', {
+beforeEach(() => {
+  pushMock.mockClear();
+  vi.restoreAllMocks();
+});
+
+describe('<AdoptButton />', () => {
+  it('posts conversation and navigates on success', async () => {
+    vi.spyOn(global, 'fetch').mockResolvedValue({
+      ok: true,
+      json: async () => ({ conversationId: 'c42' }),
+    } as any);
+
+    // @ts-expect-error – dynamic import typing
+    const { default: AdoptButton } = await importBtn();
+
+    render(<AdoptButton petId="p1" ownerId="o1" />);
+
+    const btn = screen.getByRole('button', { name: 'Adopt' });
+    await userEvent.click(btn);
+    expect(btn).toBeDisabled();
+
+    await waitFor(() => expect(pushMock).toHaveBeenCalledWith('/messages/c42'));
+    expect(global.fetch).toHaveBeenCalledWith(
+      '/api/conversations',
+      expect.objectContaining({
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ petId, ownerId }),
-      });
-      if (!res.ok) throw new Error();
-      const { conversationId } = await res.json();
+        body: JSON.stringify({ petId: 'p1', ownerId: 'o1' }),
+      })
+    );
 
-      router.push(`/messages/${conversationId}`);
-    } catch {
-      alert('Could not start conversation.');
-    } finally {
-      setBusy(false);
-    }
-  };
+    expect(btn).toBeEnabled();
+  });
 
-  return (
-    <PrimaryButton disabled={busy} onClick={startChat}>
-      {busy ? 'Starting…' : 'Adopt'}
-    </PrimaryButton>
-  );
-}
+  it('alerts and resets when request fails', async () => {
+    vi.spyOn(global, 'fetch').mockResolvedValue({ ok: false } as any);
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+
+    // @ts-expect-error – dynamic import typing
+    const { default: AdoptButton } = await importBtn();
+    render(<AdoptButton petId="p2" ownerId="o2" />);
+
+    const btn = screen.getByRole('button', { name: 'Adopt' });
+    await userEvent.click(btn);
+
+    await waitFor(() =>
+      expect(alertSpy).toHaveBeenCalledWith('Could not start conversation.')
+    );
+
+    expect(pushMock).not.toHaveBeenCalled();
+    expect(btn).toBeEnabled();
+  });
+});

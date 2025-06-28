@@ -1,11 +1,22 @@
 {
-  "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js",
-  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
-  "/(dashboard)/messages/[id]/page": "app/(dashboard)/messages/[id]/page.js",
-  "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
   "/api/conversations/[id]/route": "app/api/conversations/[id]/route.js",
   "/api/conversations/route": "app/api/conversations/route.js",
+  "/api/favorites/route": "app/api/favorites/route.js",
   "/api/messages/route": "app/api/messages/route.js",
+  "/api/pets/[petId]/route": "app/api/pets/[petId]/route.js",
+  "/api/pets/route": "app/api/pets/route.js",
+  "/api/pets/search/route": "app/api/pets/search/route.js",
+  "/api/update-onboarding/route": "app/api/update-onboarding/route.js",
   "/api/user/profile/route": "app/api/user/profile/route.js",
-  "/pet/[id]/page": "app/pet/[id]/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/onboarding/page": "app/onboarding/page.js",
+  "/pet/[id]/page": "app/pet/[id]/page.js",
+  "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
+  "/(dashboard)/account/petManagement/page": "app/(dashboard)/account/petManagement/page.js",
+  "/(dashboard)/account/profileManagement/page": "app/(dashboard)/account/profileManagement/page.js",
+  "/(dashboard)/messages/[id]/page": "app/(dashboard)/messages/[id]/page.js",
+  "/(dashboard)/messages/page": "app/(dashboard)/messages/page.js",
+  "/search/page": "app/search/page.js",
+  "/(dashboard)/favorites/page": "app/(dashboard)/favorites/page.js",
+  "/(dashboard)/[[...slug]]/page": "app/(dashboard)/[[...slug]]/page.js"
 }

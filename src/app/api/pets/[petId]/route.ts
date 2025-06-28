@@ -12,7 +12,9 @@ import {
   savePetImageUrls,
 } from '@/lib/queries/pets';
 
-type Params = { params: { petId: string } };
+interface Params {
+  params: Promise<{ petId: string }>;
+}
 
 type Body = {
   name?: string;
@@ -67,7 +69,8 @@ async function updatePetAndImages(petId: string, ownerId: string, body: Body) {
 export async function GET(_req: NextRequest, { params }: Params) {
   try {
     const userId = await owner(_req);
-    const pet = await getPetByIdForOwner(params.petId, userId);
+    const resolvedParams = await params;
+    const pet = await getPetByIdForOwner(resolvedParams.petId, userId);
     if (!pet) return createErrorResponse('Pet not found', 404);
 
     return createSuccessResponse({ pet });
@@ -85,8 +88,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
   try {
     const ownerId = await owner(req);
     const body: Body = await req.json();
+    const resolvedParams = await params;
 
-    await updatePetAndImages(params.petId, ownerId, body);
+    await updatePetAndImages(resolvedParams.petId, ownerId, body);
 
     return createSuccessResponse();
   } catch (e) {
@@ -99,7 +103,8 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 export async function DELETE(req: NextRequest, { params }: Params) {
   try {
     const ownerId = await owner(req);
-    await deletePet(params.petId, ownerId);
+    const resolvedParams = await params;
+    await deletePet(resolvedParams.petId, ownerId);
     return createSuccessResponse();
   } catch (e) {
     return e.message === '401'
