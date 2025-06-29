@@ -9,7 +9,6 @@ import {
   Menu,
   MenuItem,
   Alert,
-  Pagination,
 } from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 import { useState, useEffect, useMemo, useCallback } from 'react';
@@ -26,11 +25,14 @@ import AddPetModal, {
 } from '@/components/pet/petModal/AddPetModal';
 import AccountPetCard from '../petInfo/AccountPetCard';
 import { PAGE_SIZE, PET_FILTERS } from '@/lib/constants/pet';
+import PaginationControls from '@/components/ui/pagination/PaginationControls';
+import { usePagination } from '@/hooks/usePagination';
 
 export default function PetManagementPage() {
   const router = useRouter();
   const params = useSearchParams();
   const { user, isLoading: isLoadingUser } = useUserProfile();
+
   const [addOpen, setAddOpen] = useState(false);
   const [editingPet, setEditingPet] = useState<
     null | (PetFormValues & { id: string })
@@ -94,6 +96,8 @@ export default function PetManagementPage() {
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
+  const { currentPage, setPage } = usePagination({ totalPages });
+
   if (isLoadingUser || isLoading)
     return (
       <Box p={3} textAlign="center">
@@ -148,17 +152,11 @@ export default function PetManagementPage() {
           {totalCount} {totalCount === 1 ? 'Pet' : 'Pets'}
         </Typography>
 
-        {totalPages > 1 && (
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={(_, p) => pushState(p, filters)}
-              shape="rounded"
-              size="small"
-            />
-          </Box>
-        )}
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
 
         <Button
           variant="contained"

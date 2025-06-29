@@ -1,35 +1,29 @@
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Box, Pagination } from '@mui/material';
+import { useSearchParams } from 'next/navigation';
+import { Box } from '@mui/material';
 
 import ToggleChip from '@/components/ui/buttons/ToggleChip';
 import { PET_TYPES, GENDERS, SIZES, AGES } from '@/lib/constants/pet';
 import usePetSearch from '@/hooks/usePetSearch';
+import useFavorites from '@/hooks/useFavorites';
 import SearchPetCard from '@/components/pet/petInfo/SearchPetCard';
 import Header from '@/components/ui/containers/Header';
 import BackButton from '@/components/ui/buttons/BackButton';
 
+import { useFilterPagination } from '@/hooks/usePagination';
+import PaginationControls from '../ui/pagination/PaginationControls';
+
 export default function Search() {
-  const router = useRouter();
   const params = useSearchParams();
 
-  const { pets, totalPages, page, loading } = usePetSearch(params);
+  const { pets, totalPages, loading } = usePetSearch(params);
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
 
-  const setParam = (key: string, value: string | null) => {
-    const q = new URLSearchParams(params.toString());
-    if (value) {
-      q.set(key, value);
-    } else {
-      q.delete(key);
-    }
-
-    if (key !== 'page') {
-      q.set('page', '1');
-    }
-
-    router.replace(`/search?${q.toString()}`);
-  };
+  const { currentPage, setPage, setParam } = useFilterPagination({
+    totalPages,
+    resetPageOnFilterChange: true,
+  });
 
   return (
     <div className="flex flex-col mx-auto">
@@ -72,22 +66,19 @@ export default function Search() {
           />
         </div>
       </Box>
-      {totalPages > 1 && (
-        <Box className="flex justify-center">
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={(_, newPage) => setParam('page', String(newPage))}
-            shape="rounded"
-          />
-        </Box>
-      )}
+
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        className="mb-4"
+      />
 
       {loading ? (
         <p className="text-center py-10">Loading…</p>
       ) : pets.length ? (
         <div className="max-w-3xl mx-auto px-4 pb-10">
-          <div className="grid gap-4 md:gap-6 grid-cols-2 lg:grid-cols-3  py-6">
+          <div className="grid gap-4 md:gap-6 grid-cols-2 lg:grid-cols-3 py-6">
             {pets.map(p => (
               <SearchPetCard
                 key={p.id}
@@ -97,7 +88,9 @@ export default function Search() {
                 breed={p.breed}
                 size={p.size}
                 imageUrl={p.imageUrl}
-                isFavorite={p.isFavorite ?? false}
+                isFavorite={favorites.has(p.id)}
+                onFavoriteRestored={addFavorite}
+                onUnfavorited={removeFavorite}
               />
             ))}
           </div>

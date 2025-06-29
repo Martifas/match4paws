@@ -27,13 +27,16 @@ export default async function PetInfo({ id }: { id: string }) {
 
   const session = await auth0.getSession();
   let initiallyFav = false;
+  let currentUser = null;
 
   if (session) {
-    const user = await getUserByAuth0Id(session.user.sub);
-    if (user) {
-      initiallyFav = await isPetFavorited(id, user.id);
+    currentUser = await getUserByAuth0Id(session.user.sub);
+    if (currentUser) {
+      initiallyFav = await isPetFavorited(id, currentUser.id);
     }
   }
+
+  const isOwner = currentUser && currentUser.id === pet.ownerId;
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -48,7 +51,9 @@ export default async function PetInfo({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto flex flex-col gap-4 px-4 py-3 max-w-xl mx-auto w-full mb-28">
+      <div
+        className={`flex-1 overflow-y-auto flex flex-col gap-4 px-4 py-3 max-w-xl mx-auto w-full ${isOwner ? 'mb-4' : 'mb-28'}`}
+      >
         <div>
           <span className="font-bold text-lg pr-1">{pet.name}</span>
           <span className="text-gray-500">({pet.breed})</span>
@@ -63,21 +68,36 @@ export default async function PetInfo({ id }: { id: string }) {
         {owner && (
           <p className="text-gray-600">
             Posted by <span className="font-bold">{owner.name}</span>
+            {isOwner && <span className="ml-2 text-orange-600">(You)</span>}
           </p>
         )}
+
         <div className="flex-1 overflow-y-auto">
           {pet.description && (
             <p className="text-gray-700">{pet.description}</p>
           )}
         </div>
+
+        {isOwner && (
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-20 text-center">
+            <p className="text-orange-800 font-medium">
+              This is your pet listing
+            </p>
+            <p className="text-orange-600 text-sm mt-1">
+              You can edit or manage this listing from your account
+            </p>
+          </div>
+        )}
       </div>
 
-      <BottomBar alwaysSticky>
-        <div className="flex max-w-lg w-full pb-30  gap-2">
-          <FavoriteButton petId={id} initiallyFav={initiallyFav} />
-          <AdoptButton petId={id} ownerId={pet.ownerId} />
-        </div>
-      </BottomBar>
+      {!isOwner && (
+        <BottomBar alwaysSticky>
+          <div className="flex max-w-lg w-full pb-30 gap-2">
+            <FavoriteButton petId={id} initiallyFav={initiallyFav} />
+            <AdoptButton petId={id} ownerId={pet.ownerId} />
+          </div>
+        </BottomBar>
+      )}
     </div>
   );
 }
