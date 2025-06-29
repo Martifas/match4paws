@@ -2,13 +2,8 @@ import { test, expect } from '@playwright/test';
 import { loginAsAdopter, logout } from './utils/user';
 
 test.describe('Browse-pets navigation stays on home URL', () => {
-  test.beforeEach(async ({ page }) => {
-    await loginAsAdopter(page);
-  });
-  test.afterEach(async ({ page }) => {
-    await logout(page);
-  });
   test('Browse pets → back → search keeps URL unchanged', async ({ page }) => {
+    await loginAsAdopter(page);
     await page.getByRole('link', { name: /browse pets/i }).click();
     await expect(page).toHaveURL('http://localhost:3000/search');
 
@@ -20,5 +15,6 @@ test.describe('Browse-pets navigation stays on home URL', () => {
       .getByRole('button', { name: /search/i })
       .click();
     await expect(page).toHaveURL('http://localhost:3000/search');
+    await logout(page);
   });
 });

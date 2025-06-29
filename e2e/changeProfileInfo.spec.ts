@@ -2,10 +2,6 @@ import { test, expect } from '@playwright/test';
 import { loginAsAdopter, logout } from './utils/user';
 
 test.describe('Account → Edit profile → Back keeps URL unchanged', () => {
-  test.afterEach(async ({ page }) => {
-    await logout(page);
-  });
-
   test('Edit name, go back, heading & URL stay in sync', async ({ page }) => {
     await loginAsAdopter(page);
 
@@ -49,5 +45,6 @@ test.describe('Account → Edit profile → Back keeps URL unchanged', () => {
     await expect(page.getByRole('heading', { name: 'Testas' })).toBeVisible({
       timeout: 10000,
     });
+    await logout(page);
   });
 });

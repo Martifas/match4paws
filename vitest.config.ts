@@ -5,6 +5,8 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    exclude: ['e2e/**', 'dist/**', 'node_modules/**', '.next/**'],
     poolOptions: { size: 2 },
     environment: 'jsdom',
     globals: true,
@@ -15,7 +17,7 @@ export default defineConfig({
 
     coverage: {
       exclude: [
-        '**/**.spec.ts',
+        'e2e/**',
         'src/**/*.d.ts',
         'src/database/**',
         'src/**/*.config.ts',

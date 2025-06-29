@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export async function loginAsAdopter(page: Page) {
   await page.goto('http://localhost:3000/');
@@ -27,5 +27,7 @@ export async function loginAsOwner(page: Page) {
 export async function logout(page: Page) {
   await page.getByRole('button', { name: 'Account' }).click();
   await page.getByRole('listitem').filter({ hasText: 'Logout' }).click();
+
+  await expect(page.getByRole('button', { name: 'Yes' })).toBeVisible();
   await page.getByRole('button', { name: 'Yes' }).click();
 }
