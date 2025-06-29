@@ -5,6 +5,7 @@ import React from 'react';
 import { vi } from 'vitest';
 
 export const pushMock = vi.fn();
+const mockSearchParams = new URLSearchParams();
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -14,6 +15,7 @@ vi.mock('next/navigation', () => ({
     refresh: vi.fn(),
   }),
   usePathname: () => '/',
+  useSearchParams: () => mockSearchParams,
 }));
 
 vi.mock('next/link', () => ({
@@ -139,6 +141,21 @@ vi.mock('@mui/material', () => ({
   ),
   TextField: ({ label, value, onChange, ...p }: any) => (
     <input aria-label={label} value={value} onChange={onChange} {...p} />
+  ),
+  Pagination: ({ count, page, onChange, shape, size }: any) => (
+    <div
+      data-testid="mui-pagination"
+      data-count={count}
+      data-page={page}
+      data-shape={shape}
+      data-size={size}
+    >
+      {Array.from({ length: count }, (_, i) => (
+        <button key={i + 1} onClick={() => onChange?.(null, i + 1)}>
+          {i + 1}
+        </button>
+      ))}
+    </div>
   ),
 }));
 

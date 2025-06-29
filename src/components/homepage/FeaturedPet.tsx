@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import SearchPetCard from '../pet/petInfo/SearchPetCard';
+import useFavorites from '@/hooks/useFavorites';
 
 export type FeaturedPet = {
   id: string;
@@ -13,6 +14,7 @@ export type FeaturedPet = {
 };
 
 export function FeaturedPets({ pets }: { pets: FeaturedPet[] }) {
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
   const topSix = useMemo(() => pets.slice(0, 6), [pets]);
 
   if (!topSix.length) return null;
@@ -32,7 +34,9 @@ export function FeaturedPets({ pets }: { pets: FeaturedPet[] }) {
             breed={p.breed}
             size={p.size}
             imageUrl={p.imageUrl ?? undefined}
-            isFavorite={false}
+            isFavorite={favorites.has(p.id)}
+            onFavoriteRestored={addFavorite}
+            onUnfavorited={removeFavorite}
           />
         ))}
       </div>

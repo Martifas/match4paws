@@ -34,10 +34,6 @@ export default function FavoriteButton({
 
     setIsFavorite(newFavoriteState);
 
-    if (!newFavoriteState && onUnfavorited) {
-      onUnfavorited(petId);
-    }
-
     try {
       const response = await fetch('/api/favorites', {
         method: newFavoriteState ? 'POST' : 'DELETE',
@@ -48,12 +44,20 @@ export default function FavoriteButton({
       if (!response.ok) {
         throw new Error(`API request failed: ${response.status}`);
       }
+
+      if (newFavoriteState && onFavoriteRestored) {
+        onFavoriteRestored(petId);
+      } else if (!newFavoriteState && onUnfavorited) {
+        onUnfavorited(petId);
+      }
     } catch (error) {
       console.error('Failed to update favorite:', error);
 
       setIsFavorite(previousFavoriteState);
 
-      if (!newFavoriteState && onFavoriteRestored) {
+      if (newFavoriteState && onUnfavorited) {
+        onUnfavorited(petId);
+      } else if (!newFavoriteState && onFavoriteRestored) {
         onFavoriteRestored(petId);
       }
     } finally {

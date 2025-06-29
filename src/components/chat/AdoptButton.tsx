@@ -35,7 +35,7 @@ export default function AdoptButton({
 
   return (
     <PrimaryButton disabled={busy} onClick={startChat}>
-      {busy ? 'Starting…' : 'Adopt'}
+      {busy ? 'Starting…' : 'Contact the owner'}
     </PrimaryButton>
   );
 }
