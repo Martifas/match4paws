@@ -20,6 +20,7 @@ Try the live application with these test accounts:
 
 - [Overview](#overview)
 - [Features](#features)
+- [Planned Features](#planned-features)
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -58,6 +59,13 @@ Match4Paws is a comprehensive pet adoption platform that enables:
 - **Pet Owners**: Create and manage pet listings
 - **Adopters**: Browse pets, message owners, manage favorites
 - **Admin**: Platform management (if applicable)
+
+## Planned Features
+We're continuously improving Match4Paws with exciting new features in development:
+
+- **Live Chat with WebSockets** - Real-time messaging between pet owners and adopters for instant communication
+- **Geolocation-Based Search** - Find pets near your location with distance filtering and map integration
+- **Swipe & Match Interface** - Tinder-style swiping experience to discover and match with perfect pets
 
 ## Tech Stack
 
