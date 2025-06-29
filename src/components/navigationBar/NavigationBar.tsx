@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import MessageIcon from '@mui/icons-material/Message';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
+import PetsIcon from '@mui/icons-material/Pets';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/authProvider';
 import AddPetModal from '@/components/pet/petModal/AddPetModal';
@@ -100,7 +101,8 @@ export default function NavigationBar() {
         sx={{
           width: '100%',
           '& .MuiBottomNavigationAction-root': {
-            ...(user?.userType === 'petOwner' && {
+            ...((user?.userType === 'petOwner' ||
+              user?.userType === 'adopter') && {
               '&:nth-of-type(1), &:nth-of-type(2)': {
                 marginRight: '28px',
               },
@@ -136,6 +138,28 @@ export default function NavigationBar() {
           }}
         >
           <AddIcon />
+        </Fab>
+      )}
+
+      {user?.userType === 'adopter' && (
+        <Fab
+          size="small"
+          color="primary"
+          onClick={() => router.push('/search')}
+          sx={{
+            position: 'absolute',
+            top: -28,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: '#ed9426',
+            '&:hover': {
+              backgroundColor: '#d4841f',
+            },
+            zIndex: 1000,
+            boxShadow: '0 4px 12px rgba(237, 148, 38, 0.4)',
+          }}
+        >
+          <PetsIcon />
         </Fab>
       )}
 
