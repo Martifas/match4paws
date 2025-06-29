@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { addPet, removePet } from './utils/petActions';
-import { loginAsOwner, logout } from './utils/user';
+import { baseURL, loginAsOwner, logout } from './utils/user';
 
 test.describe('Browse-pets → add favorite', () => {
   test.afterEach(async ({ page }) => {
@@ -25,7 +25,7 @@ test.describe('Browse-pets → add favorite', () => {
 
     await page.getByRole('button', { name: 'Favorites', exact: true }).click();
 
-    await expect(page).toHaveURL('http://localhost:3000/favorites');
+    await expect(page).toHaveURL(`${baseURL}/favorites`);
 
     await page.waitForLoadState('networkidle');
 

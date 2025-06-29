@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loginAsAdopter, loginAsOwner, logout } from './utils/user';
+import { baseURL, loginAsAdopter, loginAsOwner, logout } from './utils/user';
 import { addPet, removePet } from './utils/petActions';
 
 test.describe('browse → adopt → chat → delete conversation', () => {
@@ -14,7 +14,7 @@ test.describe('browse → adopt → chat → delete conversation', () => {
 
     await loginAsAdopter(page);
     await page.getByRole('link', { name: /browse pets/i }).click();
-    await expect(page).toHaveURL('http://localhost:3000/search');
+    await expect(page).toHaveURL(`${baseURL}/search`);
 
     await page.waitForLoadState('networkidle');
 
@@ -34,7 +34,7 @@ test.describe('browse → adopt → chat → delete conversation', () => {
     await expect(page.getByText('Hello. I would like to adopt!')).toBeVisible();
 
     await page.getByRole('button', { name: 'Messages' }).click();
-    await expect(page).toHaveURL('http://localhost:3000/messages');
+    await expect(page).toHaveURL(`${baseURL}/messages`);
 
     await page.waitForLoadState('networkidle');
 
