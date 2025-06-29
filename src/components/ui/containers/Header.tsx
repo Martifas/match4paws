@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
 export default function Header({
   left,
@@ -14,7 +14,7 @@ export default function Header({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="w-full max-w-md mx-auto  md:max-w-xl py-2 flex items-center justify-between gap-4">
+    <header className="w-full max-w-md mx-auto px-5 sm:px-0  md:max-w-xl py-2 flex items-center justify-between gap-4">
       {children ? (
         children
       ) : (
