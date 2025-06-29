@@ -31,6 +31,13 @@ export default function PetManagementPage() {
   const router = useRouter();
   const params = useSearchParams();
   const { user, isLoading: isLoadingUser } = useUserProfile();
+  const [addOpen, setAddOpen] = useState(false);
+  const [editingPet, setEditingPet] = useState<
+    null | (PetFormValues & { id: string })
+  >(null);
+
+  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+  const [menuPet, setMenuPet] = useState<string | null>(null);
 
   const page = Number(params.get('page') ?? 1);
   const filters = useMemo(
@@ -53,23 +60,16 @@ export default function PetManagementPage() {
     }
   }, [user, isLoadingUser, router]);
 
-  const { pets, totalCount, isLoading, error } = usePets(
+  const { pets, totalCount, isLoading, error, refetch } = usePets(
     user?.id,
     page,
     filters
   );
-  const refresh = useCallback(
-    () => pushState(1, filters),
-    [pushState, filters]
-  );
 
-  const [addOpen, setAddOpen] = useState(false);
-  const [editingPet, setEditingPet] = useState<
-    null | (PetFormValues & { id: string })
-  >(null);
-
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-  const [menuPet, setMenuPet] = useState<string | null>(null);
+  useCallback(() => {
+    refetch();
+    pushState(1, filters);
+  }, [refetch, pushState, filters]);
 
   const savePet = async (data: PetFormValues, id?: string) => {
     const method = id ? 'PATCH' : 'POST';
@@ -80,12 +80,16 @@ export default function PetManagementPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (res.ok) refresh();
+    if (res.ok) {
+      refetch();
+    }
   };
 
   const handleDelete = async (id: string) => {
     const res = await fetch(`/api/pets/${id}`, { method: 'DELETE' });
-    if (res.ok) refresh();
+    if (res.ok) {
+      refetch();
+    }
   };
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
