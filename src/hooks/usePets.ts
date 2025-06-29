@@ -1,6 +1,6 @@
 import { PAGE_SIZE } from '@/lib/constants/pet';
 import { Pet } from '@/lib/types/pets';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function usePets(
   userId: string | undefined,
@@ -12,35 +12,39 @@ export default function usePets(
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchPets = useCallback(async () => {
     if (!userId) return;
 
-    const run = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+    try {
+      setLoading(true);
+      setError(null);
 
-        const qs = new URLSearchParams({
-          page: String(page),
-          limit: String(PAGE_SIZE),
-        });
-        if (filters.length) qs.set('filters', filters.join(','));
+      const qs = new URLSearchParams({
+        page: String(page),
+        limit: String(PAGE_SIZE),
+      });
+      if (filters.length) qs.set('filters', filters.join(','));
 
-        const res = await fetch(`/api/pets?${qs}`);
-        if (!res.ok) throw new Error('Fetch failed');
-        const { pets, totalCount } = await res.json();
-        setPets(pets);
-        setTotalCount(totalCount);
-      } catch (err) {
-        console.error(err);
-        setError('Failed to load pets');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    run();
+      const res = await fetch(`/api/pets?${qs}`);
+      if (!res.ok) throw new Error('Fetch failed');
+      const { pets, totalCount } = await res.json();
+      setPets(pets);
+      setTotalCount(totalCount);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load pets');
+    } finally {
+      setLoading(false);
+    }
   }, [userId, page, filters]);
 
-  return { pets, totalCount, isLoading, error };
+  useEffect(() => {
+    fetchPets();
+  }, [fetchPets]);
+
+  const refetch = useCallback(() => {
+    fetchPets();
+  }, [fetchPets]);
+
+  return { pets, totalCount, isLoading, error, refetch };
 }
