@@ -22,7 +22,7 @@ test.describe('browse → adopt → chat → delete conversation', () => {
 
     await page.waitForLoadState('networkidle');
 
-    await page.getByRole('button', { name: 'Adopt' }).click();
+    await page.getByRole('button', { name: 'Contact the owner' }).click();
 
     await page.waitForLoadState('networkidle');
 

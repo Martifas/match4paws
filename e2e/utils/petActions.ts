@@ -44,5 +44,4 @@ export async function removePet(page: Page) {
     .getByRole('button')
     .click();
   await page.getByTestId('DeleteIcon').click();
-  await page.reload();
 }

@@ -1,17 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { addPet, removePet } from './utils/petActions';
-import { baseURL, loginAsOwner, logout } from './utils/user';
+import { baseURL, loginAsAdopter, loginAsOwner, logout } from './utils/user';
 
 test.describe('Browse-pets → add favorite', () => {
-  test.afterEach(async ({ page }) => {
-    await logout(page);
-  });
-
   test('marks a pet as favorite and appears in favorites list', async ({
     page,
   }) => {
     await loginAsOwner(page);
     await addPet(page);
+    await logout(page);
+    await loginAsAdopter(page);
 
     await page.getByRole('button', { name: 'Search button' }).click();
 
@@ -40,7 +38,9 @@ test.describe('Browse-pets → add favorite', () => {
     await page.waitForLoadState('networkidle');
 
     await expect(links).toHaveCount(0);
-
+    await logout(page);
+    await loginAsOwner(page);
     await removePet(page);
+    await logout(page);
   });
 });

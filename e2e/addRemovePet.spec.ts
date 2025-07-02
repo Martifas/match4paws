@@ -9,7 +9,6 @@ test.describe('Add/Remove pet', () => {
     await expect(page.getByRole('img', { name: 'Vulkanas' })).toBeVisible();
     await removePet(page);
     await expect(page.getByRole('img', { name: 'Vulkanas' })).not.toBeVisible();
-    await page.reload();
     await logout(page);
   });
 });
